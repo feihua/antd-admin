@@ -7,7 +7,7 @@ import Admin from "./pages/admin";
 
 function App() {
     return (
-        <BrowserRouter>
+        <BrowserRouter basename="/antd">
             <Routes>
                 <Route path="/login" element={<Login/>}/>
                 <Route path="/*" element={<Admin/>}/>
