@@ -3,6 +3,9 @@ import {User} from "../pages/user";
 import {Home} from "../pages/home";
 import {Role} from "../pages/role";
 import {Menu} from "../pages/menu";
+import Bar from "../pages/charts/bar";
+import Line from "../pages/charts/line";
+import Pie from "../pages/charts/pie";
 
 const routes = [
     {
@@ -20,6 +23,18 @@ const routes = [
     {
         path: "/menu",
         element: <Menu/>
+    },
+    {
+        path: "/bar",
+        element: <Bar/>
+    },
+    {
+        path: "/line",
+        element: <Line/>
+    },
+    {
+        path: "/pie",
+        element: <Pie/>
     },
     {
         path: "/",
