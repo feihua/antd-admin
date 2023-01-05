@@ -1,14 +1,32 @@
 import React from 'react';
 import {LockOutlined, UserOutlined} from '@ant-design/icons';
-import {Button, Checkbox, Form, Input} from 'antd';
+import {Button, Checkbox, Form, Input, message} from 'antd';
 import "./index.less"
 import logo from '../../assets/images/logo.svg'
+import {reqLogin} from "./service";
+import {IResponse} from "../../api/ajax";
+import {useNavigate} from "react-router-dom";
+import {storageUtils} from "../../utils/storageUtils";
 
 const Login: React.FC = () => {
 
-    const onFinish = (values: any) => {
-        console.log('Received values of form: ', values);
+    let navigate = useNavigate();
+
+    const onFinish = async (values: any) => {
+        const {mobile, password} = values;
+        let res: IResponse = await reqLogin({mobile, password})
+        if (res.code === 0) {
+            storageUtils.saveToken(res.data.token)
+            // if (res.data.user_id) {
+            //     localStorage.setItem('user_id', res.data.user_id);
+            // }
+            navigate('/home')
+            message.success(res.msg);
+        } else {
+            message.error(res.msg);
+        }
     };
+
 
     return (
         <div className='container'>
@@ -23,7 +41,7 @@ const Login: React.FC = () => {
                     onFinish={onFinish}
                 >
                     <Form.Item
-                        name="username"
+                        name="mobile"
                         rules={[{required: true, message: '用户名是必填项！'}]}
                     >
                         <Input prefix={<UserOutlined className="site-form-item-icon"/>} placeholder="Username"/>
