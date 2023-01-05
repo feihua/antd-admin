@@ -7,6 +7,8 @@ import Bar from "../pages/charts/bar";
 import Line from "../pages/charts/line";
 import Pie from "../pages/charts/pie";
 import {LoginLog} from "../pages/log/login_log";
+import {Center} from "../pages/account/center";
+import {Setting} from "../pages/account/settings";
 
 const routes = [
     {
@@ -40,6 +42,14 @@ const routes = [
     {
         path: "/pie",
         element: <Pie/>
+    },
+    {
+        path: "/center",
+        element: <Center/>
+    },
+    {
+        path: "/setting",
+        element: <Setting/>
     },
     {
         path: "/",

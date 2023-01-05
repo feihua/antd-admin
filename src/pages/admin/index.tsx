@@ -9,6 +9,7 @@ import type {MenuProps} from 'antd';
 import {Breadcrumb, Layout, Menu, theme} from 'antd';
 import {Link} from 'react-router-dom'
 import logo from '../../assets/images/logo.svg'
+import MyHeader from '../../components/header'
 
 const {Header, Content, Footer, Sider} = Layout;
 
@@ -33,6 +34,10 @@ const items: MenuItem[] = [
         getItem(<Link to={'/line'}><span>线图</span></Link>, '10'),
         getItem(<Link to={'/bar'}><span>柱状图</span></Link>, '11'),
     ]),
+    getItem(<Link to={'/center'}><span>个人信息</span></Link>, '12', <UserOutlined/>, [
+        getItem(<Link to={'/center'}><span>个人中心</span></Link>, '13'),
+        getItem(<Link to={'/setting'}><span>个人设置</span></Link>, '14'),
+    ]),
 ];
 
 const Admin: React.FC = () => {
@@ -53,7 +58,7 @@ const Admin: React.FC = () => {
                 <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items}/>
             </Sider>
             <Layout className="site-layout">
-                <Header style={{padding: 0, background: colorBgContainer}}/>
+                <Header style={{padding: 0, background: colorBgContainer}}><MyHeader></MyHeader></Header>
                 <Content style={{margin: '0 16px'}}>
                     <Breadcrumb style={{margin: '16px 0'}}>
                         <Breadcrumb.Item>User</Breadcrumb.Item>
