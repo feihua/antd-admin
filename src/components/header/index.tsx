@@ -46,6 +46,9 @@ const MyHeader: React.FC = () => {
             navigate("/setting")
         } else {
             storageUtils.removeToken()
+            storageUtils.removeUserName()
+            storageUtils.removeBtnMenu()
+            storageUtils.removeTreeMenu()
             navigate("/login", {replace: true})
         }
     };
