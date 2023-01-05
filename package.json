@@ -12,6 +12,7 @@
     "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.10",
     "antd": "^5.1.2",
+    "axios": "^1.2.2",
     "craco-less": "^2.0.0",
     "echarts": "^5.3.0",
     "echarts-for-react": "^3.0.2",
@@ -46,5 +47,6 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "."
+  "homepage": ".",
+  "proxy": "http://175.178.110.17:8099"
 }
