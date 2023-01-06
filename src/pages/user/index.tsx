@@ -1,23 +1,20 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Divider, Input, message, Modal, Space, Table} from 'antd';
+import {Button, Divider, message, Modal, Space, Table} from 'antd';
 import type {ColumnsType} from 'antd/es/table';
 import {DeleteOutlined, EditOutlined, PlusOutlined} from '@ant-design/icons';
 import {UserVo} from './data.d';
 import CreateUserForm from "./components/add_user";
 import UpdateUserForm from "./components/update_user";
-import {addUser, removeUser, updateUser, userList} from "./service";
-import {IResponse} from "../../api/ajax";
+import {addUser, handleResp, removeUser, updateUser, userList} from "./service";
 import AdvancedSearchForm from "./components/search_user";
-
 
 const User: React.FC = () => {
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
     const [isShowAddModal, setShowAddModal] = useState<boolean>(false);
     const [isShowEditModal, setShowEditModal] = useState<boolean>(false);
-    const [confirmLoading, setConfirmLoading] = useState(false);
     const [userListData, setUserListData] = useState<UserVo[]>([]);
     const [currentUser, setCurrentUser] = useState<UserVo>();
-
+    const [currentPage, setCurrentPage] = useState<number>(1);
 
     const columns: ColumnsType<UserVo> = [
         {
@@ -66,27 +63,12 @@ const User: React.FC = () => {
         setShowAddModal(true);
     };
 
-    const handleAddOk = (user: UserVo) => {
-        setConfirmLoading(true);
-        addUser(user).then(res => {
-            if (res.code === 0) {
-                setShowAddModal(false);
-                setConfirmLoading(false);
-                message.success(res.msg);
-
-                userList({current: 0, mobile: "", pageSize: 10, status_id: ""}).then(res => {
-                    if (res.code === 0) {
-                        setUserListData(res.data)
-                        message.success(res.msg);
-                    } else {
-                        message.error(res.msg);
-                    }
-                });
-            } else {
-                setConfirmLoading(false);
-                message.error(res.msg);
-            }
-        });
+    const handleAddOk = async (user: UserVo) => {
+        if (handleResp(await addUser(user))) {
+            setShowAddModal(false);
+            let res = await userList({current: currentPage,})
+            res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
+        }
     }
 
     const handleAddCancel = () => {
@@ -95,32 +77,18 @@ const User: React.FC = () => {
 
 
     const showEditModal = (user: UserVo) => {
-        console.log(user)
         setCurrentUser(user)
         setShowEditModal(true);
     };
 
-    const handleEditOk = (user: UserVo) => {
-        setConfirmLoading(true);
-        updateUser(user).then(res => {
-            if (res.code === 0) {
-                setShowEditModal(false);
-                setConfirmLoading(false);
-                message.success(res.msg);
-
-                userList({current: 0, mobile: "", pageSize: 10, status_id: ""}).then(res => {
-                    if (res.code === 0) {
-                        setUserListData(res.data)
-                        message.success(res.msg);
-                    } else {
-                        message.error(res.msg);
-                    }
-                });
-            } else {
-                setConfirmLoading(false);
-                message.error(res.msg);
-            }
-        });
+    const handleEditOk = async (user: UserVo) => {
+        if (handleResp(await updateUser(user))) {
+            setShowEditModal(false);
+            let res = await userList({
+                current: currentPage, mobile: "",
+            })
+            res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
+        }
     };
 
     const handleEditCancel = () => {
@@ -132,20 +100,7 @@ const User: React.FC = () => {
         Modal.confirm({
             content: `确定删除${user.real_name}吗?`,
             async onOk() {
-                let res: IResponse = await removeUser([user.id as number]);
-                if (res.code === 0) {
-                    message.success(res.msg);
-                    userList({current: 0, mobile: "", pageSize: 10, status_id: ""}).then(res => {
-                        if (res.code === 0) {
-                            setUserListData(res.data)
-                            message.success(res.msg);
-                        } else {
-                            message.error(res.msg);
-                        }
-                    });
-                } else {
-                    message.error(res.msg);
-                }
+                await handleRemove([user.id]);
             },
             onCancel() {
                 console.log('Cancel');
@@ -154,57 +109,29 @@ const User: React.FC = () => {
     };
 
     //批量删除
-    const handleRemove = async (selectedRows: React.Key[]) => {
-        console.log(selectedRows.map(row => Number(row.toString)))
-        let res: IResponse = await removeUser(selectedRows as Number[]);
-        if (res.code === 0) {
-            message.success(res.msg);
-            userList({current: 0, mobile: "", pageSize: 10, status_id: ""}).then(res => {
-                if (res.code === 0) {
-                    setUserListData(res.data)
-                    message.success(res.msg);
-                } else {
-                    message.error(res.msg);
-                }
-            });
-        } else {
-            message.error(res.msg);
+    const handleRemove = async (ids: number[]) => {
+        if (handleResp(await removeUser(ids))) {
+            let res = await userList({current: currentPage, mobile: "",})
+            res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
         }
 
     };
 
-    const handleSearchOk = (user: UserVo) => {
-
-        userList({current: 0, mobile: user.mobile, pageSize: 10, status_id: ""}).then(res => {
-            if (res.code === 0) {
-                setUserListData(res.data)
-                message.success(res.msg);
-            } else {
-                message.error(res.msg);
-            }
-        });
+    const handleSearchOk = async (user: UserVo) => {
+        let res = await userList({current: currentPage, ...user,})
+        res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
     };
 
-    const handleResetOk = () => {
-
-        userList({current: 0, mobile: '', pageSize: 10, status_id: ""}).then(res => {
-            if (res.code === 0) {
-                setUserListData(res.data)
-                message.success(res.msg);
-            } else {
-                message.error(res.msg);
-            }
-        });
+    const handleResetOk = async () => {
+        let res = await userList({current: currentPage,})
+        res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
     };
 
     useEffect(() => {
-        userList({current: 0, mobile: "", pageSize: 10, status_id: ""}).then(res => {
-            if (res.code === 0) {
-                setUserListData(res.data)
-                message.success(res.msg);
-            } else {
-                message.error(res.msg);
-            }
+        userList({
+            current: currentPage,
+        }).then(res => {
+            res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
         });
     }, []);
 
@@ -221,7 +148,7 @@ const User: React.FC = () => {
 
             <Table
                 rowSelection={{
-                    onChange: (selectedRowKeys: React.Key[], selectedRows: UserVo[]) => {
+                    onChange: (selectedRowKeys: React.Key[]) => {
                         setSelectedRowKeys(selectedRowKeys)
                     },
                 }}
@@ -230,15 +157,15 @@ const User: React.FC = () => {
                 rowKey={'id'}
             />
 
-            <CreateUserForm onCancel={handleAddCancel} onCreate={handleAddOk} open={isShowAddModal} confirmLoading={confirmLoading}></CreateUserForm>
-            <UpdateUserForm onCancel={handleEditCancel} onCreate={handleEditOk} open={isShowEditModal} confirmLoading={confirmLoading} userVo={currentUser}></UpdateUserForm>
+            <CreateUserForm onCancel={handleAddCancel} onCreate={handleAddOk} open={isShowAddModal}></CreateUserForm>
+            <UpdateUserForm onCancel={handleEditCancel} onCreate={handleEditOk} open={isShowEditModal} userVo={currentUser}></UpdateUserForm>
 
             {selectedRowKeys.length > 0 &&
                 <div>
                     已选择 {selectedRowKeys.length} 项
                     <Button style={{float: "right"}} danger icon={<DeleteOutlined/>} type={'primary'}
                             onClick={async () => {
-                                await handleRemove(selectedRowKeys);
+                                await handleRemove(selectedRowKeys as number[]);
                                 setSelectedRowKeys([]);
                             }}
                     >

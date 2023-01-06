@@ -2,9 +2,9 @@ import React from "react";
 
 export interface UserListParam {
     current: number;
-    pageSize: number;
-    mobile: string;
-    status_id: string;
+    pageSize?: number;
+    mobile?: string;
+    status_id?: number;
 }
 
 export interface UserVo {

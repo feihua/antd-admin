@@ -4,12 +4,11 @@ import {UserVo} from "../data";
 
 interface CreateUserFormProps {
     open: boolean;
-    confirmLoading: boolean;
     onCreate: (values: UserVo) => void;
     onCancel: () => void;
 }
 
-const CreateUserForm: React.FC<CreateUserFormProps> = ({open, onCreate, onCancel, confirmLoading}) => {
+const CreateUserForm: React.FC<CreateUserFormProps> = ({open, onCreate, onCancel}) => {
     const [form] = Form.useForm();
     const FormItem = Form.Item;
 
@@ -55,7 +54,7 @@ const CreateUserForm: React.FC<CreateUserFormProps> = ({open, onCreate, onCancel
         )
     }
 
-    const modalFooter = {title: "新建", okText: '保存', onOk: handleOk, onCancel, cancelText: '取消', confirmLoading, open};
+    const modalFooter = {title: "新建", okText: '保存', onOk: handleOk, onCancel, cancelText: '取消', open};
     const formLayout = {labelCol: {span: 7}, wrapperCol: {span: 13}, form};
 
     return (

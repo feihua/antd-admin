@@ -11,11 +11,10 @@ interface CreateUserFormProps {
 }
 
 const AdvancedSearchForm: React.FC<CreateUserFormProps> = ({search, reSet}) => {
-
+    const FormItem = Form.Item;
     const [form] = Form.useForm();
 
     const onFinish = (values: any) => {
-        console.log('Finish:', values);
         search(values)
     };
 
@@ -27,22 +26,22 @@ const AdvancedSearchForm: React.FC<CreateUserFormProps> = ({search, reSet}) => {
     const searchForm = () => {
         return (
             <>
-                <Form.Item
+                <FormItem
                     label={'手机号码'}
                     name="mobile"
                 >
                     <Input placeholder="手机号码"/>
-                </Form.Item>
-                <Form.Item
+                </FormItem>
+                <FormItem
                     label={'状态'}
                     name="status_id"
                 >
                     <Select style={{width: 200}}>
                         <Option value="1">启用</Option>
-                        <Option value="2">禁用</Option>
+                        <Option value="0">禁用</Option>
                     </Select>
-                </Form.Item>
-                <Form.Item>
+                </FormItem>
+                <FormItem>
                     <Space>
                         <Button type="primary" htmlType="submit" icon={<SearchOutlined/>} style={{width: 120}}>
                             查询
@@ -51,7 +50,7 @@ const AdvancedSearchForm: React.FC<CreateUserFormProps> = ({search, reSet}) => {
                             重置
                         </Button>
                     </Space>
-                </Form.Item>
+                </FormItem>
             </>
         )
     }
