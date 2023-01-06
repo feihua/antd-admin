@@ -62,14 +62,6 @@ const User: React.FC = () => {
         },
     ];
 
-
-    const rowSelection = {
-        onChange: (selectedRowKeys: React.Key[], selectedRows: UserVo[]) => {
-            console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-            setSelectedRowKeys(selectedRowKeys)
-        },
-    };
-
     const showModal = () => {
         setShowAddModal(true);
     };
@@ -229,7 +221,9 @@ const User: React.FC = () => {
 
             <Table
                 rowSelection={{
-                    ...rowSelection,
+                    onChange: (selectedRowKeys: React.Key[], selectedRows: UserVo[]) => {
+                        setSelectedRowKeys(selectedRowKeys)
+                    },
                 }}
                 columns={columns}
                 dataSource={userListData}
