@@ -1,36 +1,19 @@
 import React from "react";
 
-export interface DataType {
-    key: React.Key;
-    name: string;
-    age: number;
-    address: string;
+export interface UserListParam {
+    current: number;
+    pageSize: number;
+    mobile: string;
+    status_id: string;
 }
 
-export const DataList: DataType[] = [
-    {
-        key: '1',
-        name: 'John Brown',
-        age: 32,
-        address: 'New York No. 1 Lake Park',
-    },
-    {
-        key: '2',
-        name: 'Jim Green',
-        age: 42,
-        address: 'London No. 1 Lake Park',
-    },
-    {
-        key: '3',
-        name: 'Joe Black',
-        age: 32,
-        address: 'Sidney No. 1 Lake Park',
-    },
-    {
-        key: '4',
-        name: 'Disabled User',
-        age: 99,
-        address: 'Sidney No. 1 Lake Park',
-    },
-
-];
+export interface UserVo {
+    create_time: string;
+    id: number;
+    mobile: string;
+    real_name: string;
+    remark: string;
+    sort: number;
+    status_id: number;
+    update_time: string;
+}

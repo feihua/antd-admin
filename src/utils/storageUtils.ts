@@ -11,10 +11,7 @@ export const storageUtils = {
         localStorage.setItem(USER_TOKEN, token)
     },
     getToken() {
-        localStorage.getItem(USER_TOKEN)
-    },
-    removeToken() {
-        localStorage.removeItem(USER_TOKEN)
+        return localStorage.getItem(USER_TOKEN)
     },
 
     saveUserName(userName: string) {
@@ -22,9 +19,6 @@ export const storageUtils = {
     },
     getUserName(): string {
         return localStorage.getItem(USER_Name) || '一个游客'
-    },
-    removeUserName() {
-        localStorage.removeItem(USER_Name)
     },
 
     saveBtnMenu(btnMenu: string[]) {
@@ -34,9 +28,7 @@ export const storageUtils = {
         let btnMenu = localStorage.getItem(BTN_MENU);
         return btnMenu != null ? JSON.parse(btnMenu) : [];
     },
-    removeBtnMenu() {
-        localStorage.removeItem(BTN_MENU)
-    },
+
 
     saveTreeMenu(treeMenu: string[]) {
         localStorage.setItem(TREE_MENU, JSON.stringify(treeMenu))
@@ -45,7 +37,12 @@ export const storageUtils = {
         let treeMenu = localStorage.getItem(TREE_MENU);
         return treeMenu != null ? JSON.parse(treeMenu) : [];
     },
-    removeTreeMenu() {
+
+
+    logout() {
+        localStorage.removeItem(USER_TOKEN)
+        localStorage.removeItem(USER_Name)
+        localStorage.removeItem(BTN_MENU)
         localStorage.removeItem(TREE_MENU)
     }
 }

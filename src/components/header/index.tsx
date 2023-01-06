@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import type {MenuProps} from 'antd';
-import {Avatar, Dropdown, message, Space} from 'antd';
-import {LogoutOutlined, SettingOutlined, UserOutlined, DownOutlined} from "@ant-design/icons";
+import {Avatar, Dropdown, Space} from 'antd';
+import {DownOutlined, LogoutOutlined, SettingOutlined, UserOutlined} from "@ant-design/icons";
 import {storageUtils} from "../../utils/storageUtils";
 import moment from 'moment'
 import {useNavigate} from "react-router-dom";
@@ -45,10 +45,7 @@ const MyHeader: React.FC = () => {
         } else if (key === "2") {
             navigate("/setting")
         } else {
-            storageUtils.removeToken()
-            storageUtils.removeUserName()
-            storageUtils.removeBtnMenu()
-            storageUtils.removeTreeMenu()
+            storageUtils.logout()
             navigate("/login", {replace: true})
         }
     };

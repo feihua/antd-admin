@@ -34,7 +34,7 @@ const items: MenuItem[] = [
         getItem(<Link to={'/line'}><span>线图</span></Link>, '10'),
         getItem(<Link to={'/bar'}><span>柱状图</span></Link>, '11'),
     ]),
-    getItem(<Link to={'/center'}><span>个人信息</span></Link>, '12', <UserOutlined/>, [
+    getItem(<Link to={'/center'}><span>个人中心</span></Link>, '12', <UserOutlined/>, [
         getItem(<Link to={'/center'}><span>个人中心</span></Link>, '13'),
         getItem(<Link to={'/setting'}><span>个人设置</span></Link>, '14'),
     ]),
