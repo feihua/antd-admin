@@ -11,6 +11,7 @@ export interface IResponse {
     code: number | string;
     data: any;
     msg: string;
+    total: number
 }
 
 export const axiosInstance: AxiosInstance = axios.create({

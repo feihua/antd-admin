@@ -15,6 +15,8 @@ const User: React.FC = () => {
     const [userListData, setUserListData] = useState<UserVo[]>([]);
     const [currentUser, setCurrentUser] = useState<UserVo>();
     const [currentPage, setCurrentPage] = useState<number>(1);
+    const [pageSize, setPageSize] = useState<number>(10);
+    const [total, setTotal] = useState<number>(10);
 
     const columns: ColumnsType<UserVo> = [
         {
@@ -47,7 +49,7 @@ const User: React.FC = () => {
             dataIndex: 'update_time',
         },
         {
-            title: 'Action',
+            title: '操作',
             key: 'action',
             render: (_, record) => (
                 <Space size="small">
@@ -67,6 +69,7 @@ const User: React.FC = () => {
         if (handleResp(await addUser(user))) {
             setShowAddModal(false);
             let res = await userList({current: currentPage,})
+            setTotal(res.total)
             res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
         }
     }
@@ -87,6 +90,7 @@ const User: React.FC = () => {
             let res = await userList({
                 current: currentPage, mobile: "",
             })
+            setTotal(res.total)
             res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
         }
     };
@@ -112,6 +116,7 @@ const User: React.FC = () => {
     const handleRemove = async (ids: number[]) => {
         if (handleResp(await removeUser(ids))) {
             let res = await userList({current: currentPage, mobile: "",})
+            setTotal(res.total)
             res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
         }
 
@@ -119,11 +124,13 @@ const User: React.FC = () => {
 
     const handleSearchOk = async (user: UserVo) => {
         let res = await userList({current: currentPage, ...user,})
+        setTotal(res.total)
         res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
     };
 
     const handleResetOk = async () => {
         let res = await userList({current: currentPage,})
+        setTotal(res.total)
         res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
     };
 
@@ -131,9 +138,36 @@ const User: React.FC = () => {
         userList({
             current: currentPage,
         }).then(res => {
+            setTotal(res.total)
             res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
         });
     }, []);
+
+
+    const paginationProps = {
+        defaultCurrent: 1,
+        defaultPageSize: 10,
+        current: currentPage, //当前页码
+        pageSize, // 每页数据条数
+        pageSizeOptions: [10, 20, 30, 40, 50],
+        showQuickJumper: true,
+        showTotal: (total: number) => (
+            <span>总共{total}条</span>
+        ),
+        total,
+        onChange: async (page: number, pageSize: number) => {
+            console.log('onChange', page, pageSize)
+            setCurrentPage(page)
+            setPageSize(pageSize)
+            let res = await userList({current: page, pageSize})
+            setTotal(res.total)
+            res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
+
+        }, //改变页码的函数
+        onShowSizeChange: (current: number, size: number) => {
+            console.log('onShowSizeChange', current, size)
+        }
+    }
 
     return (
         <div>
@@ -152,9 +186,12 @@ const User: React.FC = () => {
                         setSelectedRowKeys(selectedRowKeys)
                     },
                 }}
+                size={"middle"}
                 columns={columns}
                 dataSource={userListData}
                 rowKey={'id'}
+                pagination={paginationProps}
+                tableLayout={"fixed"}
             />
 
             <CreateUserForm onCancel={handleAddCancel} onCreate={handleAddOk} open={isShowAddModal}></CreateUserForm>
