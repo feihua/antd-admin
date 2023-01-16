@@ -1,12 +1,12 @@
 import {Navigate} from "react-router-dom"
 import User from "../pages/user";
 import {Home} from "../pages/home";
-import {Role} from "../pages/role";
-import {Menu} from "../pages/menu";
+import Role from "../pages/role";
+import Menu from "../pages/menu";
 import Bar from "../pages/charts/bar";
 import Line from "../pages/charts/line";
 import Pie from "../pages/charts/pie";
-import {LoginLog} from "../pages/log/login_log";
+import Log from "../pages/log/index";
 import Center from "../pages/account/center";
 import {Setting} from "../pages/account/settings";
 
@@ -29,7 +29,7 @@ const routes = [
     },
     {
         path: "/log",
-        element: <LoginLog/>
+        element: <Log/>
     },
     {
         path: "/bar",
