@@ -2,31 +2,27 @@ import React, {useEffect, useState} from 'react';
 import {Button, Divider, message, Modal, Space, Table, Tag} from 'antd';
 import type {ColumnsType} from 'antd/es/table';
 import {DeleteOutlined, EditOutlined, PlusOutlined} from '@ant-design/icons';
-import {UserVo} from './data.d';
-import CreateUserForm from "./components/add_user";
-import UpdateUserForm from "./components/update_user";
-import {addUser, handleResp, removeUser, updateUser, userList} from "./service";
-import AdvancedSearchForm from "./components/search_user";
+import {RoleVo} from './data.d';
+import CreateRoleForm from "./components/add_role";
+import UpdateRoleForm from "./components/update_role";
+import {addRole, handleResp, removeRole, updateRole, roleList} from "./service";
+import AdvancedSearchForm from "./components/search_role";
 
-const User: React.FC = () => {
+const Role: React.FC = () => {
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
     const [isShowAddModal, setShowAddModal] = useState<boolean>(false);
     const [isShowEditModal, setShowEditModal] = useState<boolean>(false);
-    const [userListData, setUserListData] = useState<UserVo[]>([]);
-    const [currentUser, setCurrentUser] = useState<UserVo>();
+    const [roleListData, setRoleListData] = useState<RoleVo[]>([]);
+    const [currentRole, setCurrentRole] = useState<RoleVo>();
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [pageSize, setPageSize] = useState<number>(10);
     const [total, setTotal] = useState<number>(10);
 
-    const columns: ColumnsType<UserVo> = [
+    const columns: ColumnsType<RoleVo> = [
         {
-            title: '手机号',
-            dataIndex: 'mobile',
+            title: '角色名称',
+            dataIndex: 'role_name',
             render: (text: string) => <a>{text}</a>,
-        },
-        {
-            title: '用户名',
-            dataIndex: 'real_name',
         },
         {
             title: '排序',
@@ -74,12 +70,12 @@ const User: React.FC = () => {
         setShowAddModal(true);
     };
 
-    const handleAddOk = async (user: UserVo) => {
-        if (handleResp(await addUser(user))) {
+    const handleAddOk = async (user: RoleVo) => {
+        if (handleResp(await addRole(user))) {
             setShowAddModal(false);
-            let res = await userList({current: currentPage,})
+            let res = await roleList({current: currentPage,})
             setTotal(res.total)
-            res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
+            res.code === 0 ? setRoleListData(res.data) : message.error(res.msg);
         }
     }
 
@@ -88,19 +84,19 @@ const User: React.FC = () => {
     };
 
 
-    const showEditModal = (user: UserVo) => {
-        setCurrentUser(user)
+    const showEditModal = (user: RoleVo) => {
+        setCurrentRole(user)
         setShowEditModal(true);
     };
 
-    const handleEditOk = async (user: UserVo) => {
-        if (handleResp(await updateUser(user))) {
+    const handleEditOk = async (user: RoleVo) => {
+        if (handleResp(await updateRole(user))) {
             setShowEditModal(false);
-            let res = await userList({
-                current: currentPage, mobile: "",
+            let res = await roleList({
+                current: currentPage,
             })
             setTotal(res.total)
-            res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
+            res.code === 0 ? setRoleListData(res.data) : message.error(res.msg);
         }
     };
 
@@ -109,9 +105,9 @@ const User: React.FC = () => {
     };
 
     //删除单条数据
-    const showDeleteConfirm = (user: UserVo) => {
+    const showDeleteConfirm = (user: RoleVo) => {
         Modal.confirm({
-            content: `确定删除${user.real_name}吗?`,
+            content: `确定删除${user.role_name}吗?`,
             async onOk() {
                 await handleRemove([user.id]);
             },
@@ -123,32 +119,32 @@ const User: React.FC = () => {
 
     //批量删除
     const handleRemove = async (ids: number[]) => {
-        if (handleResp(await removeUser(ids))) {
-            let res = await userList({current: currentPage, mobile: "",})
+        if (handleResp(await removeRole(ids))) {
+            let res = await roleList({current: currentPage,})
             setTotal(res.total)
-            res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
+            res.code === 0 ? setRoleListData(res.data) : message.error(res.msg);
         }
 
     };
 
-    const handleSearchOk = async (user: UserVo) => {
-        let res = await userList({current: currentPage, ...user,})
+    const handleSearchOk = async (user: RoleVo) => {
+        let res = await roleList({current: currentPage, ...user,})
         setTotal(res.total)
-        res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
+        res.code === 0 ? setRoleListData(res.data) : message.error(res.msg);
     };
 
     const handleResetOk = async () => {
-        let res = await userList({current: currentPage,})
+        let res = await roleList({current: currentPage,})
         setTotal(res.total)
-        res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
+        res.code === 0 ? setRoleListData(res.data) : message.error(res.msg);
     };
 
     useEffect(() => {
-        userList({
+        roleList({
             current: currentPage,
         }).then(res => {
             setTotal(res.total)
-            res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
+            res.code === 0 ? setRoleListData(res.data) : message.error(res.msg);
         });
     }, []);
 
@@ -168,9 +164,9 @@ const User: React.FC = () => {
             console.log('onChange', page, pageSize)
             setCurrentPage(page)
             setPageSize(pageSize)
-            let res = await userList({current: page, pageSize})
+            let res = await roleList({current: page, pageSize})
             setTotal(res.total)
-            res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
+            res.code === 0 ? setRoleListData(res.data) : message.error(res.msg);
 
         }, //改变页码的函数
         onShowSizeChange: (current: number, size: number) => {
@@ -197,14 +193,14 @@ const User: React.FC = () => {
                 }}
                 size={"middle"}
                 columns={columns}
-                dataSource={userListData}
+                dataSource={roleListData}
                 rowKey={'id'}
                 pagination={paginationProps}
                 tableLayout={"fixed"}
             />
 
-            <CreateUserForm onCancel={handleAddCancel} onCreate={handleAddOk} open={isShowAddModal}></CreateUserForm>
-            <UpdateUserForm onCancel={handleEditCancel} onCreate={handleEditOk} open={isShowEditModal} userVo={currentUser}></UpdateUserForm>
+            <CreateRoleForm onCancel={handleAddCancel} onCreate={handleAddOk} open={isShowAddModal}></CreateRoleForm>
+            <UpdateRoleForm onCancel={handleEditCancel} onCreate={handleEditOk} open={isShowEditModal} userVo={currentRole}></UpdateRoleForm>
 
             {selectedRowKeys.length > 0 &&
                 <div>
@@ -224,4 +220,4 @@ const User: React.FC = () => {
     );
 };
 
-export default User;
+export default Role;

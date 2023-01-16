@@ -1,42 +1,42 @@
 import {axiosInstance, IResponse} from "../../api/ajax";
-import {UserVo, UserListParam} from "./data";
+import {RoleVo, RoleListParam} from "./data";
 import {message} from "antd";
 
 /**
- * @description: 用户列表
- * @params {req} UserListReq
+ * @description: 角色列表
+ * @params {req} RoleListParam
  * @return {Promise}
  */
-export const userList = (req: UserListParam): Promise<IResponse> => {
+export const roleList = (req: RoleListParam): Promise<IResponse> => {
     req.pageSize = 10
-    return axiosInstance.post('api/user_list', req).then(res => res.data);
+    return axiosInstance.post('api/role_list', req).then(res => res.data);
 };
 
 /**
- * @description: 添加用户
- * @params {user} User
+ * @description: 添加角色
+ * @params {role} RoleVo
  * @return {Promise}
  */
-export const addUser = (user: UserVo): Promise<IResponse> => {
-    return axiosInstance.post('api/user_save', user).then(res => res.data);
+export const addRole = (role: RoleVo): Promise<IResponse> => {
+    return axiosInstance.post('api/role_save', role).then(res => res.data);
 };
 
 /**
- * @description: 更新用户
- * @params {{user} User
+ * @description: 更新角色
+ * @params {{role} RoleVo
  * @return {Promise}
  */
-export const updateUser = (user: UserVo): Promise<IResponse> => {
-    return axiosInstance.post('api/user_update', user).then(res => res.data);
+export const updateRole = (role: RoleVo): Promise<IResponse> => {
+    return axiosInstance.post('api/role_update', role).then(res => res.data);
 };
 
 /**
- * @description: 删除用户
+ * @description: 删除角色
  * @params {ids} number[]
  * @return {Promise}
  */
-export const removeUser = (ids: Number[]): Promise<IResponse> => {
-    return axiosInstance.post('api/user_delete', {ids: ids}).then(res => res.data);
+export const removeRole = (ids: Number[]): Promise<IResponse> => {
+    return axiosInstance.post('api/role_delete', {ids: ids}).then(res => res.data);
 };
 
 /**

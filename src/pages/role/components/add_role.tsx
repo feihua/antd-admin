@@ -1,11 +1,11 @@
 import React from 'react';
 import {Form, Input, InputNumber, message, Modal, Radio} from 'antd';
-import {UserVo} from "../data";
+import {RoleVo} from "../data";
 import TextArea from "antd/es/input/TextArea";
 
 interface CreateUserFormProps {
     open: boolean;
-    onCreate: (values: UserVo) => void;
+    onCreate: (values: RoleVo) => void;
     onCancel: () => void;
 }
 

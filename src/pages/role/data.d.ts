@@ -1,18 +1,17 @@
 import React from "react";
 
-export interface UserListParam {
+export interface RoleListParam {
     current: number;
     pageSize?: number;
-    mobile?: string;
+    role_name?: string;
     status_id?: number;
 }
 
-export interface UserVo {
+export interface RoleVo {
     create_time: string;
     id: number;
-    mobile: string;
-    real_name: string;
     remark: string;
+    role_name: string;
     sort: number;
     status_id: number;
     update_time: string;

@@ -1,13 +1,13 @@
 import React, {useEffect} from 'react';
 import {Form, Input, InputNumber, Modal, Radio} from 'antd';
-import {UserVo} from "../data";
+import {RoleVo} from "../data";
 import TextArea from "antd/es/input/TextArea";
 
 interface UpdateUserFormProps {
     open: boolean;
-    onCreate: (values: UserVo) => void;
+    onCreate: (values: RoleVo) => void;
     onCancel: () => void;
-    userVo?: UserVo;
+    userVo?: RoleVo;
 }
 
 const UpdateUserForm: React.FC<UpdateUserFormProps> = ({open, onCreate, onCancel, userVo}) => {
