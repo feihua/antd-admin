@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
-import {Form, Input, Modal} from 'antd';
+import {Form, Input, InputNumber, Modal, Radio} from 'antd';
 import {UserVo} from "../data";
+import TextArea from "antd/es/input/TextArea";
 
 interface UpdateUserFormProps {
     open: boolean;
@@ -59,36 +60,34 @@ const UpdateUserForm: React.FC<UpdateUserFormProps> = ({open, onCreate, onCancel
                 <FormItem
                     label="排序"
                     name="sort"
-                    rules={[{required: true, message: '请输入排序!'}]}
-                >
-                    <Input/>
+                    rules={[{required: true, message: '请输入排序!'}]}>
+                    <InputNumber defaultValue={1}/>
                 </FormItem>
-
                 <FormItem
                     label="状态"
                     name="status_id"
-                    rules={[{required: true, message: '请输入状态!'}]}
-                >
-                    <Input/>
+                    rules={[{required: true, message: '请输入状态!'}]}>
+                    <Radio.Group defaultValue={1}>
+                        <Radio value={1}>启用</Radio>
+                        <Radio value={0}>禁用</Radio>
+                    </Radio.Group>
                 </FormItem>
-
                 <FormItem
                     label="备注"
                     name="remark"
-                    rules={[{required: true, message: '请输入备注!'}]}
                 >
-                    <Input/>
+                    <TextArea rows={2}/>
                 </FormItem>
             </>
         )
     }
 
-    const modalFooter = {title: "更新", okText: '保存', onOk: handleOk, onCancel, cancelText: '取消', open};
+    const modalFooter = {title: "更新", okText: '保存', onOk: handleOk, onCancel, cancelText: '取消', open, width: 480};
     const formLayout = {labelCol: {span: 7}, wrapperCol: {span: 13}, form};
 
     return (
-        <Modal {...modalFooter}>
-            <Form {...formLayout}>
+        <Modal {...modalFooter} style={{top: 150}}>
+            <Form {...formLayout} style={{marginTop: 30}}>
                 {userFormContent()}
             </Form>
         </Modal>

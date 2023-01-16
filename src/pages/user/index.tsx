@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Divider, message, Modal, Space, Table} from 'antd';
+import {Button, Divider, message, Modal, Space, Table, Tag} from 'antd';
 import type {ColumnsType} from 'antd/es/table';
 import {DeleteOutlined, EditOutlined, PlusOutlined} from '@ant-design/icons';
 import {UserVo} from './data.d';
@@ -35,6 +35,15 @@ const User: React.FC = () => {
         {
             title: '状态',
             dataIndex: 'status_id',
+            render: (_, {status_id}) => (
+                <>
+                    {
+                        <Tag color={status_id === 0 ? '#ff4d4f' : '#67c23a'} style={{width: 50, height: 30, textAlign: "center", paddingTop: 4}}>
+                            {status_id === 0 ? '禁用' : '启用'}
+                        </Tag>
+                    }
+                </>
+            ),
         },
         {
             title: '备注',
