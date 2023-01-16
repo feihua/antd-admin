@@ -1,33 +1,46 @@
-import React from 'react';
-import {Form, Input, InputNumber, message, Modal, Radio} from 'antd';
-import {UserVo} from "../data";
+import React, {useEffect} from 'react';
+import {Form, Input, InputNumber, Modal, Radio} from 'antd';
+import {MenuVo} from "../data";
 import TextArea from "antd/es/input/TextArea";
 
-interface CreateUserFormProps {
+interface UpdateMenuFormProps {
     open: boolean;
-    onCreate: (values: UserVo) => void;
+    onCreate: (values: MenuVo) => void;
     onCancel: () => void;
+    menuVo?: MenuVo;
 }
 
-const CreateUserForm: React.FC<CreateUserFormProps> = ({open, onCreate, onCancel}) => {
+const UpdateMenuForm: React.FC<UpdateMenuFormProps> = ({open, onCreate, onCancel, menuVo}) => {
     const [form] = Form.useForm();
     const FormItem = Form.Item;
+
+    useEffect(() => {
+        if (menuVo) {
+            form.setFieldsValue(menuVo);
+        }
+    }, [menuVo]);
 
     const handleOk = () => {
         form.validateFields()
             .then((values) => {
-                console.log(values)
-                onCreate(values);
                 form.resetFields();
+                onCreate(values);
             })
             .catch((info) => {
-                message.error(info);
+                console.log('Validate Failed:', info);
             });
     }
 
     const userFormContent = () => {
         return (
             <>
+                <FormItem
+                    label="id"
+                    name="id"
+                    hidden={true}
+                >
+                    <Input/>
+                </FormItem>
                 <FormItem
                     label="手机号"
                     name="mobile"
@@ -62,7 +75,6 @@ const CreateUserForm: React.FC<CreateUserFormProps> = ({open, onCreate, onCancel
                 <FormItem
                     label="备注"
                     name="remark"
-                    rules={[{required: true, message: '请输入备注!'}]}
                 >
                     <TextArea rows={2}/>
                 </FormItem>
@@ -70,7 +82,7 @@ const CreateUserForm: React.FC<CreateUserFormProps> = ({open, onCreate, onCancel
         )
     }
 
-    const modalFooter = {title: "新建", okText: '保存', onOk: handleOk, onCancel, cancelText: '取消', open, width: 480};
+    const modalFooter = {title: "更新", okText: '保存', onOk: handleOk, onCancel, cancelText: '取消', open, width: 480};
     const formLayout = {labelCol: {span: 7}, wrapperCol: {span: 13}, form};
 
     return (
@@ -82,4 +94,4 @@ const CreateUserForm: React.FC<CreateUserFormProps> = ({open, onCreate, onCancel
     );
 };
 
-export default CreateUserForm;
+export default UpdateMenuForm;

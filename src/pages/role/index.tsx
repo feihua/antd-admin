@@ -70,8 +70,8 @@ const Role: React.FC = () => {
         setShowAddModal(true);
     };
 
-    const handleAddOk = async (user: RoleVo) => {
-        if (handleResp(await addRole(user))) {
+    const handleAddOk = async (role: RoleVo) => {
+        if (handleResp(await addRole(role))) {
             setShowAddModal(false);
             let res = await roleList({current: currentPage,})
             setTotal(res.total)
@@ -84,13 +84,13 @@ const Role: React.FC = () => {
     };
 
 
-    const showEditModal = (user: RoleVo) => {
-        setCurrentRole(user)
+    const showEditModal = (role: RoleVo) => {
+        setCurrentRole(role)
         setShowEditModal(true);
     };
 
-    const handleEditOk = async (user: RoleVo) => {
-        if (handleResp(await updateRole(user))) {
+    const handleEditOk = async (role: RoleVo) => {
+        if (handleResp(await updateRole(role))) {
             setShowEditModal(false);
             let res = await roleList({
                 current: currentPage,
@@ -105,11 +105,11 @@ const Role: React.FC = () => {
     };
 
     //删除单条数据
-    const showDeleteConfirm = (user: RoleVo) => {
+    const showDeleteConfirm = (role: RoleVo) => {
         Modal.confirm({
-            content: `确定删除${user.role_name}吗?`,
+            content: `确定删除${role.role_name}吗?`,
             async onOk() {
-                await handleRemove([user.id]);
+                await handleRemove([role.id]);
             },
             onCancel() {
                 console.log('Cancel');
@@ -127,8 +127,8 @@ const Role: React.FC = () => {
 
     };
 
-    const handleSearchOk = async (user: RoleVo) => {
-        let res = await roleList({current: currentPage, ...user,})
+    const handleSearchOk = async (role: RoleVo) => {
+        let res = await roleList({current: currentPage, ...role,})
         setTotal(res.total)
         res.code === 0 ? setRoleListData(res.data) : message.error(res.msg);
     };
@@ -200,7 +200,7 @@ const Role: React.FC = () => {
             />
 
             <CreateRoleForm onCancel={handleAddCancel} onCreate={handleAddOk} open={isShowAddModal}></CreateRoleForm>
-            <UpdateRoleForm onCancel={handleEditCancel} onCreate={handleEditOk} open={isShowEditModal} userVo={currentRole}></UpdateRoleForm>
+            <UpdateRoleForm onCancel={handleEditCancel} onCreate={handleEditOk} open={isShowEditModal} roleVo={currentRole}></UpdateRoleForm>
 
             {selectedRowKeys.length > 0 &&
                 <div>

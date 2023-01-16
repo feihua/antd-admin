@@ -1,17 +1,20 @@
 import React from "react";
 
-export interface UserListParam {
-    current: number;
-    pageSize?: number;
+export interface MenuListParam {
     mobile?: string;
     status_id?: number;
 }
 
-export interface UserVo {
+export interface MenuVo {
     create_time: string;
+    api_url: string;
+    icon: string;
     id: number;
-    mobile: string;
-    real_name: string;
+    label: string;
+    menu_name: string;
+    menu_type: number;
+    menu_url: string;
+    parent_id: number;
     remark: string;
     sort: number;
     status_id: number;

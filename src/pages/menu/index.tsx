@@ -2,35 +2,42 @@ import React, {useEffect, useState} from 'react';
 import {Button, Divider, message, Modal, Space, Table, Tag} from 'antd';
 import type {ColumnsType} from 'antd/es/table';
 import {DeleteOutlined, EditOutlined, PlusOutlined} from '@ant-design/icons';
-import {UserVo} from './data.d';
-import CreateUserForm from "./components/add_user";
-import UpdateUserForm from "./components/update_user";
-import {addUser, handleResp, removeUser, updateUser, userList} from "./service";
-import AdvancedSearchForm from "./components/search_user";
+import {MenuVo} from './data.d';
+import CreateMenuForm from "./components/add_menu";
+import UpdateMenuForm from "./components/update_menu";
+import {addMenu, handleResp, removeMenu, updateMenu, menuList} from "./service";
+import AdvancedSearchForm from "./components/search_menu";
+import {tree} from "../../utils/treeUtils";
+import {IResponse} from "../../api/ajax";
 
-const User: React.FC = () => {
+const Menu: React.FC = () => {
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
     const [isShowAddModal, setShowAddModal] = useState<boolean>(false);
     const [isShowEditModal, setShowEditModal] = useState<boolean>(false);
-    const [userListData, setUserListData] = useState<UserVo[]>([]);
-    const [currentUser, setCurrentUser] = useState<UserVo>();
-    const [currentPage, setCurrentPage] = useState<number>(1);
-    const [pageSize, setPageSize] = useState<number>(10);
-    const [total, setTotal] = useState<number>(10);
+    const [menuListData, setMenuListData] = useState<MenuVo[]>([]);
+    const [currentMenu, setCurrentMenu] = useState<MenuVo>();
 
-    const columns: ColumnsType<UserVo> = [
+    const columns: ColumnsType<MenuVo> = [
         {
-            title: '手机号',
-            dataIndex: 'mobile',
+            title: '菜单名称',
+            dataIndex: 'menu_name',
             render: (text: string) => <a>{text}</a>,
         },
         {
-            title: '用户名',
-            dataIndex: 'real_name',
+            title: '路径',
+            dataIndex: 'menu_url',
+        },
+        {
+            title: '接口地址',
+            dataIndex: 'api_url',
         },
         {
             title: '排序',
             dataIndex: 'sort',
+        },
+        {
+            title: '图标',
+            dataIndex: 'icon',
         },
         {
             title: '状态',
@@ -49,14 +56,14 @@ const User: React.FC = () => {
             title: '备注',
             dataIndex: 'remark',
         },
-        {
-            title: '创建时间',
-            dataIndex: 'create_time',
-        },
-        {
-            title: '更新时间',
-            dataIndex: 'update_time',
-        },
+        // {
+        //     title: '创建时间',
+        //     dataIndex: 'create_time',
+        // },
+        // {
+        //     title: '更新时间',
+        //     dataIndex: 'update_time',
+        // },
         {
             title: '操作',
             key: 'action',
@@ -74,12 +81,11 @@ const User: React.FC = () => {
         setShowAddModal(true);
     };
 
-    const handleAddOk = async (user: UserVo) => {
-        if (handleResp(await addUser(user))) {
+    const handleAddOk = async (menu: MenuVo) => {
+        if (handleResp(await addMenu(menu))) {
             setShowAddModal(false);
-            let res = await userList({current: currentPage,})
-            setTotal(res.total)
-            res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
+            let res = await menuList({})
+            res.code === 0 ? setMenuDataTree(res) : message.error(res.msg);
         }
     }
 
@@ -88,19 +94,16 @@ const User: React.FC = () => {
     };
 
 
-    const showEditModal = (user: UserVo) => {
-        setCurrentUser(user)
+    const showEditModal = (menu: MenuVo) => {
+        setCurrentMenu(menu)
         setShowEditModal(true);
     };
 
-    const handleEditOk = async (user: UserVo) => {
-        if (handleResp(await updateUser(user))) {
+    const handleEditOk = async (menu: MenuVo) => {
+        if (handleResp(await updateMenu(menu))) {
             setShowEditModal(false);
-            let res = await userList({
-                current: currentPage, mobile: "",
-            })
-            setTotal(res.total)
-            res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
+            let res = await menuList({})
+            res.code === 0 ? setMenuDataTree(res) : message.error(res.msg);
         }
     };
 
@@ -109,11 +112,11 @@ const User: React.FC = () => {
     };
 
     //删除单条数据
-    const showDeleteConfirm = (user: UserVo) => {
+    const showDeleteConfirm = (menu: MenuVo) => {
         Modal.confirm({
-            content: `确定删除${user.real_name}吗?`,
+            content: `确定删除${menu.menu_name}吗?`,
             async onOk() {
-                await handleRemove([user.id]);
+                await handleRemove([menu.id]);
             },
             onCancel() {
                 console.log('Cancel');
@@ -123,60 +126,33 @@ const User: React.FC = () => {
 
     //批量删除
     const handleRemove = async (ids: number[]) => {
-        if (handleResp(await removeUser(ids))) {
-            let res = await userList({current: currentPage, mobile: "",})
-            setTotal(res.total)
-            res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
+        if (handleResp(await removeMenu(ids))) {
+            let res = await menuList({})
+            res.code === 0 ? setMenuDataTree(res) : message.error(res.msg);
         }
 
     };
 
-    const handleSearchOk = async (user: UserVo) => {
-        let res = await userList({current: currentPage, ...user,})
-        setTotal(res.total)
-        res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
+    const handleSearchOk = async (menu: MenuVo) => {
+        let res = await menuList({...menu,})
+        res.code === 0 ? setMenuDataTree(res) : message.error(res.msg);
     };
 
     const handleResetOk = async () => {
-        let res = await userList({current: currentPage,})
-        setTotal(res.total)
-        res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
+        let res = await menuList({})
+        res.code === 0 ? setMenuDataTree(res) : message.error(res.msg);
     };
 
+    const setMenuDataTree = (res: IResponse) => {
+        setMenuListData(tree(res.data, 0, "parent_id"))
+    }
+
     useEffect(() => {
-        userList({
-            current: currentPage,
-        }).then(res => {
-            setTotal(res.total)
-            res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
+        menuList({}).then(res => {
+            res.code === 0 ? setMenuDataTree(res) : message.error(res.msg);
         });
     }, []);
 
-
-    const paginationProps = {
-        defaultCurrent: 1,
-        defaultPageSize: 10,
-        current: currentPage, //当前页码
-        pageSize, // 每页数据条数
-        pageSizeOptions: [10, 20, 30, 40, 50],
-        showQuickJumper: true,
-        showTotal: (total: number) => (
-            <span>总共{total}条</span>
-        ),
-        total,
-        onChange: async (page: number, pageSize: number) => {
-            console.log('onChange', page, pageSize)
-            setCurrentPage(page)
-            setPageSize(pageSize)
-            let res = await userList({current: page, pageSize})
-            setTotal(res.total)
-            res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
-
-        }, //改变页码的函数
-        onShowSizeChange: (current: number, size: number) => {
-            console.log('onShowSizeChange', current, size)
-        }
-    }
 
     return (
         <div>
@@ -197,14 +173,14 @@ const User: React.FC = () => {
                 }}
                 size={"middle"}
                 columns={columns}
-                dataSource={userListData}
+                dataSource={menuListData}
                 rowKey={'id'}
-                pagination={paginationProps}
                 tableLayout={"fixed"}
+                pagination={false}
             />
 
-            <CreateUserForm onCancel={handleAddCancel} onCreate={handleAddOk} open={isShowAddModal}></CreateUserForm>
-            <UpdateUserForm onCancel={handleEditCancel} onCreate={handleEditOk} open={isShowEditModal} userVo={currentUser}></UpdateUserForm>
+            <CreateMenuForm onCancel={handleAddCancel} onCreate={handleAddOk} open={isShowAddModal}></CreateMenuForm>
+            <UpdateMenuForm onCancel={handleEditCancel} onCreate={handleEditOk} open={isShowEditModal} menuVo={currentMenu}></UpdateMenuForm>
 
             {selectedRowKeys.length > 0 &&
                 <div>
@@ -224,4 +200,4 @@ const User: React.FC = () => {
     );
 };
 
-export default User;
+export default Menu;

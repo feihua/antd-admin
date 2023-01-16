@@ -7,18 +7,18 @@ interface UpdateUserFormProps {
     open: boolean;
     onCreate: (values: RoleVo) => void;
     onCancel: () => void;
-    userVo?: RoleVo;
+    roleVo?: RoleVo;
 }
 
-const UpdateUserForm: React.FC<UpdateUserFormProps> = ({open, onCreate, onCancel, userVo}) => {
+const UpdateUserForm: React.FC<UpdateUserFormProps> = ({open, onCreate, onCancel, roleVo}) => {
     const [form] = Form.useForm();
     const FormItem = Form.Item;
 
     useEffect(() => {
-        if (userVo) {
-            form.setFieldsValue(userVo);
+        if (roleVo) {
+            form.setFieldsValue(roleVo);
         }
-    }, [userVo]);
+    }, [roleVo]);
 
     const handleOk = () => {
         form.validateFields()

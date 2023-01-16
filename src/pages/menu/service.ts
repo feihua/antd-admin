@@ -1,33 +1,32 @@
 import {axiosInstance, IResponse} from "../../api/ajax";
-import {UserVo, UserListParam} from "./data";
+import {MenuVo, MenuListParam} from "./data";
 import {message} from "antd";
 
 /**
  * @description: 用户列表
- * @params {req} UserListReq
+ * @params {req} MenuListReq
  * @return {Promise}
  */
-export const userList = (req: UserListParam): Promise<IResponse> => {
-    req.pageSize = 10
-    return axiosInstance.post('api/user_list', req).then(res => res.data);
+export const menuList = (req: MenuListParam): Promise<IResponse> => {
+    return axiosInstance.post('api/menu_list', req).then(res => res.data);
 };
 
 /**
  * @description: 添加用户
- * @params {user} User
+ * @params {menu} Menu
  * @return {Promise}
  */
-export const addUser = (user: UserVo): Promise<IResponse> => {
-    return axiosInstance.post('api/user_save', user).then(res => res.data);
+export const addMenu = (menu: MenuVo): Promise<IResponse> => {
+    return axiosInstance.post('api/menu_save', menu).then(res => res.data);
 };
 
 /**
  * @description: 更新用户
- * @params {{user} User
+ * @params {{menu} Menu
  * @return {Promise}
  */
-export const updateUser = (user: UserVo): Promise<IResponse> => {
-    return axiosInstance.post('api/user_update', user).then(res => res.data);
+export const updateMenu = (menu: MenuVo): Promise<IResponse> => {
+    return axiosInstance.post('api/menu_update', menu).then(res => res.data);
 };
 
 /**
@@ -35,8 +34,8 @@ export const updateUser = (user: UserVo): Promise<IResponse> => {
  * @params {ids} number[]
  * @return {Promise}
  */
-export const removeUser = (ids: Number[]): Promise<IResponse> => {
-    return axiosInstance.post('api/user_delete', {ids: ids}).then(res => res.data);
+export const removeMenu = (ids: Number[]): Promise<IResponse> => {
+    return axiosInstance.post('api/menu_delete', {ids: ids}).then(res => res.data);
 };
 
 /**
