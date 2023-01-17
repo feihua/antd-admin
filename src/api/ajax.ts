@@ -4,6 +4,7 @@ import qs from 'qs'
 import {showMessage} from "./status";
 import {message} from 'antd';
 import {storageUtils} from "../utils/storageUtils";
+import {useNavigate} from "react-router-dom";
 
 
 // 返回res.data的interface
@@ -46,6 +47,10 @@ axiosInstance.interceptors.response.use(
         if (response) {
             // 请求已发出，但是不在2xx的范围
             showMessage(response.status);
+            if (response.status === 401) {
+                storageUtils.logout()
+                window.location.href = "/antd/login";
+            }
             return Promise.reject(response.data);
         } else {
             message.error('网络连接异常,请稍后再试!');
