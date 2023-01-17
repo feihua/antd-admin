@@ -8,7 +8,7 @@ import Line from "../pages/charts/line";
 import Pie from "../pages/charts/pie";
 import Log from "../pages/log/index";
 import Center from "../pages/account/center";
-import {Setting} from "../pages/account/settings";
+import Setting from "../pages/account/settings";
 
 const routes = [
     {
