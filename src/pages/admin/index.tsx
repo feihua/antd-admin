@@ -113,7 +113,7 @@ const Admin: React.FC = () => {
                         <Breadcrumb.Item>User</Breadcrumb.Item>
                         <Breadcrumb.Item>Bill</Breadcrumb.Item>
                     </Breadcrumb>
-                    <div style={{padding: 24, minHeight: 360, background: colorBgContainer}}>
+                    <div style={{minHeight: 360, background: colorBgContainer}}>
                         {routesElement}
                     </div>
                 </Content>

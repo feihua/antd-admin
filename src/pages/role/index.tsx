@@ -175,7 +175,7 @@ const Role: React.FC = () => {
     }
 
     return (
-        <div>
+        <div style={{padding: 24}}>
             <div>
                 <Space size={100}>
                     <Button type="primary" icon={<PlusOutlined/>} onClick={showModal}>新建</Button>
