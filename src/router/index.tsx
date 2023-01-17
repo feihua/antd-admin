@@ -1,6 +1,6 @@
 import {Navigate} from "react-router-dom"
 import User from "../pages/user";
-import {Home} from "../pages/home";
+import Home from "../pages/home";
 import Role from "../pages/role";
 import Menu from "../pages/menu";
 import Bar from "../pages/charts/bar";
