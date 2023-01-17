@@ -40,11 +40,11 @@ const Home: React.FC = () => {
                     <Card bordered={false}>
                         <Statistic
                             title="总销售额"
-                            value={11.28}
+                            value={126560}
                             precision={2}
-                            valueStyle={{color: '#3f8600'}}
-                            prefix={<ArrowUpOutlined/>}
-                            suffix="%"
+                            valueStyle={{color: '#cf1322'}}
+                            suffix={<ArrowUpOutlined/>}
+                            prefix="￥"
                         />
                     </Card>
                 </Col>
@@ -52,11 +52,9 @@ const Home: React.FC = () => {
                     <Card bordered={false}>
                         <Statistic
                             title="访问量"
-                            value={11.28}
+                            value={8846}
                             precision={2}
                             valueStyle={{color: '#3f8600'}}
-                            prefix={<ArrowUpOutlined/>}
-                            suffix="%"
                         />
                     </Card>
                 </Col>
@@ -64,11 +62,10 @@ const Home: React.FC = () => {
                     <Card bordered={false}>
                         <Statistic
                             title="支付笔数"
-                            value={11.28}
+                            value={6560}
                             precision={2}
                             valueStyle={{color: '#3f8600'}}
-                            prefix={<ArrowUpOutlined/>}
-                            suffix="%"
+                            suffix={<ArrowDownOutlined/>}
                         />
                     </Card>
                 </Col>
