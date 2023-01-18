@@ -157,9 +157,8 @@ const Menu: React.FC = () => {
     return (
         <div style={{padding: 24}}>
             <div>
-                <Space size={100}>
+                <Space>
                     <Button type="primary" icon={<PlusOutlined/>} onClick={showModal}>新建</Button>
-                    <AdvancedSearchForm search={handleSearchOk} reSet={handleResetOk}></AdvancedSearchForm>
                 </Space>
             </div>
 

@@ -31,7 +31,7 @@ const UpdateUserForm: React.FC<UpdateUserFormProps> = ({open, onCreate, onCancel
             });
     }
 
-    const userFormContent = () => {
+    const roleFormContent = () => {
         return (
             <>
                 <FormItem
@@ -42,17 +42,9 @@ const UpdateUserForm: React.FC<UpdateUserFormProps> = ({open, onCreate, onCancel
                     <Input/>
                 </FormItem>
                 <FormItem
-                    label="手机号"
-                    name="mobile"
-                    rules={[{required: true, message: '请输入手机号!'}]}
-                >
-                    <Input/>
-                </FormItem>
-
-                <FormItem
-                    label="用户名"
-                    name="real_name"
-                    rules={[{required: true, message: '请输入用户名!'}]}
+                    label="角色名称"
+                    name="role_name"
+                    rules={[{required: true, message: '请输入角色名称!'}]}
                 >
                     <Input/>
                 </FormItem>
@@ -88,7 +80,7 @@ const UpdateUserForm: React.FC<UpdateUserFormProps> = ({open, onCreate, onCancel
     return (
         <Modal {...modalFooter} style={{top: 150}}>
             <Form {...formLayout} style={{marginTop: 30}}>
-                {userFormContent()}
+                {roleFormContent()}
             </Form>
         </Modal>
     );

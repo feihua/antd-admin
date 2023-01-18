@@ -27,10 +27,10 @@ const AdvancedSearchForm: React.FC<CreateUserFormProps> = ({search, reSet}) => {
         return (
             <>
                 <FormItem
-                    label={'手机号码'}
-                    name="mobile"
+                    label={'角色名称'}
+                    name="role_name"
                 >
-                    <Input placeholder="手机号码"/>
+                    <Input placeholder="角色名称"/>
                 </FormItem>
                 <FormItem
                     label={'状态'}

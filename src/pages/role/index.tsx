@@ -73,7 +73,7 @@ const Role: React.FC = () => {
     const handleAddOk = async (role: RoleVo) => {
         if (handleResp(await addRole(role))) {
             setShowAddModal(false);
-            let res = await roleList({current: currentPage,})
+            let res = await roleList({current: currentPage, pageSize})
             setTotal(res.total)
             res.code === 0 ? setRoleListData(res.data) : message.error(res.msg);
         }
@@ -93,7 +93,7 @@ const Role: React.FC = () => {
         if (handleResp(await updateRole(role))) {
             setShowEditModal(false);
             let res = await roleList({
-                current: currentPage,
+                current: currentPage, pageSize
             })
             setTotal(res.total)
             res.code === 0 ? setRoleListData(res.data) : message.error(res.msg);
@@ -120,7 +120,7 @@ const Role: React.FC = () => {
     //批量删除
     const handleRemove = async (ids: number[]) => {
         if (handleResp(await removeRole(ids))) {
-            let res = await roleList({current: currentPage,})
+            let res = await roleList({current: currentPage, pageSize})
             setTotal(res.total)
             res.code === 0 ? setRoleListData(res.data) : message.error(res.msg);
         }
@@ -128,20 +128,20 @@ const Role: React.FC = () => {
     };
 
     const handleSearchOk = async (role: RoleVo) => {
-        let res = await roleList({current: currentPage, ...role,})
+        let res = await roleList({current: currentPage, pageSize, ...role,})
         setTotal(res.total)
         res.code === 0 ? setRoleListData(res.data) : message.error(res.msg);
     };
 
     const handleResetOk = async () => {
-        let res = await roleList({current: currentPage,})
+        let res = await roleList({current: currentPage, pageSize})
         setTotal(res.total)
         res.code === 0 ? setRoleListData(res.data) : message.error(res.msg);
     };
 
     useEffect(() => {
         roleList({
-            current: currentPage,
+            current: currentPage, pageSize
         }).then(res => {
             setTotal(res.total)
             res.code === 0 ? setRoleListData(res.data) : message.error(res.msg);

@@ -8,7 +8,6 @@ import {message} from "antd";
  * @return {Promise}
  */
 export const roleList = (req: RoleListParam): Promise<IResponse> => {
-    req.pageSize = 10
     return axiosInstance.post('api/role_list', req).then(res => res.data);
 };
 

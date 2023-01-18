@@ -77,7 +77,7 @@ const User: React.FC = () => {
     const handleAddOk = async (user: UserVo) => {
         if (handleResp(await addUser(user))) {
             setShowAddModal(false);
-            let res = await userList({current: currentPage,})
+            let res = await userList({current: currentPage, pageSize})
             setTotal(res.total)
             res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
         }
@@ -97,7 +97,7 @@ const User: React.FC = () => {
         if (handleResp(await updateUser(user))) {
             setShowEditModal(false);
             let res = await userList({
-                current: currentPage, mobile: "",
+                current: currentPage, pageSize,
             })
             setTotal(res.total)
             res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
@@ -124,7 +124,7 @@ const User: React.FC = () => {
     //批量删除
     const handleRemove = async (ids: number[]) => {
         if (handleResp(await removeUser(ids))) {
-            let res = await userList({current: currentPage, mobile: "",})
+            let res = await userList({current: currentPage, mobile: "", pageSize})
             setTotal(res.total)
             res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
         }
@@ -132,20 +132,20 @@ const User: React.FC = () => {
     };
 
     const handleSearchOk = async (user: UserVo) => {
-        let res = await userList({current: currentPage, ...user,})
+        let res = await userList({current: currentPage, ...user, pageSize})
         setTotal(res.total)
         res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
     };
 
     const handleResetOk = async () => {
-        let res = await userList({current: currentPage,})
+        let res = await userList({current: currentPage, pageSize})
         setTotal(res.total)
         res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
     };
 
     useEffect(() => {
         userList({
-            current: currentPage,
+            current: currentPage, pageSize
         }).then(res => {
             setTotal(res.total)
             res.code === 0 ? setUserListData(res.data) : message.error(res.msg);

@@ -8,7 +8,6 @@ import {message} from "antd";
  * @return {Promise}
  */
 export const userList = (req: UserListParam): Promise<IResponse> => {
-    req.pageSize = 10
     return axiosInstance.post('api/user_list', req).then(res => res.data);
 };
 
