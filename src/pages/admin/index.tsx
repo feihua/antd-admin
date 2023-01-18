@@ -14,6 +14,7 @@ import {query_user_menu} from "./service";
 import {IResponse} from "../../api/ajax";
 import {MyMenuItem, RecordVo} from "./data";
 import {tree} from "../../utils/treeUtils";
+import "./index.less"
 
 
 const {Header, Content, Footer, Sider} = Layout;
