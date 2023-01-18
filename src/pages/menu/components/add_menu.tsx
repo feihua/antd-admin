@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Form, Input, InputNumber, message, Modal, Radio, RadioChangeEvent} from 'antd';
+import {Form, Input, InputNumber, message, Modal, Radio, RadioChangeEvent, TreeSelect} from 'antd';
 import {MenuVo} from "../data";
 import TextArea from "antd/es/input/TextArea";
 
@@ -7,14 +7,30 @@ interface CreateMenuFormProps {
     open: boolean;
     onCreate: (values: MenuVo) => void;
     onCancel: () => void;
+    menuListData: MenuVo[];
 }
 
-const CreateMenuForm: React.FC<CreateMenuFormProps> = ({open, onCreate, onCancel}) => {
+const CreateMenuForm: React.FC<CreateMenuFormProps> = ({open, onCreate, onCancel, menuListData}) => {
     const [menuType, setMenuType] = useState<number>(2);
     const [menuName, setMenuName] = useState<string>('菜单名称');
 
     const [form] = Form.useForm();
     const FormItem = Form.Item;
+
+    // useEffect(() => {
+    //     if (open) {
+    //         setRoleList([]);
+    //         setSelectedRowKeys([]);
+    //         query_user_role(userVo.id).then((res) => {
+    //             console.log(res);
+    //             setRoleList(res.data.sys_role_list);
+    //
+    //             if (res.data.user_role_ids) {
+    //                 setSelectedRowKeys(res.data.user_role_ids)
+    //             }
+    //         });
+    //     }
+    // }, [open]);
 
     const handleOk = () => {
         form.validateFields()
@@ -50,6 +66,18 @@ const CreateMenuForm: React.FC<CreateMenuFormProps> = ({open, onCreate, onCancel
                         <Radio value={3}>按钮</Radio>
                     </Radio.Group>
                 </FormItem>
+                {menuType != 1 && <FormItem
+                    label="上级"
+                    name="parent_id">
+                    <TreeSelect
+                        style={{width: '100%'}}
+                        dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
+                        treeData={menuListData}
+                        placeholder="请选择上级"
+                        fieldNames={{label: 'menu_name', value: 'id', children: 'children'}}
+                    />
+                </FormItem>
+                }
                 <FormItem
                     label={menuName}
                     name="menu_name"
@@ -102,6 +130,7 @@ const CreateMenuForm: React.FC<CreateMenuFormProps> = ({open, onCreate, onCancel
                 <FormItem
                     label="备注"
                     name="remark"
+                    initialValue={''}
                 >
                     <TextArea rows={2}/>
                 </FormItem>
@@ -110,7 +139,7 @@ const CreateMenuForm: React.FC<CreateMenuFormProps> = ({open, onCreate, onCancel
     }
 
     const modalFooter = {title: "新建", okText: '保存', onOk: handleOk, onCancel, cancelText: '取消', open, width: 480};
-    const formLayout = {labelCol: {span: 7}, wrapperCol: {span: 13}, form, initialValues: {"sort": 1, "status_id": 1, "menu_type": 2, "icon": "Setting"}};
+    const formLayout = {labelCol: {span: 7}, wrapperCol: {span: 13}, form, initialValues: {"sort": 1, "status_id": 1, "menu_type": 2, "icon": "Setting",}};
 
     return (
         <Modal {...modalFooter} style={{top: 150}}>

@@ -183,7 +183,7 @@ const Menu: React.FC = () => {
                 pagination={false}
             />
 
-            <CreateMenuForm onCancel={handleAddCancel} onCreate={handleAddOk} open={isShowAddModal}></CreateMenuForm>
+            <CreateMenuForm onCancel={handleAddCancel} onCreate={handleAddOk} open={isShowAddModal} menuListData={menuListData}></CreateMenuForm>
             <UpdateMenuForm onCancel={handleEditCancel} onCreate={handleEditOk} open={isShowEditModal} menuVo={currentMenu}></UpdateMenuForm>
 
             {selectedRowKeys.length > 0 &&
