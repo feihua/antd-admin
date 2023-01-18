@@ -7,7 +7,7 @@ interface UpdateUserFormProps {
     open: boolean;
     onCreate: (values: UserVo) => void;
     onCancel: () => void;
-    userVo?: UserVo;
+    userVo: UserVo;
 }
 
 const UpdateUserForm: React.FC<UpdateUserFormProps> = ({open, onCreate, onCancel, userVo}) => {

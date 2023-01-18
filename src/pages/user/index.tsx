@@ -5,15 +5,19 @@ import {DeleteOutlined, EditOutlined, PlusOutlined, SettingOutlined} from '@ant-
 import {UserVo} from './data.d';
 import CreateUserForm from "./components/add_user";
 import UpdateUserForm from "./components/update_user";
-import {addUser, handleResp, removeUser, updateUser, userList} from "./service";
+import {addUser, handleResp, removeUser, update_user_role, updateUser, userList} from "./service";
 import AdvancedSearchForm from "./components/search_user";
+import SetUserRoleForm from "./components/set_user_role";
 
 const User: React.FC = () => {
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
     const [isShowAddModal, setShowAddModal] = useState<boolean>(false);
     const [isShowEditModal, setShowEditModal] = useState<boolean>(false);
+    const [isShowRoleModal, setShowRoleModal] = useState<boolean>(false);
     const [userListData, setUserListData] = useState<UserVo[]>([]);
-    const [currentUser, setCurrentUser] = useState<UserVo>();
+    const [currentUser, setCurrentUser] = useState<UserVo>({
+        create_time: "", id: 0, mobile: "", real_name: "", remark: "", sort: 0, status_id: 0, update_time: ""
+    });
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [pageSize, setPageSize] = useState<number>(10);
     const [total, setTotal] = useState<number>(10);
@@ -63,7 +67,7 @@ const User: React.FC = () => {
             render: (_, record) => (
                 <Space size="small">
                     <Button type="primary" icon={<EditOutlined/>} onClick={() => showEditModal(record)}>编辑</Button>
-                    <Button type="default" style={{backgroundColor: '#626aef', color: 'white'}} icon={<SettingOutlined/>} onClick={() => showEditModal(record)}>设置角色</Button>
+                    <Button type="default" style={{backgroundColor: '#626aef', color: 'white'}} icon={<SettingOutlined/>} onClick={() => showRoleModal(record)}>设置角色</Button>
                     <Button type="primary" danger icon={<DeleteOutlined/>}
                             onClick={() => showDeleteConfirm(record)}>删除</Button>
                 </Space>
@@ -107,6 +111,26 @@ const User: React.FC = () => {
 
     const handleEditCancel = () => {
         setShowEditModal(false);
+    };
+
+    const showRoleModal = (user: UserVo) => {
+        setCurrentUser(user)
+        setShowRoleModal(true);
+    };
+
+    const handleRoleOk = async (user_id: number, role_ids: number[]) => {
+        if (handleResp(await update_user_role(user_id, role_ids))) {
+            setShowRoleModal(false);
+            let res = await userList({
+                current: currentPage, pageSize,
+            })
+            setTotal(res.total)
+            res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
+        }
+    };
+
+    const handleRoleCancel = () => {
+        setShowRoleModal(false);
     };
 
     //删除单条数据
@@ -206,6 +230,7 @@ const User: React.FC = () => {
 
             <CreateUserForm onCancel={handleAddCancel} onCreate={handleAddOk} open={isShowAddModal}></CreateUserForm>
             <UpdateUserForm onCancel={handleEditCancel} onCreate={handleEditOk} open={isShowEditModal} userVo={currentUser}></UpdateUserForm>
+            <SetUserRoleForm onCancel={handleRoleCancel} onCreate={handleRoleOk} open={isShowRoleModal} userVo={currentUser}></SetUserRoleForm>
 
             {selectedRowKeys.length > 0 &&
                 <div>
