@@ -5,15 +5,18 @@ import {DeleteOutlined, EditOutlined, PlusOutlined, SettingOutlined} from '@ant-
 import {RoleVo} from './data.d';
 import CreateRoleForm from "./components/add_role";
 import UpdateRoleForm from "./components/update_role";
-import {addRole, handleResp, removeRole, updateRole, roleList} from "./service";
+import {addRole, handleResp, removeRole, updateRole, roleList, update_role_menu} from "./service";
 import AdvancedSearchForm from "./components/search_role";
+import Set_role_menu from "./components/set_role_menu";
+import SetRoleMenuForm from "./components/set_role_menu";
 
 const Role: React.FC = () => {
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
     const [isShowAddModal, setShowAddModal] = useState<boolean>(false);
     const [isShowEditModal, setShowEditModal] = useState<boolean>(false);
+    const [isShowMenuModal, setShowMenuModal] = useState<boolean>(false);
     const [roleListData, setRoleListData] = useState<RoleVo[]>([]);
-    const [currentRole, setCurrentRole] = useState<RoleVo>();
+    const [currentRole, setCurrentRole] = useState<RoleVo>({create_time: "", id: 0, remark: "", role_name: "", sort: 0, status_id: 0, update_time: ""});
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [pageSize, setPageSize] = useState<number>(10);
     const [total, setTotal] = useState<number>(10);
@@ -59,7 +62,8 @@ const Role: React.FC = () => {
             render: (_, record) => (
                 <Space size="small">
                     <Button type="primary" icon={<EditOutlined/>} onClick={() => showEditModal(record)}>编辑</Button>
-                    <Button type="default" style={{backgroundColor: '#626aef', color: 'white'}} icon={<SettingOutlined/>} onClick={() => showEditModal(record)}>设置菜单</Button>
+                    <Button type="default" style={{backgroundColor: '#626aef', color: 'white'}} icon={<SettingOutlined/>}
+                            onClick={() => showRoleMenuModal(record)}>设置菜单</Button>
                     <Button type="primary" danger icon={<DeleteOutlined/>}
                             onClick={() => showDeleteConfirm(record)}>删除</Button>
                 </Space>
@@ -103,6 +107,26 @@ const Role: React.FC = () => {
 
     const handleEditCancel = () => {
         setShowEditModal(false);
+    };
+
+    const showRoleMenuModal = (role: RoleVo) => {
+        setCurrentRole(role)
+        setShowMenuModal(true);
+    };
+
+    const handleMenuOk = async (role_id: Number, menu_ids: Number[]) => {
+        if (handleResp(await update_role_menu(role_id, menu_ids))) {
+            setShowMenuModal(false);
+            let res = await roleList({
+                current: currentPage, pageSize
+            })
+            setTotal(res.total)
+            res.code === 0 ? setRoleListData(res.data) : message.error(res.msg);
+        }
+    };
+
+    const handleMenuCancel = () => {
+        setShowMenuModal(false);
     };
 
     //删除单条数据
@@ -202,6 +226,7 @@ const Role: React.FC = () => {
 
             <CreateRoleForm onCancel={handleAddCancel} onCreate={handleAddOk} open={isShowAddModal}></CreateRoleForm>
             <UpdateRoleForm onCancel={handleEditCancel} onCreate={handleEditOk} open={isShowEditModal} roleVo={currentRole}></UpdateRoleForm>
+            <SetRoleMenuForm onCancel={handleMenuCancel} onCreate={handleMenuOk} open={isShowMenuModal} roleVo={currentRole}></SetRoleMenuForm>
 
             {selectedRowKeys.length > 0 &&
                 <div>
