@@ -32,6 +32,10 @@ const Menu: React.FC = () => {
             dataIndex: 'api_url',
         },
         {
+            title: '类型',
+            dataIndex: 'menu_type',
+        },
+        {
             title: '排序',
             dataIndex: 'sort',
         },
@@ -82,6 +86,7 @@ const Menu: React.FC = () => {
     };
 
     const handleAddOk = async (menu: MenuVo) => {
+        console.log(menu)
         if (handleResp(await addMenu(menu))) {
             setShowAddModal(false);
             let res = await menuList({})
