@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Divider, message, Modal, Space, Table, Tag} from 'antd';
 import type {ColumnsType} from 'antd/es/table';
-import {DeleteOutlined, EditOutlined, PlusOutlined} from '@ant-design/icons';
+import {DeleteOutlined, EditOutlined, PlusOutlined, SettingOutlined} from '@ant-design/icons';
 import {UserVo} from './data.d';
 import CreateUserForm from "./components/add_user";
 import UpdateUserForm from "./components/update_user";
@@ -63,6 +63,7 @@ const User: React.FC = () => {
             render: (_, record) => (
                 <Space size="small">
                     <Button type="primary" icon={<EditOutlined/>} onClick={() => showEditModal(record)}>编辑</Button>
+                    <Button type="default" style={{backgroundColor: '#626aef', color: 'white'}} icon={<SettingOutlined/>} onClick={() => showEditModal(record)}>设置角色</Button>
                     <Button type="primary" danger icon={<DeleteOutlined/>}
                             onClick={() => showDeleteConfirm(record)}>删除</Button>
                 </Space>
@@ -200,7 +201,7 @@ const User: React.FC = () => {
                 dataSource={userListData}
                 rowKey={'id'}
                 pagination={paginationProps}
-                tableLayout={"fixed"}
+                // tableLayout={"fixed"}
             />
 
             <CreateUserForm onCancel={handleAddCancel} onCreate={handleAddOk} open={isShowAddModal}></CreateUserForm>

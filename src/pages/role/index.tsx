@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Divider, message, Modal, Space, Table, Tag} from 'antd';
 import type {ColumnsType} from 'antd/es/table';
-import {DeleteOutlined, EditOutlined, PlusOutlined} from '@ant-design/icons';
+import {DeleteOutlined, EditOutlined, PlusOutlined, SettingOutlined} from '@ant-design/icons';
 import {RoleVo} from './data.d';
 import CreateRoleForm from "./components/add_role";
 import UpdateRoleForm from "./components/update_role";
@@ -59,6 +59,7 @@ const Role: React.FC = () => {
             render: (_, record) => (
                 <Space size="small">
                     <Button type="primary" icon={<EditOutlined/>} onClick={() => showEditModal(record)}>编辑</Button>
+                    <Button type="default" style={{backgroundColor: '#626aef', color: 'white'}} icon={<SettingOutlined/>} onClick={() => showEditModal(record)}>设置菜单</Button>
                     <Button type="primary" danger icon={<DeleteOutlined/>}
                             onClick={() => showDeleteConfirm(record)}>删除</Button>
                 </Space>
@@ -196,7 +197,7 @@ const Role: React.FC = () => {
                 dataSource={roleListData}
                 rowKey={'id'}
                 pagination={paginationProps}
-                tableLayout={"fixed"}
+                // tableLayout={"fixed"}
             />
 
             <CreateRoleForm onCancel={handleAddCancel} onCreate={handleAddOk} open={isShowAddModal}></CreateRoleForm>

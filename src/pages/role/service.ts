@@ -39,6 +39,24 @@ export const removeRole = (ids: Number[]): Promise<IResponse> => {
 };
 
 /**
+ * @description: 查询角色菜单
+ * @params {ids} number[]
+ * @return {Promise}
+ */
+export const query_role_menu = (role_id: Number): Promise<IResponse> => {
+    return axiosInstance.post('api/query_role_menu', {role_id: role_id}).then(res => res.data);
+};
+
+/**
+ * @description: 更新角色菜单
+ * @params {ids} number[]
+ * @return {Promise}
+ */
+export const update_role_menu = (role_id: Number, menu_ids: Number[]): Promise<IResponse> => {
+    return axiosInstance.post('api/update_role_menu', {role_id: role_id, menu_ids: menu_ids}).then(res => res.data);
+};
+
+/**
  * 统一处理
  * @param resp
  */
