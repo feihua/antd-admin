@@ -1,17 +1,15 @@
 // @flow
-import {useNavigate, useRoutes} from "react-router-dom";
+import {Link, useNavigate, useRoutes} from "react-router-dom";
 
 import routes from "../../router";
 
 import React, {useEffect, useState} from 'react';
-import {DesktopOutlined, PieChartOutlined, UserOutlined,} from '@ant-design/icons';
+import {PieChartOutlined,} from '@ant-design/icons';
 import type {MenuProps} from 'antd';
 import {Breadcrumb, Layout, Menu, theme} from 'antd';
-import {Link} from 'react-router-dom'
 import logo from '../../assets/images/logo.svg'
 import MyHeader from '../../components/header'
 import {query_user_menu} from "./service";
-import {IResponse} from "../../api/ajax";
 import {MyMenuItem, RecordVo} from "./data";
 import {tree} from "../../utils/treeUtils";
 import "./index.less"

@@ -5,9 +5,8 @@ import {DeleteOutlined, EditOutlined, PlusOutlined, SettingOutlined} from '@ant-
 import {RoleVo} from './data.d';
 import CreateRoleForm from "./components/add_role";
 import UpdateRoleForm from "./components/update_role";
-import {addRole, handleResp, removeRole, updateRole, roleList, update_role_menu} from "./service";
+import {addRole, handleResp, removeRole, roleList, update_role_menu, updateRole} from "./service";
 import AdvancedSearchForm from "./components/search_role";
-import Set_role_menu from "./components/set_role_menu";
 import SetRoleMenuForm from "./components/set_role_menu";
 
 const Role: React.FC = () => {

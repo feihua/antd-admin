@@ -18,7 +18,7 @@ const UpdateUserForm: React.FC<UpdateUserFormProps> = ({open, onCreate, onCancel
         if (userVo) {
             form.setFieldsValue(userVo);
         }
-    }, [userVo]);
+    }, [open]);
 
     const handleOk = () => {
         form.validateFields()

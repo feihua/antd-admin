@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {message, Modal, Table, Tag} from 'antd';
+import {Modal, Table, Tag} from 'antd';
 import {UserVo} from "../data";
 import {ColumnsType} from "antd/es/table";
 import {RoleVo} from "../../role/data";

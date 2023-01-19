@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {ArrowDownOutlined, ArrowUpOutlined} from '@ant-design/icons';
-import {Button, Card, Col, Row, Statistic} from 'antd';
+import {Card, Col, Row, Statistic} from 'antd';
 import ReactEcharts from "echarts-for-react";
 
 const Home: React.FC = () => {

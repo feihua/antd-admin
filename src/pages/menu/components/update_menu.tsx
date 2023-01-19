@@ -76,7 +76,7 @@ const UpdateMenuForm: React.FC<UpdateMenuFormProps> = ({open, onCreate, onCancel
                 >
                     <Input/>
                 </FormItem>
-                {menuType != 3 &&
+                {menuType !== 3 &&
                     <FormItem
                         label="路径"
                         name="menu_url"
@@ -85,7 +85,7 @@ const UpdateMenuForm: React.FC<UpdateMenuFormProps> = ({open, onCreate, onCancel
                         <Input/>
                     </FormItem>
                 }
-                {menuType == 3 &&
+                {menuType === 3 &&
                     <FormItem
                         label="接口地址"
                         name="api_url"
@@ -100,7 +100,7 @@ const UpdateMenuForm: React.FC<UpdateMenuFormProps> = ({open, onCreate, onCancel
                     rules={[{required: true, message: '请输入排序!'}]}>
                     <InputNumber/>
                 </FormItem>
-                {menuType != 3 &&
+                {menuType !== 3 &&
                     <FormItem
                         label="图标"
                         name="icon"

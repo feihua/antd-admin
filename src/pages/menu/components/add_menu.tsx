@@ -66,7 +66,7 @@ const CreateMenuForm: React.FC<CreateMenuFormProps> = ({open, onCreate, onCancel
                         <Radio value={3}>按钮</Radio>
                     </Radio.Group>
                 </FormItem>
-                {menuType != 1 && <FormItem
+                {menuType !== 1 && <FormItem
                     label="上级"
                     name="parent_id">
                     <TreeSelect
@@ -75,6 +75,7 @@ const CreateMenuForm: React.FC<CreateMenuFormProps> = ({open, onCreate, onCancel
                         treeData={menuListData}
                         placeholder="请选择上级"
                         fieldNames={{label: 'menu_name', value: 'id', children: 'children'}}
+                        allowClear
                     />
                 </FormItem>
                 }
@@ -85,7 +86,7 @@ const CreateMenuForm: React.FC<CreateMenuFormProps> = ({open, onCreate, onCancel
                 >
                     <Input/>
                 </FormItem>
-                {menuType != 3 &&
+                {menuType !== 3 &&
                     <FormItem
                         label="路径"
                         name="menu_url"
@@ -94,7 +95,7 @@ const CreateMenuForm: React.FC<CreateMenuFormProps> = ({open, onCreate, onCancel
                         <Input/>
                     </FormItem>
                 }
-                {menuType == 3 &&
+                {menuType === 3 &&
                     <FormItem
                         label="接口地址"
                         name="api_url"
@@ -109,7 +110,7 @@ const CreateMenuForm: React.FC<CreateMenuFormProps> = ({open, onCreate, onCancel
                     rules={[{required: true, message: '请输入排序!'}]}>
                     <InputNumber/>
                 </FormItem>
-                {menuType != 3 &&
+                {menuType !== 3 &&
                     <FormItem
                         label="图标"
                         name="icon"
