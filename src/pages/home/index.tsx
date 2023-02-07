@@ -102,7 +102,7 @@ const Home: React.FC = () => {
         <div style={{backgroundColor: '#f5f5f5'}}>
             <Row gutter={16}>
                 <Col span={6}>
-                    <Card bordered={false}>
+                    <Card bordered={false} hoverable>
                         <Statistic
                             title="总销售额"
                             value={126560}
@@ -114,7 +114,7 @@ const Home: React.FC = () => {
                     </Card>
                 </Col>
                 <Col span={6}>
-                    <Card bordered={false}>
+                    <Card bordered={false} hoverable>
                         <Statistic
                             title="访问量"
                             value={8846}
@@ -124,7 +124,7 @@ const Home: React.FC = () => {
                     </Card>
                 </Col>
                 <Col span={6}>
-                    <Card bordered={false}>
+                    <Card bordered={false} hoverable>
                         <Statistic
                             title="支付笔数"
                             value={6560}
@@ -135,7 +135,7 @@ const Home: React.FC = () => {
                     </Card>
                 </Col>
                 <Col span={6}>
-                    <Card bordered={false}>
+                    <Card bordered={false} hoverable>
                         <Statistic
                             title="运营活动效果"
                             value={9.3}
@@ -150,20 +150,22 @@ const Home: React.FC = () => {
 
             <Row gutter={16} style={{marginTop: 10, padding: 5}}>
                 <Col span={12}>
-                    <Card bordered={false}>
+                    <Card bordered={false} hoverable>
                         <ReactEcharts option={getOption()} style={{height: 280}}/>
                     </Card>
 
                 </Col>
                 <Col span={12}>
-                    <Card bordered={false}>
+                    <Card bordered={false} hoverable>
                         <ReactEcharts option={getOption2()} style={{height: 280}}/>
                     </Card>
                 </Col>
             </Row>
             <Row style={{marginTop: 10, backgroundColor: 'white', padding: 5}}>
                 <Col span={24}>
-                    <ReactEcharts option={getOption3()} style={{height: 280}}/>
+                    <Card bordered={false} hoverable>
+                        <ReactEcharts option={getOption3()} style={{height: 280}}/>
+                    </Card>
                 </Col>
             </Row>
         </div>
