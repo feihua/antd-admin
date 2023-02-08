@@ -4,7 +4,6 @@ import qs from 'qs'
 import {showMessage} from "./status";
 import {message} from 'antd';
 import {storageUtils} from "../utils/storageUtils";
-import {useNavigate} from "react-router-dom";
 
 
 // 返回res.data的interface
@@ -16,7 +15,7 @@ export interface IResponse {
 }
 
 export const axiosInstance: AxiosInstance = axios.create({
-    baseURL: process.env.REACT_APP_BASE_URL,
+    baseURL: "http://175.178.110.17/",
     headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
@@ -26,14 +25,6 @@ export const axiosInstance: AxiosInstance = axios.create({
 // axios实例拦截响应
 axiosInstance.interceptors.response.use(
     (response: AxiosResponse) => {
-        // if (response.headers.authorization) {
-        //     localStorage.setItem('app_token', response.headers.authorization);
-        // } else {
-        //     if (response.data && response.data.token) {
-        //         localStorage.setItem('app_token', response.data.token);
-        //     }
-        // }
-
         if (response.status === 200) {
             return response;
         } else {
@@ -49,7 +40,7 @@ axiosInstance.interceptors.response.use(
             showMessage(response.status);
             if (response.status === 401) {
                 storageUtils.logout()
-                window.location.href = "/antd/login";
+                window.location.href = "/login";
             }
             return Promise.reject(response.data);
         } else {
