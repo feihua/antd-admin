@@ -7,16 +7,16 @@ import moment from 'moment'
 import {useNavigate} from "react-router-dom";
 
 const items: MenuProps['items'] = [
-    {
-        key: '1',
-        label: '个人中心',
-        icon: <UserOutlined/>
-    },
-    {
-        key: '2',
-        label: '个人设置',
-        icon: <SettingOutlined/>
-    },
+    // {
+    //     key: '1',
+    //     label: '个人中心',
+    //     icon: <UserOutlined/>
+    // },
+    // {
+    //     key: '2',
+    //     label: '个人设置',
+    //     icon: <SettingOutlined/>
+    // },
     {
         type: 'divider',
     },
@@ -62,7 +62,7 @@ const MyHeader: React.FC = () => {
                     </Space>
                 </a>
             </Dropdown>
-            {currentTime}
+            {/*{currentTime}*/}
         </Space>
     );
 
