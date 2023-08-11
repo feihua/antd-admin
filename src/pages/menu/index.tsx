@@ -5,8 +5,7 @@ import {DeleteOutlined, EditOutlined, PlusOutlined} from '@ant-design/icons';
 import {MenuVo} from './data.d';
 import CreateMenuForm from "./components/add_menu";
 import UpdateMenuForm from "./components/update_menu";
-import {addMenu, handleResp, removeMenu, updateMenu, menuList} from "./service";
-import AdvancedSearchForm from "./components/search_menu";
+import {addMenu, handleResp, menuList, removeMenu, updateMenu} from "./service";
 import {tree} from "../../utils/treeUtils";
 import {IResponse} from "../../api/ajax";
 
@@ -34,6 +33,25 @@ const Menu: React.FC = () => {
         {
             title: '类型',
             dataIndex: 'menu_type',
+            render: (_, {menu_type}) => (
+                <>
+                    {
+                        menu_type === 1 && (<Tag color={'#ef62df'} style={{width: 50, height: 30, textAlign: "center", paddingTop: 4}}>
+                            目录
+                        </Tag>)
+                    }
+                    {
+                        menu_type === 2 && (<Tag color={'#3f80e9'} style={{width: 50, height: 30, textAlign: "center", paddingTop: 4}}>
+                            菜单
+                        </Tag>)
+                    }
+                    {
+                        menu_type === 3 && (<Tag color={'#67c23a'} style={{width: 50, height: 30, textAlign: "center", paddingTop: 4}}>
+                            功能
+                        </Tag>)
+                    }
+                </>
+            ),
         },
         {
             title: '排序',
