@@ -76,7 +76,7 @@ const UpdateMenuForm: React.FC<UpdateMenuFormProps> = ({open, onCreate, onCancel
                 >
                     <Input/>
                 </FormItem>
-                {menuType === 2 &&
+                {menuType !== 3 &&
                     <FormItem
                         label="路径"
                         name="menu_url"
