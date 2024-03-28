@@ -5,6 +5,7 @@ import {DownOutlined, LogoutOutlined, SettingOutlined, UserOutlined} from "@ant-
 import {storageUtils} from "../../utils/storageUtils";
 import moment from 'moment'
 import {useNavigate} from "react-router-dom";
+import useStore from "../../store";
 
 const items: MenuProps['items'] = [
     {
@@ -29,6 +30,7 @@ const items: MenuProps['items'] = [
 
 
 const MyHeader: React.FC = () => {
+    const {userName, avatar} = useStore()as any;
     let navigate = useNavigate();
 
     const [currentTime, setCurrentTime] = useState<string>(moment().format('YYYY-MM-DD HH:mm:ss'));
@@ -52,17 +54,16 @@ const MyHeader: React.FC = () => {
 
     return (
         <Space style={{float: "right", marginRight: 30}}>
-            <Avatar src={'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png'}
+            <Avatar src={avatar}
                     alt="avatar"/>
             <Dropdown menu={{items, onClick}} placement="bottom" arrow>
                 <a onClick={(e) => e.preventDefault()}>
                     <Space>
-                        {storageUtils.getUserName()}
+                        {userName}
                         <DownOutlined/>
                     </Space>
                 </a>
             </Dropdown>
-            {currentTime}
         </Space>
     );
 
