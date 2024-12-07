@@ -100,12 +100,13 @@ const Admin: React.FC = () => {
 
     return (
         <Layout style={{minHeight: '100vh'}}>
-            <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
+            <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)} theme={"light"}>
                 <Link to='/home' style={{display: "flex", alignItems: "center"}}>
                     <img style={{height: 32, width: 32, margin: 16}} src={logo} alt="logo"/><h1
-                    style={{marginBottom: 0, color: "white", fontSize: 20}}>hello pro</h1>
+                    style={{marginBottom: 0, color: "black", fontSize: 20}}>hello pro</h1>
                 </Link>
-                <Menu theme="dark" defaultSelectedKeys={['/home']} mode="inline" items={menuItem} onClick={(item) => {
+                <div style={{background: 'rgb(228 229 234)', height: '1px'}}></div>
+                <Menu theme="light" defaultSelectedKeys={['/home']} mode="inline" items={menuItem} onClick={(item) => {
                     navigate(item.key)
                 }}/>
             </Sider>
