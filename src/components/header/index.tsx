@@ -3,7 +3,6 @@ import type {MenuProps} from 'antd';
 import {Avatar, Dropdown, Space} from 'antd';
 import {DownOutlined, LogoutOutlined, SettingOutlined, UserOutlined} from "@ant-design/icons";
 import {storageUtils} from "../../utils/storageUtils";
-import moment from 'moment'
 import {useNavigate} from "react-router-dom";
 import useStore from "../../store";
 
@@ -32,14 +31,6 @@ const items: MenuProps['items'] = [
 const MyHeader: React.FC = () => {
     const {userName, avatar} = useStore()as any;
     let navigate = useNavigate();
-
-    const [currentTime, setCurrentTime] = useState<string>(moment().format('YYYY-MM-DD HH:mm:ss'));
-
-    useEffect(() => {
-        setInterval(() => {
-            setCurrentTime(moment().format('YYYY-MM-DD HH:mm:ss'))
-        }, 1000)
-    }, []);
 
     const onClick: MenuProps['onClick'] = ({key}) => {
         if (key === "1") {

@@ -1,10 +1,8 @@
-import axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse} from 'axios';
-import qs from 'qs'
+import axios, {AxiosInstance, AxiosResponse, InternalAxiosRequestConfig} from 'axios';
 
 import {showMessage} from "./status";
 import {message} from 'antd';
 import {storageUtils} from "../utils/storageUtils";
-import {useNavigate} from "react-router-dom";
 
 
 // 返回res.data的interface
@@ -14,9 +12,9 @@ export interface IResponse {
     msg: string;
     total: number
 }
-
+const baseUrl = import.meta.env.VITE_APP_PROXY_URL;
 export const axiosInstance: AxiosInstance = axios.create({
-    baseURL: process.env.REACT_APP_BASE_URL,
+    baseURL: baseUrl,
     headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
@@ -60,10 +58,9 @@ axiosInstance.interceptors.response.use(
 
 // axios实例拦截请求
 axiosInstance.interceptors.request.use(
-    (config: AxiosRequestConfig) => {
+    (config: InternalAxiosRequestConfig) => {
         const token = storageUtils.getToken()
         if (token) {
-            // @ts-ignore
             config.headers.Authorization = `Bearer ${token}`
         }
 
