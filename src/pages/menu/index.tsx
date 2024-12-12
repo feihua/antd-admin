@@ -91,8 +91,8 @@ const Menu: React.FC = () => {
             key: 'action',
             render: (_, record) => (
                 <Space size="small">
-                    <Button type="primary" icon={<EditOutlined/>} onClick={() => showEditModal(record)}>编辑</Button>
-                    <Button type="primary" danger icon={<DeleteOutlined/>}
+                    <Button type="link" size={'small'} icon={<EditOutlined />} onClick={() => showEditModal(record)}>编辑</Button>
+                    <Button type="link" size={'small'} danger icon={<DeleteOutlined />}
                             onClick={() => showDeleteConfirm(record)}>删除</Button>
                 </Space>
             ),

@@ -66,10 +66,9 @@ const User: React.FC = () => {
             key: 'action',
             render: (_, record) => (
                 <Space size="small">
-                    <Button type="primary" icon={<EditOutlined/>} onClick={() => showEditModal(record)}>编辑</Button>
-                    <Button type="default" style={{backgroundColor: '#626aef', color: 'white'}} icon={<SettingOutlined/>} onClick={() => showRoleModal(record)}>设置角色</Button>
-                    <Button type="primary" danger icon={<DeleteOutlined/>}
-                            onClick={() => showDeleteConfirm(record)}>删除</Button>
+                    <Button type="link" size={'small'} icon={<EditOutlined />} onClick={() => showEditModal(record)}>编辑</Button>
+                    <Button type="link" size={'small'} icon={<EditOutlined />} onClick={() => showRoleModal(record)}>设置角色</Button>
+                    <Button type="link" size={'small'} danger icon={<DeleteOutlined />} onClick={() => showDeleteConfirm(record)}>删除</Button>
                 </Space>
             ),
         },
