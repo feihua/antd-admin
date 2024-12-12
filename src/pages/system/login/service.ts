@@ -1,4 +1,4 @@
-import {axiosInstance, IResponse} from "../../api/ajax";
+import {axiosInstance, IResponse} from "../../../api/ajax";
 import {ILogin, IUser} from "./data";
 
 /**

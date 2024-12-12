@@ -2,12 +2,12 @@ import React, {useEffect, useState} from 'react';
 import {Button, Divider, message, Modal, Space, Table, Tag} from 'antd';
 import type {ColumnsType} from 'antd/es/table';
 import {DeleteOutlined, EditOutlined, PlusOutlined} from '@ant-design/icons';
-import {MenuVo} from './data.d';
+import {MenuVo} from './data';
 import CreateMenuForm from "./components/add_menu";
 import UpdateMenuForm from "./components/update_menu";
 import {addMenu, handleResp, menuList, removeMenu, updateMenu} from "./service";
-import {tree} from "../../utils/treeUtils";
-import {IResponse} from "../../api/ajax";
+import {tree} from "../../../utils/treeUtils";
+import {IResponse} from "../../../api/ajax";
 
 const Menu: React.FC = () => {
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);

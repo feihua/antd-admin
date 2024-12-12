@@ -1,19 +1,19 @@
 // @flow
 import {Link, useNavigate, useRoutes} from "react-router-dom";
 
-import routes from "../../router";
+import routes from "../../../router";
 
 import React, {useEffect, useState} from 'react';
 import {PieChartOutlined,} from '@ant-design/icons';
 import type {MenuProps} from 'antd';
 import {Breadcrumb, Layout, Menu, theme} from 'antd';
-import logo from '../../assets/images/logo.svg'
-import MyHeader from '../../components/header'
-import {query_user_menu} from "./service";
+import logo from '../../../assets/images/logo.svg'
+import MyHeader from '../../header'
+import {query_user_menu} from "./service.ts";
 import {MyMenuItem, RecordVo} from "./data";
-import {tree} from "../../utils/treeUtils";
+import {tree} from "../../../utils/treeUtils.ts";
 import "./index.less"
-import useStore from "../../store";
+import useStore from "../../../store";
 
 
 const {Header, Content, Footer, Sider} = Layout;

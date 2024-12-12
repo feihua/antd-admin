@@ -3,7 +3,7 @@
  * @params {param} ListParam
  * @return {Promise}
  */
-import {axiosInstance, IResponse} from "../../api/ajax";
+import {axiosInstance, IResponse} from "../../../api/ajax.ts";
 
 export const query_user_menu = (): Promise<IResponse> => {
     return axiosInstance.get('api/query_user_menu', {}).then(res => res.data);

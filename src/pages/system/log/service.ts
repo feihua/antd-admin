@@ -1,4 +1,4 @@
-import {axiosInstance, IResponse} from "../../api/ajax";
+import {axiosInstance, IResponse} from "../../../api/ajax";
 import {UserVo, UserListParam} from "./data";
 import {message} from "antd";
 

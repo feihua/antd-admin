@@ -2,11 +2,11 @@ import React from 'react';
 import {LockOutlined, UserOutlined} from '@ant-design/icons';
 import {Button, Checkbox, Form, Input, message} from 'antd';
 import "./index.less"
-import logo from '../../assets/images/logo.svg'
+import logo from '../../../assets/images/logo.svg'
 import {reqLogin} from "./service";
-import {IResponse} from "../../api/ajax";
+import {IResponse} from "../../../api/ajax";
 import {useNavigate} from "react-router-dom";
-import {storageUtils} from "../../utils/storageUtils";
+import {storageUtils} from "../../../utils/storageUtils";
 
 const Login: React.FC = () => {
 
