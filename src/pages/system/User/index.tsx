@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Divider, message, Modal, Space, Table, Tag} from 'antd';
+import {Button, Divider, message, Modal, Space, Switch, Table} from 'antd';
 import type {ColumnsType} from 'antd/es/table';
-import {DeleteOutlined, EditOutlined, PlusOutlined, SettingOutlined} from '@ant-design/icons';
-import {UserVo} from './data.d';
-import CreateUserForm from "./components/add_user";
-import UpdateUserForm from "./components/update_user";
-import {addUser, handleResp, removeUser, update_user_role, updateUser, userList} from "./service";
-import AdvancedSearchForm from "./components/search_user";
-import SetUserRoleForm from "./components/set_user_role";
+import {DeleteOutlined, EditOutlined, ExclamationCircleOutlined, PlusOutlined} from '@ant-design/icons';
+import {UserListParam, UserVo} from './data';
+import AddUserModal from "./components/AddModal.tsx";
+import UpdateUserModal from "./components/UpdateModal.tsx";
+import {addUser, handleResp, removeUser, update_user_role, updateUser, updateUserStatus, queryUserList} from "./service";
+import AdvancedSearchForm from "./components/SearchForm.tsx";
+import SetUserRoleModal from "./components/UserRoleModal.tsx";
 
 const User: React.FC = () => {
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
@@ -16,7 +16,7 @@ const User: React.FC = () => {
     const [isShowRoleModal, setShowRoleModal] = useState<boolean>(false);
     const [userListData, setUserListData] = useState<UserVo[]>([]);
     const [currentUser, setCurrentUser] = useState<UserVo>({
-        create_time: "", id: 0, mobile: "", real_name: "", remark: "", sort: 0, status_id: 0, update_time: ""
+        create_time: "", id: 0, mobile: "", user_name: "", remark: "", sort: 0, status_id: 0, update_time: ""
     });
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [pageSize, setPageSize] = useState<number>(10);
@@ -30,7 +30,7 @@ const User: React.FC = () => {
         },
         {
             title: '用户名',
-            dataIndex: 'real_name',
+            dataIndex: 'user_name',
         },
         {
             title: '排序',
@@ -39,15 +39,16 @@ const User: React.FC = () => {
         {
             title: '状态',
             dataIndex: 'status_id',
-            render: (_, {status_id}) => (
-                <>
-                    {
-                        <Tag color={status_id === 0 ? '#ff4d4f' : '#67c23a'} style={{width: 50, height: 30, textAlign: "center", paddingTop: 4}}>
-                            {status_id === 0 ? '禁用' : '启用'}
-                        </Tag>
-                    }
-                </>
-            ),
+            render: (_dom, entity) => {
+                return (
+                    <Switch
+                        checked={entity.status_id == 1}
+                        onChange={(flag) => {
+                            showStatusConfirm([entity.id], flag ? 1 : 0);
+                        }}
+                    />
+                );
+            },
         },
         {
             title: '备注',
@@ -66,13 +67,47 @@ const User: React.FC = () => {
             key: 'action',
             render: (_, record) => (
                 <Space size="small">
-                    <Button type="link" size={'small'} icon={<EditOutlined />} onClick={() => showEditModal(record)}>编辑</Button>
-                    <Button type="link" size={'small'} icon={<EditOutlined />} onClick={() => showRoleModal(record)}>设置角色</Button>
-                    <Button type="link" size={'small'} danger icon={<DeleteOutlined />} onClick={() => showDeleteConfirm(record)}>删除</Button>
+                    <Button type="link" size={'small'} icon={<EditOutlined/>}
+                            onClick={() => showEditModal(record)}>编辑</Button>
+                    <Button type="link" size={'small'} icon={<EditOutlined/>}
+                            onClick={() => showRoleModal(record)}>设置角色</Button>
+                    <Button type="link" size={'small'} danger icon={<DeleteOutlined/>}
+                            onClick={() => showDeleteConfirm(record)}>删除</Button>
                 </Space>
             ),
         },
     ];
+
+    const showStatusConfirm = (ids: number[], status: number) => {
+        Modal.confirm({
+            title: `确定${status == 1 ? '启用' : '禁用'}吗？`,
+            icon: <ExclamationCircleOutlined/>,
+            async onOk() {
+                await handleStatus(ids, status);
+            },
+            onCancel() {
+            },
+        });
+    };
+    const handleStatus = async (ids: number[], status: number) => {
+        const hide = message.loading('正在更新状态');
+        if (ids.length == 0) {
+            hide();
+            return true;
+        }
+        try {
+            await updateUserStatus({ids, status});
+            hide();
+            let res = await queryUserList({current: currentPage, pageSize});
+            setTotal(res.total);
+            res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
+            message.success('更新状态成功');
+            return true;
+        } catch (error) {
+            hide();
+            return false;
+        }
+    };
 
     const showModal = () => {
         setShowAddModal(true);
@@ -81,7 +116,7 @@ const User: React.FC = () => {
     const handleAddOk = async (user: UserVo) => {
         if (handleResp(await addUser(user))) {
             setShowAddModal(false);
-            let res = await userList({current: currentPage, pageSize})
+            let res = await queryUserList({current: currentPage, pageSize})
             setTotal(res.total)
             res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
         }
@@ -100,7 +135,7 @@ const User: React.FC = () => {
     const handleEditOk = async (user: UserVo) => {
         if (handleResp(await updateUser(user))) {
             setShowEditModal(false);
-            let res = await userList({
+            let res = await queryUserList({
                 current: currentPage, pageSize,
             })
             setTotal(res.total)
@@ -120,7 +155,7 @@ const User: React.FC = () => {
     const handleRoleOk = async (user_id: number, role_ids: number[]) => {
         if (handleResp(await update_user_role(user_id, role_ids))) {
             setShowRoleModal(false);
-            let res = await userList({
+            let res = await queryUserList({
                 current: currentPage, pageSize,
             })
             setTotal(res.total)
@@ -135,7 +170,7 @@ const User: React.FC = () => {
     //删除单条数据
     const showDeleteConfirm = (user: UserVo) => {
         Modal.confirm({
-            content: `确定删除${user.real_name}吗?`,
+            content: `确定删除${user.user_name}吗?`,
             async onOk() {
                 await handleRemove([user.id]);
             },
@@ -147,28 +182,31 @@ const User: React.FC = () => {
 
     //批量删除
     const handleRemove = async (ids: number[]) => {
-        if (handleResp(await removeUser(ids))) {
-            let res = await userList({current: currentPage, mobile: "", pageSize})
+        if (handleResp(await removeUser({ids:ids}))) {
+            let res = await queryUserList({current: currentPage, mobile: "", pageSize})
             setTotal(res.total)
             res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
         }
 
     };
 
-    const handleSearchOk = async (user: UserVo) => {
-        let res = await userList({current: currentPage, ...user, pageSize})
+    const handleSearchOk = async (user: UserListParam) => {
+        user.current = currentPage
+        user.pageSize = pageSize
+        let res = await queryUserList({...user})
         setTotal(res.total)
         res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
     };
 
     const handleResetOk = async () => {
-        let res = await userList({current: currentPage, pageSize})
+        setCurrentPage(1)
+        let res = await queryUserList({current: 1, pageSize})
         setTotal(res.total)
         res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
     };
 
     useEffect(() => {
-        userList({
+        queryUserList({
             current: currentPage, pageSize
         }).then(res => {
             setTotal(res.total)
@@ -192,7 +230,7 @@ const User: React.FC = () => {
             console.log('onChange', page, pageSize)
             setCurrentPage(page)
             setPageSize(pageSize)
-            let res = await userList({current: page, pageSize})
+            let res = await queryUserList({current: page, pageSize})
             setTotal(res.total)
             res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
 
@@ -227,9 +265,11 @@ const User: React.FC = () => {
                 // tableLayout={"fixed"}
             />
 
-            <CreateUserForm onCancel={handleAddCancel} onCreate={handleAddOk} open={isShowAddModal}></CreateUserForm>
-            <UpdateUserForm onCancel={handleEditCancel} onCreate={handleEditOk} open={isShowEditModal} userVo={currentUser}></UpdateUserForm>
-            <SetUserRoleForm onCancel={handleRoleCancel} onCreate={handleRoleOk} open={isShowRoleModal} userVo={currentUser}></SetUserRoleForm>
+            <AddUserModal onCancel={handleAddCancel} onCreate={handleAddOk} open={isShowAddModal}></AddUserModal>
+            <UpdateUserModal onCancel={handleEditCancel} onCreate={handleEditOk} open={isShowEditModal}
+                             userVo={currentUser}></UpdateUserModal>
+            <SetUserRoleModal onCancel={handleRoleCancel} onCreate={handleRoleOk} open={isShowRoleModal}
+                              userVo={currentUser}></SetUserRoleModal>
 
             {selectedRowKeys.length > 0 &&
                 <div>

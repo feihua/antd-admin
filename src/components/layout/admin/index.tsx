@@ -20,10 +20,10 @@ const {Header, Content, Footer, Sider} = Layout;
 
 type MenuItem = Required<MenuProps>['items'][number];
 
-function getItem(label: React.ReactNode, key: React.Key, icon?: React.ReactNode, children?: MenuItem[]): MenuItem {
-
-    return {key, icon, children, label} as MenuItem;
-}
+// function getItem(label: React.ReactNode, key: React.Key, icon?: React.ReactNode, children?: MenuItem[]): MenuItem {
+//
+//     return {key, icon, children, label} as MenuItem;
+// }
 
 function getMyItem(label: React.ReactNode, key: React.Key, icon?: React.ReactNode, parent_id?: number, id?: number): MyMenuItem {
 
@@ -32,8 +32,8 @@ function getMyItem(label: React.ReactNode, key: React.Key, icon?: React.ReactNod
 
 // const items: MenuItem[] = [
 //     getItem(<Link to={'/home'}><span>首页</span></Link>, '1', <PieChartOutlined/>),
-//     getItem(<Link to={'/user'}><span>系统管理</span></Link>, '2', <UserOutlined/>, [
-//         getItem(<Link to={'/user'}><span>用户管理</span></Link>, '3'),
+//     getItem(<Link to={'/User'}><span>系统管理</span></Link>, '2', <UserOutlined/>, [
+//         getItem(<Link to={'/User'}><span>用户管理</span></Link>, '3'),
 //         getItem(<Link to={'/role'}><span>角色管理</span></Link>, '4'),
 //         getItem(<Link to={'/menu'}><span>菜单管理</span></Link>, '5'),
 //     ]),
@@ -53,7 +53,7 @@ function getMyItem(label: React.ReactNode, key: React.Key, icon?: React.ReactNod
 // const items: MenuItem[] = [
 //     getItem(<span>首页</span>, '1', <PieChartOutlined/>),
 //     getItem(<span>系统管理</span>, '2', <UserOutlined/>, [
-//         getItem(<span>用户管理</span>, '/user'),
+//         getItem(<span>用户管理</span>, '/User'),
 //         getItem(<span>角色管理</span>, '/role'),
 //         getItem(<span>菜单管理</span>, '/menu'),
 //     ]),
@@ -103,7 +103,7 @@ const Admin: React.FC = () => {
             <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)} theme={"light"}>
                 <Link to='/home' style={{display: "flex", alignItems: "center"}}>
                     <img style={{height: 32, width: 32, margin: 16}} src={logo} alt="logo"/><h1
-                    style={{marginBottom: 0, color: "black", fontSize: 20}}>hello pro</h1>
+                    style={{marginBottom: 0, color: "black", fontSize: 20}}>rust</h1>
                 </Link>
                 <div style={{background: 'rgb(228 229 234)', height: '1px'}}></div>
                 <Menu theme="light" defaultSelectedKeys={['/home']} mode="inline" items={menuItem} onClick={(item) => {

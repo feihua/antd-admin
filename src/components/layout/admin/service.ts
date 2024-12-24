@@ -6,6 +6,6 @@
 import {axiosInstance, IResponse} from "../../../api/ajax.ts";
 
 export const query_user_menu = (): Promise<IResponse> => {
-    return axiosInstance.get('api/query_user_menu', {}).then(res => res.data);
+    return axiosInstance.get('api/system/user/queryUserMenu', {}).then(res => res.data);
 };
 

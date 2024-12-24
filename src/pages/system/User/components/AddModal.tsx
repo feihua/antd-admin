@@ -3,13 +3,13 @@ import {Form, Input, InputNumber, message, Modal, Radio} from 'antd';
 import {UserVo} from "../data";
 import TextArea from "antd/es/input/TextArea";
 
-interface CreateUserFormProps {
+interface AddFormProps {
     open: boolean;
     onCreate: (values: UserVo) => void;
     onCancel: () => void;
 }
 
-const CreateUserForm: React.FC<CreateUserFormProps> = ({open, onCreate, onCancel}) => {
+const AddUserModal: React.FC<AddFormProps> = ({open, onCreate, onCancel}) => {
     const [form] = Form.useForm();
     const FormItem = Form.Item;
 
@@ -25,7 +25,7 @@ const CreateUserForm: React.FC<CreateUserFormProps> = ({open, onCreate, onCancel
             });
     }
 
-    const userFormContent = () => {
+    const addContent = () => {
         return (
             <>
                 <FormItem
@@ -38,17 +38,16 @@ const CreateUserForm: React.FC<CreateUserFormProps> = ({open, onCreate, onCancel
 
                 <FormItem
                     label="用户名"
-                    name="real_name"
+                    name="user_name"
                     rules={[{required: true, message: '请输入用户名!'}]}
                 >
                     <Input/>
                 </FormItem>
-
                 <FormItem
                     label="排序"
                     name="sort"
                     rules={[{required: true, message: '请输入排序!'}]}>
-                    <InputNumber/>
+                    <InputNumber style={{width:234}}/>
                 </FormItem>
                 <FormItem
                     label="状态"
@@ -70,16 +69,15 @@ const CreateUserForm: React.FC<CreateUserFormProps> = ({open, onCreate, onCancel
         )
     }
 
-    const modalFooter = {title: "新建", okText: '保存', onOk: handleOk, onCancel, cancelText: '取消', open, width: 480};
-    const formLayout = {labelCol: {span: 7}, wrapperCol: {span: 13}, form, initialValues: {"sort": 1, "status_id": 1}};
-
     return (
-        <Modal {...modalFooter} style={{top: 150}}>
-            <Form {...formLayout} style={{marginTop: 30}}>
-                {userFormContent()}
+        <Modal title="新建" okText="保存" onOk={handleOk} onCancel={onCancel} cancelText="取消" open={open} width={480}
+               style={{top: 150}}>
+            <Form labelCol={{span: 7}} wrapperCol={{span: 13}} form={form} initialValues={{sort: 1, status_id: 1}}
+                  style={{marginTop: 30}}>
+                {addContent()}
             </Form>
         </Modal>
     );
 };
 
-export default CreateUserForm;
+export default AddUserModal;

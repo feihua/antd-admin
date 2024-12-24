@@ -1,16 +1,16 @@
 import React from 'react';
 import {SearchOutlined} from '@ant-design/icons';
 import {Button, Form, Input, Select, Space} from 'antd';
-import {UserVo} from "../data";
+import {UserListParam} from "../data";
 
 const {Option} = Select;
 
-interface CreateUserFormProps {
-    search: (values: UserVo) => void;
+interface SearchFormProps {
+    search: (values: UserListParam) => void;
     reSet: () => void;
 }
 
-const AdvancedSearchForm: React.FC<CreateUserFormProps> = ({search, reSet}) => {
+const AdvancedSearchForm: React.FC<SearchFormProps> = ({search, reSet}) => {
     const FormItem = Form.Item;
     const [form] = Form.useForm();
 
@@ -31,6 +31,12 @@ const AdvancedSearchForm: React.FC<CreateUserFormProps> = ({search, reSet}) => {
                     name="mobile"
                 >
                     <Input placeholder="手机号码"/>
+                </FormItem>
+                <FormItem
+                    label={'用户名'}
+                    name="user_name"
+                >
+                    <Input placeholder="用户名"/>
                 </FormItem>
                 <FormItem
                     label={'状态'}

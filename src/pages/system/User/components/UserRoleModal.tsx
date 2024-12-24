@@ -5,7 +5,7 @@ import {ColumnsType} from "antd/es/table";
 import {RoleVo} from "../../role/data";
 import {query_user_role} from "../service";
 
-interface UpdateUserFormProps {
+interface UserRoleFormProps {
     open: boolean;
     onCreate: (user_id: number, role_ids: number[]) => void;
     onCancel: () => void;
@@ -28,7 +28,8 @@ const columns: ColumnsType<RoleVo> = [
         render: (_, {status_id}) => (
             <>
                 {
-                    <Tag color={status_id === 0 ? '#ff4d4f' : '#67c23a'} style={{width: 50, height: 30, textAlign: "center", paddingTop: 4}}>
+                    <Tag color={status_id === 0 ? '#ff4d4f' : '#67c23a'}
+                         style={{width: 50, height: 30, textAlign: "center", paddingTop: 4}}>
                         {status_id === 0 ? '禁用' : '启用'}
                     </Tag>
                 }
@@ -49,7 +50,7 @@ const columns: ColumnsType<RoleVo> = [
     },
 ];
 
-const SetUserRoleForm: React.FC<UpdateUserFormProps> = ({open, onCreate, onCancel, userVo}) => {
+const SetUserRoleModal: React.FC<UserRoleFormProps> = ({open, onCreate, onCancel, userVo}) => {
     const [roleList, setRoleList] = useState<RoleVo[]>([]);
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
 
@@ -58,7 +59,6 @@ const SetUserRoleForm: React.FC<UpdateUserFormProps> = ({open, onCreate, onCance
             setRoleList([]);
             setSelectedRowKeys([]);
             query_user_role(userVo.id).then((res) => {
-                console.log(res);
                 setRoleList(res.data.sys_role_list);
 
                 if (res.data.user_role_ids) {
@@ -71,7 +71,6 @@ const SetUserRoleForm: React.FC<UpdateUserFormProps> = ({open, onCreate, onCance
     const rowSelection = {
         selectedRowKeys,
         onChange: (newSelectedRowKeys: React.Key[]) => {
-            console.log('selectedRowKeys changed: ', selectedRowKeys);
             setSelectedRowKeys(newSelectedRowKeys);
         },
     };
@@ -80,13 +79,12 @@ const SetUserRoleForm: React.FC<UpdateUserFormProps> = ({open, onCreate, onCance
         onCreate(userVo.id, selectedRowKeys.map((i) => Number(i)))
     }
 
-    const modalFooter = {title: "更新", okText: '保存', onOk: handleOk, onCancel, cancelText: '取消', open, width: 800};
-
     return (
-        <Modal {...modalFooter} style={{top: 150}}>
+        <Modal title="更新" okText="保存" onOk={handleOk} onCancel={onCancel} cancelText="取消" open={open} width={1000}
+               style={{top: 150}}>
             <Table rowKey="id" rowSelection={rowSelection} columns={columns} dataSource={roleList}/>
         </Modal>
     );
 };
 
-export default SetUserRoleForm;
+export default SetUserRoleModal;

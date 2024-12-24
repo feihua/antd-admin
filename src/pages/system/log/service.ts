@@ -13,7 +13,7 @@ export const userList = (req: UserListParam): Promise<IResponse> => {
 
 /**
  * @description: 添加用户
- * @params {user} User
+ * @params {User} User
  * @return {Promise}
  */
 export const addUser = (user: UserVo): Promise<IResponse> => {
@@ -22,7 +22,7 @@ export const addUser = (user: UserVo): Promise<IResponse> => {
 
 /**
  * @description: 更新用户
- * @params {{user} User
+ * @params {{User} User
  * @return {Promise}
  */
 export const updateUser = (user: UserVo): Promise<IResponse> => {

@@ -3,14 +3,14 @@ import {Form, Input, InputNumber, Modal, Radio} from 'antd';
 import {UserVo} from "../data";
 import TextArea from "antd/es/input/TextArea";
 
-interface UpdateUserFormProps {
+interface UpdateFormProps {
     open: boolean;
     onCreate: (values: UserVo) => void;
     onCancel: () => void;
     userVo: UserVo;
 }
 
-const UpdateUserForm: React.FC<UpdateUserFormProps> = ({open, onCreate, onCancel, userVo}) => {
+const UpdateUserModal: React.FC<UpdateFormProps> = ({open, onCreate, onCancel, userVo}) => {
     const [form] = Form.useForm();
     const FormItem = Form.Item;
 
@@ -31,7 +31,7 @@ const UpdateUserForm: React.FC<UpdateUserFormProps> = ({open, onCreate, onCancel
             });
     }
 
-    const userFormContent = () => {
+    const updateContent = () => {
         return (
             <>
                 <FormItem
@@ -51,7 +51,7 @@ const UpdateUserForm: React.FC<UpdateUserFormProps> = ({open, onCreate, onCancel
 
                 <FormItem
                     label="用户名"
-                    name="real_name"
+                    name="user_name"
                     rules={[{required: true, message: '请输入用户名!'}]}
                 >
                     <Input/>
@@ -61,7 +61,7 @@ const UpdateUserForm: React.FC<UpdateUserFormProps> = ({open, onCreate, onCancel
                     label="排序"
                     name="sort"
                     rules={[{required: true, message: '请输入排序!'}]}>
-                    <InputNumber defaultValue={1}/>
+                    <InputNumber style={{width:234}}/>
                 </FormItem>
                 <FormItem
                     label="状态"
@@ -82,16 +82,13 @@ const UpdateUserForm: React.FC<UpdateUserFormProps> = ({open, onCreate, onCancel
         )
     }
 
-    const modalFooter = {title: "更新", okText: '保存', onOk: handleOk, onCancel, cancelText: '取消', open, width: 480};
-    const formLayout = {labelCol: {span: 7}, wrapperCol: {span: 13}, form};
-
     return (
-        <Modal {...modalFooter} style={{top: 150}}>
-            <Form {...formLayout} style={{marginTop: 30}}>
-                {userFormContent()}
+        <Modal title="新建" okText="保存" onOk={handleOk} onCancel={onCancel} cancelText="取消" open={open} width={480} style={{ top: 150 }}>
+            <Form labelCol={{ span: 7 }} wrapperCol={{ span: 13 }} form={form} style={{ marginTop: 30 }}>
+                {updateContent()}
             </Form>
         </Modal>
     );
 };
 
-export default UpdateUserForm;
+export default UpdateUserModal;
