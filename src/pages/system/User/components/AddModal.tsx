@@ -61,9 +61,8 @@ const AddUserModal: React.FC<AddFormProps> = ({open, onCreate, onCancel}) => {
                 <FormItem
                     label="备注"
                     name="remark"
-                    rules={[{required: true, message: '请输入备注!'}]}
                 >
-                    <TextArea rows={2}/>
+                    <TextArea rows={2} placeholder="备注"/>
                 </FormItem>
             </>
         )

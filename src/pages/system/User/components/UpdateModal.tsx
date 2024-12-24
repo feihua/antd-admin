@@ -76,7 +76,7 @@ const UpdateUserModal: React.FC<UpdateFormProps> = ({open, onCreate, onCancel, u
                     label="备注"
                     name="remark"
                 >
-                    <TextArea rows={2}/>
+                    <TextArea rows={2} placeholder="备注"/>
                 </FormItem>
             </>
         )

@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Divider, message, Modal, Space, Table, Tag} from 'antd';
 import type {ColumnsType} from 'antd/es/table';
-import {DeleteOutlined, EditOutlined, PlusOutlined, SettingOutlined} from '@ant-design/icons';
-import {RoleVo} from './data.d';
-import CreateRoleForm from "./components/add_role";
-import UpdateRoleForm from "./components/update_role";
-import {addRole, handleResp, removeRole, roleList, update_role_menu, updateRole} from "./service";
-import AdvancedSearchForm from "./components/search_role";
-import SetRoleMenuForm from "./components/set_role_menu";
+import {DeleteOutlined, EditOutlined, PlusOutlined} from '@ant-design/icons';
+import {RoleVo} from './data';
+import CreateRoleForm from "./components/AddModal.tsx";
+import UpdateRoleForm from "./components/UpdateModal.tsx";
+import {addRole, handleResp, removeRole, queryRoleList, update_role_menu, updateRole} from "./service";
+import AdvancedSearchForm from "./components/SearchForm.tsx";
+import SetRoleMenuForm from "./components/RoleMenu.tsx";
 
 const Role: React.FC = () => {
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
@@ -77,7 +77,7 @@ const Role: React.FC = () => {
     const handleAddOk = async (role: RoleVo) => {
         if (handleResp(await addRole(role))) {
             setShowAddModal(false);
-            let res = await roleList({current: currentPage, pageSize})
+            let res = await queryRoleList({current: currentPage, pageSize})
             setTotal(res.total)
             res.code === 0 ? setRoleListData(res.data) : message.error(res.msg);
         }
@@ -96,7 +96,7 @@ const Role: React.FC = () => {
     const handleEditOk = async (role: RoleVo) => {
         if (handleResp(await updateRole(role))) {
             setShowEditModal(false);
-            let res = await roleList({
+            let res = await queryRoleList({
                 current: currentPage, pageSize
             })
             setTotal(res.total)
@@ -116,7 +116,7 @@ const Role: React.FC = () => {
     const handleMenuOk = async (role_id: Number, menu_ids: Number[]) => {
         if (handleResp(await update_role_menu(role_id, menu_ids))) {
             setShowMenuModal(false);
-            let res = await roleList({
+            let res = await queryRoleList({
                 current: currentPage, pageSize
             })
             setTotal(res.total)
@@ -143,8 +143,8 @@ const Role: React.FC = () => {
 
     //批量删除
     const handleRemove = async (ids: number[]) => {
-        if (handleResp(await removeRole(ids))) {
-            let res = await roleList({current: currentPage, pageSize})
+        if (handleResp(await removeRole({ids}))) {
+            let res = await queryRoleList({current: currentPage, pageSize})
             setTotal(res.total)
             res.code === 0 ? setRoleListData(res.data) : message.error(res.msg);
         }
@@ -152,19 +152,20 @@ const Role: React.FC = () => {
     };
 
     const handleSearchOk = async (role: RoleVo) => {
-        let res = await roleList({current: currentPage, pageSize, ...role,})
+        let res = await queryRoleList({current: currentPage, pageSize, ...role,})
         setTotal(res.total)
         res.code === 0 ? setRoleListData(res.data) : message.error(res.msg);
     };
 
     const handleResetOk = async () => {
-        let res = await roleList({current: currentPage, pageSize})
+        setCurrentPage(1)
+        let res = await queryRoleList({current: 1, pageSize})
         setTotal(res.total)
         res.code === 0 ? setRoleListData(res.data) : message.error(res.msg);
     };
 
     useEffect(() => {
-        roleList({
+        queryRoleList({
             current: currentPage, pageSize
         }).then(res => {
             setTotal(res.total)
@@ -188,7 +189,7 @@ const Role: React.FC = () => {
             console.log('onChange', page, pageSize)
             setCurrentPage(page)
             setPageSize(pageSize)
-            let res = await roleList({current: page, pageSize})
+            let res = await queryRoleList({current: page, pageSize})
             setTotal(res.total)
             res.code === 0 ? setRoleListData(res.data) : message.error(res.msg);
 

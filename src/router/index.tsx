@@ -2,7 +2,7 @@ import {Navigate} from "react-router-dom"
 import Home from "../components/layout/home";
 import SystemIndex from "../pages/system/systemIndex.tsx";
 import User from "../pages/system/User";
-import Role from "../pages/system/role";
+import Role from "../pages/system/Role";
 import Menu from "../pages/system/menu";
 import Log from "../pages/system/log";
 import Bar from "../pages/system/charts/bar.tsx";

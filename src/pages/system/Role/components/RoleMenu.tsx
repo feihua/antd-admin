@@ -26,8 +26,8 @@ const SetRoleMenuForm: React.FC<UpdateUserFormProps> = ({open, onCreate, onCance
         query_role_menu(roleVo.id || 0).then((res) => {
             // @ts-ignore
             setTreeData(tree(res.data.menu_list, 0, "parent_id"))
-            if (res.data.role_menus) {
-                setCheckedKeys(res.data.role_menus.map((r: number) => r + ''));
+            if (res.data.menu_ids) {
+                setCheckedKeys(res.data.menu_ids.map((r: number) => r + ''));
             }
         })
 

@@ -36,9 +36,9 @@ const AdvancedSearchForm: React.FC<CreateUserFormProps> = ({search, reSet}) => {
                     label={'状态'}
                     name="status_id"
                 >
-                    <Select style={{width: 200}}>
-                        <Option value="1">启用</Option>
-                        <Option value="0">禁用</Option>
+                    <Select style={{width: 200}} placeholder="状态">
+                        <Option value={1}>启用</Option>
+                        <Option value={0}>禁用</Option>
                     </Select>
                 </FormItem>
                 <FormItem>

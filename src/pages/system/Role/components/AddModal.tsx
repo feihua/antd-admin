@@ -3,20 +3,19 @@ import {Form, Input, InputNumber, message, Modal, Radio} from 'antd';
 import {RoleVo} from "../data";
 import TextArea from "antd/es/input/TextArea";
 
-interface CreateUserFormProps {
+interface AddFormProps {
     open: boolean;
     onCreate: (values: RoleVo) => void;
     onCancel: () => void;
 }
 
-const CreateUserForm: React.FC<CreateUserFormProps> = ({open, onCreate, onCancel}) => {
+const AddRoleModal: React.FC<AddFormProps> = ({open, onCreate, onCancel}) => {
     const [form] = Form.useForm();
     const FormItem = Form.Item;
 
     const handleOk = () => {
         form.validateFields()
             .then((values) => {
-                console.log(values)
                 onCreate(values);
                 form.resetFields();
             })
@@ -25,7 +24,7 @@ const CreateUserForm: React.FC<CreateUserFormProps> = ({open, onCreate, onCancel
             });
     }
 
-    const roleFormContent = () => {
+    const addContent = () => {
         return (
             <>
                 <FormItem
@@ -40,7 +39,7 @@ const CreateUserForm: React.FC<CreateUserFormProps> = ({open, onCreate, onCancel
                     label="排序"
                     name="sort"
                     rules={[{required: true, message: '请输入排序!'}]}>
-                    <InputNumber/>
+                    <InputNumber style={{width: 234}}/>
                 </FormItem>
                 <FormItem
                     label="状态"
@@ -54,9 +53,8 @@ const CreateUserForm: React.FC<CreateUserFormProps> = ({open, onCreate, onCancel
                 <FormItem
                     label="备注"
                     name="remark"
-                    rules={[{required: true, message: '请输入备注!'}]}
                 >
-                    <TextArea rows={2}/>
+                    <TextArea rows={2} placeholder="备注"/>
                 </FormItem>
             </>
         )
@@ -68,10 +66,10 @@ const CreateUserForm: React.FC<CreateUserFormProps> = ({open, onCreate, onCancel
     return (
         <Modal {...modalFooter} style={{top: 150}}>
             <Form {...formLayout} style={{marginTop: 30}}>
-                {roleFormContent()}
+                {addContent()}
             </Form>
         </Modal>
     );
 };
 
-export default CreateUserForm;
+export default AddRoleModal;
