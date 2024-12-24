@@ -4,14 +4,14 @@ import {RoleVo} from "../data";
 import {query_role_menu} from "../service";
 import {tree} from "../../../../utils/treeUtils";
 
-interface UpdateUserFormProps {
+interface UpdateFormProps {
     open: boolean;
     onCreate: (role_id: Number, menu_ids: Number[]) => void;
     onCancel: () => void;
     roleVo: RoleVo;
 }
 
-const SetRoleMenuForm: React.FC<UpdateUserFormProps> = ({open, onCreate, onCancel, roleVo}) => {
+const SetRoleMenuForm: React.FC<UpdateFormProps> = ({open, onCreate, onCancel, roleVo}) => {
     const [form] = Form.useForm();
     const FormItem = Form.Item;
 

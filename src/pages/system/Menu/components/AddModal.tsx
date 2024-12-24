@@ -3,39 +3,24 @@ import {Form, Input, InputNumber, message, Modal, Radio, RadioChangeEvent, TreeS
 import {MenuVo} from "../data";
 import TextArea from "antd/es/input/TextArea";
 
-interface CreateMenuFormProps {
+interface AddFormProps {
     open: boolean;
     onCreate: (values: MenuVo) => void;
     onCancel: () => void;
     menuListData: MenuVo[];
 }
 
-const CreateMenuForm: React.FC<CreateMenuFormProps> = ({open, onCreate, onCancel, menuListData}) => {
+const AddMenuModal: React.FC<AddFormProps> = ({open, onCreate, onCancel, menuListData}) => {
     const [menuType, setMenuType] = useState<number>(2);
     const [menuName, setMenuName] = useState<string>('菜单名称');
 
     const [form] = Form.useForm();
     const FormItem = Form.Item;
 
-    // useEffect(() => {
-    //     if (open) {
-    //         setRoleList([]);
-    //         setSelectedRowKeys([]);
-    //         query_user_role(userVo.id).then((res) => {
-    //             console.log(res);
-    //             setRoleList(res.data.sys_role_list);
-    //
-    //             if (res.data.user_role_ids) {
-    //                 setSelectedRowKeys(res.data.user_role_ids)
-    //             }
-    //         });
-    //     }
-    // }, [open]);
-
     const handleOk = () => {
         form.validateFields()
             .then((values) => {
-                onCreate({"api_url": '', "menu_url": '', "icon": '', ...values});
+                onCreate(values);
                 form.resetFields();
             })
             .catch((info) => {
@@ -53,7 +38,7 @@ const CreateMenuForm: React.FC<CreateMenuFormProps> = ({open, onCreate, onCancel
         }
     };
 
-    const userFormContent = () => {
+    const addContent = () => {
         return (
             <>
                 <FormItem
@@ -108,7 +93,7 @@ const CreateMenuForm: React.FC<CreateMenuFormProps> = ({open, onCreate, onCancel
                     label="排序"
                     name="sort"
                     rules={[{required: true, message: '请输入排序!'}]}>
-                    <InputNumber/>
+                    <InputNumber style={{width: 234}}/>
                 </FormItem>
                 {menuType !== 3 &&
                     <FormItem
@@ -121,7 +106,7 @@ const CreateMenuForm: React.FC<CreateMenuFormProps> = ({open, onCreate, onCancel
                 }
                 <FormItem
                     label="状态"
-                    name="status_id"
+                    name="status"
                     rules={[{required: true, message: '请输入状态!'}]}>
                     <Radio.Group>
                         <Radio value={1}>启用</Radio>
@@ -131,9 +116,8 @@ const CreateMenuForm: React.FC<CreateMenuFormProps> = ({open, onCreate, onCancel
                 <FormItem
                     label="备注"
                     name="remark"
-                    initialValue={''}
                 >
-                    <TextArea rows={2}/>
+                    <TextArea rows={2} placeholder="备注"/>
                 </FormItem>
             </>
         )
@@ -145,10 +129,10 @@ const CreateMenuForm: React.FC<CreateMenuFormProps> = ({open, onCreate, onCancel
     return (
         <Modal {...modalFooter} style={{top: 150}}>
             <Form {...formLayout} style={{marginTop: 30}}>
-                {userFormContent()}
+                {addContent()}
             </Form>
         </Modal>
     );
 };
 
-export default CreateMenuForm;
+export default AddMenuModal;

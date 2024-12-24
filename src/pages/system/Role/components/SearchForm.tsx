@@ -5,12 +5,12 @@ import {RoleVo} from "../data";
 
 const {Option} = Select;
 
-interface CreateUserFormProps {
+interface SearchFormProps {
     search: (values: RoleVo) => void;
     reSet: () => void;
 }
 
-const AdvancedSearchForm: React.FC<CreateUserFormProps> = ({search, reSet}) => {
+const AdvancedSearchForm: React.FC<SearchFormProps> = ({search, reSet}) => {
     const FormItem = Form.Item;
     const [form] = Form.useForm();
 

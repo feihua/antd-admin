@@ -3,14 +3,14 @@ import {Form, Input, InputNumber, Modal, Radio} from 'antd';
 import {MenuVo} from "../data";
 import TextArea from "antd/es/input/TextArea";
 
-interface UpdateMenuFormProps {
+interface UpdateFormProps {
     open: boolean;
     onCreate: (values: MenuVo) => void;
     onCancel: () => void;
     menuVo?: MenuVo;
 }
 
-const UpdateMenuForm: React.FC<UpdateMenuFormProps> = ({open, onCreate, onCancel, menuVo}) => {
+const UpdateMenuModal: React.FC<UpdateFormProps> = ({open, onCreate, onCancel, menuVo}) => {
     const [menuType, setMenuType] = useState<number>(2);
     const [menuName, setMenuName] = useState<string>('菜单名称');
 
@@ -42,7 +42,7 @@ const UpdateMenuForm: React.FC<UpdateMenuFormProps> = ({open, onCreate, onCancel
             });
     }
 
-    const userFormContent = () => {
+    const updateContent = () => {
         return (
             <>
                 <FormItem
@@ -98,7 +98,7 @@ const UpdateMenuForm: React.FC<UpdateMenuFormProps> = ({open, onCreate, onCancel
                     label="排序"
                     name="sort"
                     rules={[{required: true, message: '请输入排序!'}]}>
-                    <InputNumber/>
+                    <InputNumber style={{width: 234}}/>
                 </FormItem>
                 {menuType !== 3 &&
                     <FormItem
@@ -111,7 +111,7 @@ const UpdateMenuForm: React.FC<UpdateMenuFormProps> = ({open, onCreate, onCancel
                 }
                 <FormItem
                     label="状态"
-                    name="status_id"
+                    name="status"
                     rules={[{required: true, message: '请输入状态!'}]}>
                     <Radio.Group>
                         <Radio value={1}>启用</Radio>
@@ -122,7 +122,7 @@ const UpdateMenuForm: React.FC<UpdateMenuFormProps> = ({open, onCreate, onCancel
                     label="备注"
                     name="remark"
                 >
-                    <TextArea rows={2}/>
+                    <TextArea rows={2} placeholder="备注"/>
                 </FormItem>
             </>
         )
@@ -134,10 +134,10 @@ const UpdateMenuForm: React.FC<UpdateMenuFormProps> = ({open, onCreate, onCancel
     return (
         <Modal {...modalFooter} style={{top: 150}}>
             <Form {...formLayout} style={{marginTop: 30}}>
-                {userFormContent()}
+                {updateContent()}
             </Form>
         </Modal>
     );
 };
 
-export default UpdateMenuForm;
+export default UpdateMenuModal;

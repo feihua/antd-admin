@@ -45,8 +45,8 @@ export const updateUserStatus = (params: { ids: number[], status: number }): Pro
  * @params {id} number
  * @return {Promise}
  */
-export const queryUserDetail = (id: number): Promise<IResponse> => {
-    return axiosInstance.get('/api/system/user/queryUserDetail?id=' + id).then(res => res.data);
+export const queryUserDetail = (params: { id: number}): Promise<IResponse> => {
+    return axiosInstance.post('/api/system/user/queryUserDetail', params).then(res => res.data);
 };
 
 

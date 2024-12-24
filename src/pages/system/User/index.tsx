@@ -8,12 +8,14 @@ import UpdateUserModal from "./components/UpdateModal.tsx";
 import {addUser, handleResp, removeUser, update_user_role, updateUser, updateUserStatus, queryUserList} from "./service";
 import AdvancedSearchForm from "./components/SearchForm.tsx";
 import SetUserRoleModal from "./components/UserRoleModal.tsx";
+import DetailModal from "./components/DetailModal.tsx";
 
-const User: React.FC = () => {
+const SysUser: React.FC = () => {
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
     const [isShowAddModal, setShowAddModal] = useState<boolean>(false);
     const [isShowEditModal, setShowEditModal] = useState<boolean>(false);
     const [isShowRoleModal, setShowRoleModal] = useState<boolean>(false);
+    const [isShowDetailModal, setShowDetailModal] = useState<boolean>(false);
     const [userListData, setUserListData] = useState<UserVo[]>([]);
     const [currentUser, setCurrentUser] = useState<UserVo>({
         create_time: "", id: 0, mobile: "", user_name: "", remark: "", sort: 0, status_id: 0, update_time: ""
@@ -69,6 +71,7 @@ const User: React.FC = () => {
                 <Space size="small">
                     <Button type="link" size={'small'} icon={<EditOutlined/>}
                             onClick={() => showEditModal(record)}>编辑</Button>
+                    <Button type="link" size={'small'} icon={<EditOutlined/>} onClick={() => showDetailModal(record)}>详情</Button>
                     <Button type="link" size={'small'} icon={<EditOutlined/>}
                             onClick={() => showRoleModal(record)}>设置角色</Button>
                     <Button type="link" size={'small'} danger icon={<DeleteOutlined/>}
@@ -145,6 +148,16 @@ const User: React.FC = () => {
 
     const handleEditCancel = () => {
         setShowEditModal(false);
+    };
+
+    const showDetailModal = (param: UserVo) => {
+        setCurrentUser(param)
+        setShowDetailModal(true);
+    };
+
+
+    const handleDetailCancel = () => {
+        setShowDetailModal(false);
     };
 
     const showRoleModal = (user: UserVo) => {
@@ -268,6 +281,7 @@ const User: React.FC = () => {
             <AddUserModal onCancel={handleAddCancel} onCreate={handleAddOk} open={isShowAddModal}></AddUserModal>
             <UpdateUserModal onCancel={handleEditCancel} onCreate={handleEditOk} open={isShowEditModal}
                              userVo={currentUser}></UpdateUserModal>
+            <DetailModal onCancel={handleDetailCancel}  open={isShowDetailModal} id={currentUser.id}></DetailModal>
             <SetUserRoleModal onCancel={handleRoleCancel} onCreate={handleRoleOk} open={isShowRoleModal}
                               userVo={currentUser}></SetUserRoleModal>
 
@@ -289,4 +303,4 @@ const User: React.FC = () => {
     );
 };
 
-export default User;
+export default SysUser;

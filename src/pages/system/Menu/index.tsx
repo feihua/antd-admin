@@ -3,16 +3,18 @@ import {Button, Divider, message, Modal, Space, Table, Tag} from 'antd';
 import type {ColumnsType} from 'antd/es/table';
 import {DeleteOutlined, EditOutlined, PlusOutlined} from '@ant-design/icons';
 import {MenuVo} from './data';
-import CreateMenuForm from "./components/add_menu";
-import UpdateMenuForm from "./components/update_menu";
-import {addMenu, handleResp, menuList, removeMenu, updateMenu} from "./service";
+import AddMenuModal from "./components/AddModal.tsx";
+import UpdateMenuModal from "./components/UpdateModal.tsx";
+import {addMenu, handleResp, queryMenuList, removeMenu, updateMenu} from "./service";
 import {tree} from "../../../utils/treeUtils";
 import {IResponse} from "../../../api/ajax";
+import DetailModal from "./components/DetailModal.tsx";
 
-const Menu: React.FC = () => {
+const SysMenu: React.FC = () => {
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
     const [isShowAddModal, setShowAddModal] = useState<boolean>(false);
     const [isShowEditModal, setShowEditModal] = useState<boolean>(false);
+    const [isShowDetailModal, setShowDetailModal] = useState<boolean>(false);
     const [menuListData, setMenuListData] = useState<MenuVo[]>([]);
     const [currentMenu, setCurrentMenu] = useState<MenuVo>();
 
@@ -36,19 +38,22 @@ const Menu: React.FC = () => {
             render: (_, {menu_type}) => (
                 <>
                     {
-                        menu_type === 1 && (<Tag color={'#ef62df'} style={{width: 50, height: 30, textAlign: "center", paddingTop: 4}}>
-                            目录
-                        </Tag>)
+                        menu_type === 1 && (
+                            <Tag color={'#ef62df'} style={{width: 50, height: 30, textAlign: "center", paddingTop: 4}}>
+                                目录
+                            </Tag>)
                     }
                     {
-                        menu_type === 2 && (<Tag color={'#3f80e9'} style={{width: 50, height: 30, textAlign: "center", paddingTop: 4}}>
-                            菜单
-                        </Tag>)
+                        menu_type === 2 && (
+                            <Tag color={'#3f80e9'} style={{width: 50, height: 30, textAlign: "center", paddingTop: 4}}>
+                                菜单
+                            </Tag>)
                     }
                     {
-                        menu_type === 3 && (<Tag color={'#67c23a'} style={{width: 50, height: 30, textAlign: "center", paddingTop: 4}}>
-                            功能
-                        </Tag>)
+                        menu_type === 3 && (
+                            <Tag color={'#67c23a'} style={{width: 50, height: 30, textAlign: "center", paddingTop: 4}}>
+                                功能
+                            </Tag>)
                     }
                 </>
             ),
@@ -67,7 +72,8 @@ const Menu: React.FC = () => {
             render: (_, {status_id}) => (
                 <>
                     {
-                        <Tag color={status_id === 0 ? '#ff4d4f' : '#67c23a'} style={{width: 50, height: 30, textAlign: "center", paddingTop: 4}}>
+                        <Tag color={status_id === 0 ? '#ff4d4f' : '#67c23a'}
+                             style={{width: 50, height: 30, textAlign: "center", paddingTop: 4}}>
                             {status_id === 0 ? '禁用' : '启用'}
                         </Tag>
                     }
@@ -91,8 +97,11 @@ const Menu: React.FC = () => {
             key: 'action',
             render: (_, record) => (
                 <Space size="small">
-                    <Button type="link" size={'small'} icon={<EditOutlined />} onClick={() => showEditModal(record)}>编辑</Button>
-                    <Button type="link" size={'small'} danger icon={<DeleteOutlined />}
+                    <Button type="link" size={'small'} icon={<EditOutlined/>}
+                            onClick={() => showEditModal(record)}>编辑</Button>
+                    <Button type="link" size={'small'} icon={<EditOutlined/>}
+                            onClick={() => showDetailModal(record)}>详情</Button>
+                    <Button type="link" size={'small'} danger icon={<DeleteOutlined/>}
                             onClick={() => showDeleteConfirm(record)}>删除</Button>
                 </Space>
             ),
@@ -107,7 +116,7 @@ const Menu: React.FC = () => {
         console.log(menu)
         if (handleResp(await addMenu(menu))) {
             setShowAddModal(false);
-            let res = await menuList({})
+            let res = await queryMenuList({})
             res.code === 0 ? setMenuDataTree(res) : message.error(res.msg);
         }
     }
@@ -125,13 +134,23 @@ const Menu: React.FC = () => {
     const handleEditOk = async (menu: MenuVo) => {
         if (handleResp(await updateMenu(menu))) {
             setShowEditModal(false);
-            let res = await menuList({})
+            let res = await queryMenuList({})
             res.code === 0 ? setMenuDataTree(res) : message.error(res.msg);
         }
     };
 
     const handleEditCancel = () => {
         setShowEditModal(false);
+    };
+
+
+    const showDetailModal = (param: MenuVo) => {
+        setCurrentMenu(param)
+        setShowDetailModal(true);
+    };
+
+    const handleDetailCancel = () => {
+        setShowDetailModal(false);
     };
 
     //删除单条数据
@@ -150,20 +169,10 @@ const Menu: React.FC = () => {
     //批量删除
     const handleRemove = async (ids: number[]) => {
         if (handleResp(await removeMenu(ids))) {
-            let res = await menuList({})
+            let res = await queryMenuList({})
             res.code === 0 ? setMenuDataTree(res) : message.error(res.msg);
         }
 
-    };
-
-    const handleSearchOk = async (menu: MenuVo) => {
-        let res = await menuList({...menu,})
-        res.code === 0 ? setMenuDataTree(res) : message.error(res.msg);
-    };
-
-    const handleResetOk = async () => {
-        let res = await menuList({})
-        res.code === 0 ? setMenuDataTree(res) : message.error(res.msg);
     };
 
     const setMenuDataTree = (res: IResponse) => {
@@ -171,7 +180,7 @@ const Menu: React.FC = () => {
     }
 
     useEffect(() => {
-        menuList({}).then(res => {
+        queryMenuList({}).then(res => {
             res.code === 0 ? setMenuDataTree(res) : message.error(res.msg);
         });
     }, []);
@@ -201,8 +210,11 @@ const Menu: React.FC = () => {
                 pagination={false}
             />
 
-            <CreateMenuForm onCancel={handleAddCancel} onCreate={handleAddOk} open={isShowAddModal} menuListData={menuListData}></CreateMenuForm>
-            <UpdateMenuForm onCancel={handleEditCancel} onCreate={handleEditOk} open={isShowEditModal} menuVo={currentMenu}></UpdateMenuForm>
+            <AddMenuModal onCancel={handleAddCancel} onCreate={handleAddOk} open={isShowAddModal}
+                          menuListData={menuListData}></AddMenuModal>
+            <UpdateMenuModal onCancel={handleEditCancel} onCreate={handleEditOk} open={isShowEditModal}
+                             menuVo={currentMenu}></UpdateMenuModal>
+            <DetailModal onCancel={handleDetailCancel} open={isShowDetailModal} id={currentMenu?.id || 0}></DetailModal>
 
             {selectedRowKeys.length > 0 &&
                 <div>
@@ -222,4 +234,4 @@ const Menu: React.FC = () => {
     );
 };
 
-export default Menu;
+export default SysMenu;

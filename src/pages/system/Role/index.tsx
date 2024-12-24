@@ -8,11 +8,13 @@ import UpdateRoleForm from "./components/UpdateModal.tsx";
 import {addRole, handleResp, removeRole, queryRoleList, update_role_menu, updateRole} from "./service";
 import AdvancedSearchForm from "./components/SearchForm.tsx";
 import SetRoleMenuForm from "./components/RoleMenu.tsx";
+import DetailModal from "./components/DetailModal.tsx";
 
-const Role: React.FC = () => {
+const SysRole: React.FC = () => {
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
     const [isShowAddModal, setShowAddModal] = useState<boolean>(false);
     const [isShowEditModal, setShowEditModal] = useState<boolean>(false);
+    const [isShowDetailModal, setShowDetailModal] = useState<boolean>(false);
     const [isShowMenuModal, setShowMenuModal] = useState<boolean>(false);
     const [roleListData, setRoleListData] = useState<RoleVo[]>([]);
     const [currentRole, setCurrentRole] = useState<RoleVo>({create_time: "", id: 0, remark: "", role_name: "", sort: 0, status_id: 0, update_time: ""});
@@ -61,6 +63,7 @@ const Role: React.FC = () => {
             render: (_, record) => (
                 <Space size="small">
                     <Button type="link" size={'small'} icon={<EditOutlined />} onClick={() => showEditModal(record)}>编辑</Button>
+                    <Button type="link" size={'small'} icon={<EditOutlined/>} onClick={() => showDetailModal(record)}>详情</Button>
                     <Button type="link" size={'small'} icon={<EditOutlined />}
                             onClick={() => showRoleMenuModal(record)}>设置菜单</Button>
                     <Button type="link" size={'small'} danger icon={<DeleteOutlined />}
@@ -106,6 +109,16 @@ const Role: React.FC = () => {
 
     const handleEditCancel = () => {
         setShowEditModal(false);
+    };
+
+    const showDetailModal = (param: RoleVo) => {
+        setCurrentRole(param)
+        setShowDetailModal(true);
+    };
+
+
+    const handleDetailCancel = () => {
+        setShowDetailModal(false);
     };
 
     const showRoleMenuModal = (role: RoleVo) => {
@@ -226,6 +239,7 @@ const Role: React.FC = () => {
 
             <CreateRoleForm onCancel={handleAddCancel} onCreate={handleAddOk} open={isShowAddModal}></CreateRoleForm>
             <UpdateRoleForm onCancel={handleEditCancel} onCreate={handleEditOk} open={isShowEditModal} roleVo={currentRole}></UpdateRoleForm>
+            <DetailModal onCancel={handleDetailCancel}  open={isShowDetailModal} id={currentRole.id}></DetailModal>
             <SetRoleMenuForm onCancel={handleMenuCancel} onCreate={handleMenuOk} open={isShowMenuModal} roleVo={currentRole}></SetRoleMenuForm>
 
             {selectedRowKeys.length > 0 &&
@@ -246,4 +260,4 @@ const Role: React.FC = () => {
     );
 };
 
-export default Role;
+export default SysRole;
