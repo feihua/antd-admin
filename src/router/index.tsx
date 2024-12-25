@@ -10,6 +10,7 @@ import Line from "../pages/system/charts/line.tsx";
 import Pie from "../pages/system/charts/pie.tsx";
 import Center from "../pages/system/account/center";
 import Setting from "../pages/system/account/settings";
+import Notice from "../pages/system/Notice";
 
 const routes = [
     {
@@ -31,6 +32,10 @@ const routes = [
             {
                 path: '/system/menu',
                 element: <SysMenu />,
+            },
+            {
+                path: '/system/notice',
+                element: <Notice />,
             },
             {
                 path: '/system/operateLog',

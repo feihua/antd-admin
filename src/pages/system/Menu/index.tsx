@@ -206,7 +206,6 @@ const SysMenu: React.FC = () => {
                 columns={columns}
                 dataSource={menuListData}
                 rowKey={'id'}
-                tableLayout={"fixed"}
                 pagination={false}
             />
 
