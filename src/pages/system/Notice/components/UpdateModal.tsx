@@ -93,7 +93,7 @@ const UpdateModal: React.FC<UpdateModalProps> = ({open, onCreate, onCancel, id})
         );
     };
 
-    const modalFooter = {title: title, okText: '保存', onOk: handleOk, onCancel, cancelText: '取消', open, width: 580};
+    const modalFooter = {title: title, okText: '保存', onOk: handleOk, onCancel, cancelText: '取消', open, width: 520};
     const formLayout = {labelCol: {span: 7}, wrapperCol: {span: 13}, form};
 
     return (
