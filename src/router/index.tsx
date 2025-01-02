@@ -14,6 +14,7 @@ import Notice from "../pages/system/Notice";
 import Post from "../pages/system/Post";
 import DictType from "../pages/system/DictType";
 import DictData from "../pages/system/DictData";
+import Dept from "../pages/system/Dept";
 
 const routes = [
     {
@@ -35,6 +36,10 @@ const routes = [
             {
                 path: '/system/menu',
                 element: <SysMenu />,
+            },
+            {
+                path: '/system/dept',
+                element: <Dept />,
             },
             {
                 path: '/system/post',
