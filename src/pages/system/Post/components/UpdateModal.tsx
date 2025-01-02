@@ -66,8 +66,8 @@ const UpdateModal: React.FC<UpdateModalProps> = ({open, onCreate, onCancel, id})
                 </FormItem>
                 <FormItem
                     name="status"
-                    label="部门状态"
-                    rules={[{required: true, message: '请输入部门状态!'}]}
+                    label="岗位状态"
+                    rules={[{required: true, message: '请输入岗位状态!'}]}
                 >
                     <Radio.Group>
                         <Radio value={1}>正常</Radio>
@@ -76,7 +76,7 @@ const UpdateModal: React.FC<UpdateModalProps> = ({open, onCreate, onCancel, id})
                 </FormItem>
                 <FormItem
                     name="remark"
-                    label="备注"
+                    label="岗位备注"
                 >
                     <Input.TextArea rows={2} placeholder={'请输入备注'}/>
                 </FormItem>
@@ -87,7 +87,7 @@ const UpdateModal: React.FC<UpdateModalProps> = ({open, onCreate, onCancel, id})
     };
 
     return (
-        <Modal title="更新" okText="保存" onOk={handleOk} onCancel={onCancel} cancelText="取消" open={open} width={480}
+        <Modal title="更新" okText="保存" onOk={handleOk} onCancel={onCancel} cancelText="取消" open={open} width={520}
                style={{top: 150}}>
             <Form labelCol={{span: 7}} wrapperCol={{span: 13}} form={form} style={{marginTop: 30}}>
                 {renderContent()}

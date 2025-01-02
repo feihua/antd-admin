@@ -32,7 +32,7 @@ const Post: React.FC = () => {
 
     const columns: ColumnsType<PostVo> = [
         {
-            title: '岗位id',
+            title: '岗位编号',
             dataIndex: 'id',
         },
         {
@@ -49,7 +49,7 @@ const Post: React.FC = () => {
             dataIndex: 'sort',
         },
         {
-            title: '部门状态',
+            title: '岗位状态',
             dataIndex: 'status',
             render: (_, {status}) => (
                 <>
@@ -70,10 +70,6 @@ const Post: React.FC = () => {
         {
             title: '创建时间',
             dataIndex: 'create_time',
-        },
-        {
-            title: '更新时间',
-            dataIndex: 'update_time',
         },
 
         {

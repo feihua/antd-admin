@@ -19,7 +19,7 @@ const DetailModal: React.FC<DetailModalProps> = (props) => {
                 setColumns([
                     {
                         key: '1',
-                        label: '岗位id',
+                        label: '岗位编号',
                         children: <p>{res.data.id}</p>,
                     },
                     {
@@ -39,12 +39,12 @@ const DetailModal: React.FC<DetailModalProps> = (props) => {
                     },
                     {
                         key: '5',
-                        label: '部门状态',
+                        label: '岗位状态',
                         children: <p>{res.data.status == 1 ? '正常' : '停用'}</p>,
                     },
                     {
                         key: '6',
-                        label: '备注',
+                        label: '岗位备注',
                         children: <p>{res.data.remark}</p>,
                     },
                     {
@@ -65,7 +65,7 @@ const DetailModal: React.FC<DetailModalProps> = (props) => {
 
 
     return (
-        <Modal forceRender destroyOnClose title={"title"} open={open} footer={false} width={800} onCancel={onCancel}>
+        <Modal forceRender destroyOnClose title={"岗位详细信息"} open={open} footer={false} width={800} onCancel={onCancel}>
             <Descriptions items={columns} style={{margin: 30}} column={2}/>
         </Modal>
     );

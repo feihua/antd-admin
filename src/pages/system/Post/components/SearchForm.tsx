@@ -39,9 +39,9 @@ const AdvancedSearchForm: React.FC<CreateFormProps> = ({search, reSet}) => {
                 </FormItem>
                 <FormItem
                     name="status"
-                    label="部门状态"
+                    label="状态"
                 >
-                    <Select style={{width: 200}} placeholder={'选择部门状态'}>
+                    <Select style={{width: 200}} placeholder={'选择岗位状态'}>
                         <Select.Option value={1}>正常</Select.Option>
                         <Select.Option value={0}>禁用</Select.Option>
                     </Select>
