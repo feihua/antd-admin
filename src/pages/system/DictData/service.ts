@@ -1,6 +1,6 @@
 import {axiosInstance, IResponse} from "../../../api/ajax";
-import { DictDataVo, DictDataListParam } from "./data";
-import { message } from "antd";
+import {DictDataListParam, DictDataVo} from "./data";
+import {message} from "antd";
 
 /**
  * @description: 添加字典数据表
@@ -17,7 +17,7 @@ export const addDictData = (params: DictDataVo): Promise<IResponse> => {
  * @return {Promise}
  */
 export const removeDictData = (ids: number[]): Promise<IResponse> => {
-    return axiosInstance.get('/api/system/dictData/deleteDictData?ids=[' + ids + "]").then(res => res.data);
+    return axiosInstance.post('/api/system/dictData/deleteDictData', {ids}).then(res => res.data);
 };
 
 

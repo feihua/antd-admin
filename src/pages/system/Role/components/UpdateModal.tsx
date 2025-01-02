@@ -53,7 +53,7 @@ const UpdateRoleModal: React.FC<UpdateFormProps> = ({open, onCreate, onCancel, r
                     label="排序"
                     name="sort"
                     rules={[{required: true, message: '请输入排序!'}]}>
-                    <InputNumber defaultValue={1}  style={{width:234}}/>
+                    <InputNumber defaultValue={1} style={{width: 234}}/>
                 </FormItem>
                 <FormItem
                     label="状态"

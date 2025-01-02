@@ -5,7 +5,7 @@ import {DeleteOutlined, EditOutlined, PlusOutlined} from '@ant-design/icons';
 import {RoleVo} from './data';
 import CreateRoleForm from "./components/AddModal.tsx";
 import UpdateRoleForm from "./components/UpdateModal.tsx";
-import {addRole, handleResp, removeRole, queryRoleList, update_role_menu, updateRole} from "./service";
+import {addRole, handleResp, queryRoleList, removeRole, update_role_menu, updateRole} from "./service";
 import AdvancedSearchForm from "./components/SearchForm.tsx";
 import SetRoleMenuForm from "./components/RoleMenu.tsx";
 import DetailModal from "./components/DetailModal.tsx";
@@ -17,7 +17,15 @@ const SysRole: React.FC = () => {
     const [isShowDetailModal, setShowDetailModal] = useState<boolean>(false);
     const [isShowMenuModal, setShowMenuModal] = useState<boolean>(false);
     const [roleListData, setRoleListData] = useState<RoleVo[]>([]);
-    const [currentRole, setCurrentRole] = useState<RoleVo>({create_time: "", id: 0, remark: "", role_name: "", sort: 0, status_id: 0, update_time: ""});
+    const [currentRole, setCurrentRole] = useState<RoleVo>({
+        create_time: "",
+        id: 0,
+        remark: "",
+        role_name: "",
+        sort: 0,
+        status_id: 0,
+        update_time: ""
+    });
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [pageSize, setPageSize] = useState<number>(10);
     const [total, setTotal] = useState<number>(10);
@@ -38,7 +46,8 @@ const SysRole: React.FC = () => {
             render: (_, {status_id}) => (
                 <>
                     {
-                        <Tag color={status_id === 0 ? '#ff4d4f' : '#67c23a'} style={{width: 50, height: 30, textAlign: "center", paddingTop: 4}}>
+                        <Tag color={status_id === 0 ? '#ff4d4f' : '#67c23a'}
+                             style={{width: 50, height: 30, textAlign: "center", paddingTop: 4}}>
                             {status_id === 0 ? '禁用' : '启用'}
                         </Tag>
                     }
@@ -62,11 +71,13 @@ const SysRole: React.FC = () => {
             key: 'action',
             render: (_, record) => (
                 <Space size="small">
-                    <Button type="link" size={'small'} icon={<EditOutlined />} onClick={() => showEditModal(record)}>编辑</Button>
-                    <Button type="link" size={'small'} icon={<EditOutlined/>} onClick={() => showDetailModal(record)}>详情</Button>
-                    <Button type="link" size={'small'} icon={<EditOutlined />}
+                    <Button type="link" size={'small'} icon={<EditOutlined/>}
+                            onClick={() => showEditModal(record)}>编辑</Button>
+                    <Button type="link" size={'small'} icon={<EditOutlined/>}
+                            onClick={() => showDetailModal(record)}>详情</Button>
+                    <Button type="link" size={'small'} icon={<EditOutlined/>}
                             onClick={() => showRoleMenuModal(record)}>设置菜单</Button>
-                    <Button type="link" size={'small'} danger icon={<DeleteOutlined />}
+                    <Button type="link" size={'small'} danger icon={<DeleteOutlined/>}
                             onClick={() => showDeleteConfirm(record)}>删除</Button>
                 </Space>
             ),
@@ -144,6 +155,8 @@ const SysRole: React.FC = () => {
     //删除单条数据
     const showDeleteConfirm = (role: RoleVo) => {
         Modal.confirm({
+            okText: '确定',
+            cancelText: '取消',
             content: `确定删除${role.role_name}吗?`,
             async onOk() {
                 await handleRemove([role.id]);
@@ -238,9 +251,11 @@ const SysRole: React.FC = () => {
             />
 
             <CreateRoleForm onCancel={handleAddCancel} onCreate={handleAddOk} open={isShowAddModal}></CreateRoleForm>
-            <UpdateRoleForm onCancel={handleEditCancel} onCreate={handleEditOk} open={isShowEditModal} roleVo={currentRole}></UpdateRoleForm>
-            <DetailModal onCancel={handleDetailCancel}  open={isShowDetailModal} id={currentRole.id}></DetailModal>
-            <SetRoleMenuForm onCancel={handleMenuCancel} onCreate={handleMenuOk} open={isShowMenuModal} roleVo={currentRole}></SetRoleMenuForm>
+            <UpdateRoleForm onCancel={handleEditCancel} onCreate={handleEditOk} open={isShowEditModal}
+                            roleVo={currentRole}></UpdateRoleForm>
+            <DetailModal onCancel={handleDetailCancel} open={isShowDetailModal} id={currentRole.id}></DetailModal>
+            <SetRoleMenuForm onCancel={handleMenuCancel} onCreate={handleMenuOk} open={isShowMenuModal}
+                             roleVo={currentRole}></SetRoleMenuForm>
 
             {selectedRowKeys.length > 0 &&
                 <div>

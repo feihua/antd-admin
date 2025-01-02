@@ -1,7 +1,7 @@
 import React from 'react';
 import {SearchOutlined} from '@ant-design/icons';
 import {Button, Form, FormProps, Input, Select, Space} from 'antd';
-import { DeptVo} from "../data";
+import {DeptVo} from "../data";
 
 interface CreateFormProps {
     search: (values: DeptVo) => void;
@@ -26,17 +26,17 @@ const AdvancedSearchForm: React.FC<CreateFormProps> = ({search, reSet}) => {
         return (
             <>
                 <FormItem
-                  name="dept_name"
-                  label="部门名称"
+                    name="dept_name"
+                    label="部门名称"
                 >
                     <Input id="search-dept_name" placeholder={'请输入部门名称'}/>
                 </FormItem>
 
                 <FormItem
-                  name="status"
-                  label="部门状态"
+                    name="status"
+                    label="部门状态"
                 >
-                    <Select style={ {width: 200}}  placeholder={'选择部门状态'}>
+                    <Select style={{width: 200}} placeholder={'选择部门状态'}>
                         <Select.Option value={1}>正常</Select.Option>
                         <Select.Option value={0}>禁用</Select.Option>
                     </Select>
@@ -44,10 +44,10 @@ const AdvancedSearchForm: React.FC<CreateFormProps> = ({search, reSet}) => {
 
                 <FormItem>
                     <Space>
-                        <Button type="primary" htmlType="submit" icon={<SearchOutlined/>} style={ {width: 120} }>
+                        <Button type="primary" htmlType="submit" icon={<SearchOutlined/>} style={{width: 120}}>
                             查询
                         </Button>
-                        <Button htmlType="button" onClick={onReset} style={ {width: 100} }>
+                        <Button htmlType="button" onClick={onReset} style={{width: 100}}>
                             重置
                         </Button>
                     </Space>

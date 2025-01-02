@@ -16,7 +16,7 @@ export const addUser = (params: UserVo): Promise<IResponse> => {
  * @params {ids} number[]
  * @return {Promise}
  */
-export const removeUser = (params: { ids: number[]}): Promise<IResponse> => {
+export const removeUser = (params: { ids: number[] }): Promise<IResponse> => {
     return axiosInstance.post('/api/system/user/deleteUser', params).then(res => res.data);
 };
 
@@ -45,7 +45,7 @@ export const updateUserStatus = (params: { ids: number[], status: number }): Pro
  * @params {id} number
  * @return {Promise}
  */
-export const queryUserDetail = (params: { id: number}): Promise<IResponse> => {
+export const queryUserDetail = (params: { id: number }): Promise<IResponse> => {
     return axiosInstance.post('/api/system/user/queryUserDetail', params).then(res => res.data);
 };
 
@@ -74,7 +74,10 @@ export const query_user_role = (user_id: Number): Promise<IResponse> => {
  * @return {Promise}
  */
 export const update_user_role = (user_id: Number, role_ids: Number[]): Promise<IResponse> => {
-    return axiosInstance.post('/api/system/user/updateUserRole', {user_id: user_id, role_ids: role_ids}).then(res => res.data);
+    return axiosInstance.post('/api/system/user/updateUserRole', {
+        user_id: user_id,
+        role_ids: role_ids
+    }).then(res => res.data);
 };
 
 /**

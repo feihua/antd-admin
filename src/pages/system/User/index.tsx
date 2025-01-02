@@ -5,7 +5,15 @@ import {DeleteOutlined, EditOutlined, ExclamationCircleOutlined, PlusOutlined} f
 import {UserListParam, UserVo} from './data';
 import AddUserModal from "./components/AddModal.tsx";
 import UpdateUserModal from "./components/UpdateModal.tsx";
-import {addUser, handleResp, removeUser, update_user_role, updateUser, updateUserStatus, queryUserList} from "./service";
+import {
+    addUser,
+    handleResp,
+    queryUserList,
+    removeUser,
+    update_user_role,
+    updateUser,
+    updateUserStatus
+} from "./service";
 import AdvancedSearchForm from "./components/SearchForm.tsx";
 import SetUserRoleModal from "./components/UserRoleModal.tsx";
 import DetailModal from "./components/DetailModal.tsx";
@@ -71,7 +79,8 @@ const SysUser: React.FC = () => {
                 <Space size="small">
                     <Button type="link" size={'small'} icon={<EditOutlined/>}
                             onClick={() => showEditModal(record)}>编辑</Button>
-                    <Button type="link" size={'small'} icon={<EditOutlined/>} onClick={() => showDetailModal(record)}>详情</Button>
+                    <Button type="link" size={'small'} icon={<EditOutlined/>}
+                            onClick={() => showDetailModal(record)}>详情</Button>
                     <Button type="link" size={'small'} icon={<EditOutlined/>}
                             onClick={() => showRoleModal(record)}>设置角色</Button>
                     <Button type="link" size={'small'} danger icon={<DeleteOutlined/>}
@@ -83,6 +92,8 @@ const SysUser: React.FC = () => {
 
     const showStatusConfirm = (ids: number[], status: number) => {
         Modal.confirm({
+            okText: '确定',
+            cancelText: '取消',
             title: `确定${status == 1 ? '启用' : '禁用'}吗？`,
             icon: <ExclamationCircleOutlined/>,
             async onOk() {
@@ -183,6 +194,8 @@ const SysUser: React.FC = () => {
     //删除单条数据
     const showDeleteConfirm = (user: UserVo) => {
         Modal.confirm({
+            okText: '确定',
+            cancelText: '取消',
             content: `确定删除${user.user_name}吗?`,
             async onOk() {
                 await handleRemove([user.id]);
@@ -195,7 +208,7 @@ const SysUser: React.FC = () => {
 
     //批量删除
     const handleRemove = async (ids: number[]) => {
-        if (handleResp(await removeUser({ids:ids}))) {
+        if (handleResp(await removeUser({ids: ids}))) {
             let res = await queryUserList({current: currentPage, mobile: "", pageSize})
             setTotal(res.total)
             res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
@@ -281,7 +294,7 @@ const SysUser: React.FC = () => {
             <AddUserModal onCancel={handleAddCancel} onCreate={handleAddOk} open={isShowAddModal}></AddUserModal>
             <UpdateUserModal onCancel={handleEditCancel} onCreate={handleEditOk} open={isShowEditModal}
                              userVo={currentUser}></UpdateUserModal>
-            <DetailModal onCancel={handleDetailCancel}  open={isShowDetailModal} id={currentUser.id}></DetailModal>
+            <DetailModal onCancel={handleDetailCancel} open={isShowDetailModal} id={currentUser.id}></DetailModal>
             <SetUserRoleModal onCancel={handleRoleCancel} onCreate={handleRoleOk} open={isShowRoleModal}
                               userVo={currentUser}></SetUserRoleModal>
 

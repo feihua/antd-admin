@@ -56,7 +56,7 @@ const UpdateModal: React.FC<UpdateModalProps> = ({open, onCreate, onCancel, id})
                     label="上级部门"
                     rules={[{required: true, message: '请输入父部门id!'}]}
                 >
-                    <InputNumber style={ {width: 255} }/>
+                    <InputNumber style={{width: 255}}/>
                     {/*<Input id="create-parent_id" placeholder={'请输入上级部门!'}/>*/}
                 </FormItem>
                 <FormItem

@@ -9,7 +9,7 @@ import {message} from "antd";
  * @return {Promise}
  */
 export const removeLoginLog = (ids: number[]): Promise<IResponse> => {
-    return axiosInstance.get('/api/system/loginLog/deleteLoginLog?ids=[' + ids + "]").then(res => res.data);
+    return axiosInstance.post('/api/system/loginLog/deleteLoginLog', {ids}).then(res => res.data);
 };
 
 /**
@@ -17,7 +17,7 @@ export const removeLoginLog = (ids: number[]): Promise<IResponse> => {
  * @params {id} number
  * @return {Promise}
  */
-export const queryLoginLogDetail = (params:{id: number}): Promise<IResponse> => {
+export const queryLoginLogDetail = (params: { id: number }): Promise<IResponse> => {
     return axiosInstance.post('/api/system/loginLog/queryLoginLogDetail', params).then(res => res.data);
 };
 

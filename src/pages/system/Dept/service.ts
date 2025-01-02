@@ -1,6 +1,6 @@
 import {axiosInstance, IResponse} from "../../../api/ajax";
-import { DeptVo, DeptListParam } from "./data";
-import { message } from "antd";
+import {DeptListParam, DeptVo} from "./data";
+import {message} from "antd";
 
 /**
  * @description: 添加部门表
@@ -17,7 +17,7 @@ export const addDept = (params: DeptVo): Promise<IResponse> => {
  * @return {Promise}
  */
 export const removeDept = (ids: number[]): Promise<IResponse> => {
-    return axiosInstance.get('/api/system/dept/deleteDept?ids=[' + ids + "]").then(res => res.data);
+    return axiosInstance.post('/api/system/dept/deleteDept', {ids}).then(res => res.data);
 };
 
 

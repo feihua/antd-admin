@@ -103,7 +103,8 @@ const AddModal: React.FC<AddModalProps> = ({open, onCreate, onCancel}) => {
     return (
         <Modal title="新建" okText="保存" onOk={handleOk} onCancel={onCancel} cancelText="取消" open={open} width={520}
                style={{top: 150}}>
-            <Form labelCol={{span: 7}} wrapperCol={{span: 13}} form={form} initialValues={{dict_sort: 1, status: 1, is_default:'N'}}
+            <Form labelCol={{span: 7}} wrapperCol={{span: 13}} form={form}
+                  initialValues={{dict_sort: 1, status: 1, is_default: 'N'}}
                   style={{marginTop: 30}}>
                 {renderContent()}
             </Form>

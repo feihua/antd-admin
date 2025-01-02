@@ -1,6 +1,6 @@
 import {axiosInstance, IResponse} from "../../../api/ajax";
-import { PostVo, PostListParam } from "./data";
-import { message } from "antd";
+import {PostListParam, PostVo} from "./data";
+import {message} from "antd";
 
 /**
  * @description: 添加岗位信息表
@@ -17,7 +17,7 @@ export const addPost = (params: PostVo): Promise<IResponse> => {
  * @return {Promise}
  */
 export const removePost = (ids: number[]): Promise<IResponse> => {
-    return axiosInstance.get('/api/system/post/deletePost?ids=[' + ids + "]").then(res => res.data);
+    return axiosInstance.post('/api/system/post/deletePost', {ids}).then(res => res.data);
 };
 
 
@@ -45,7 +45,7 @@ export const updatePostStatus = (params: { ids: number[], postStatus: number }):
  * @params {id} number
  * @return {Promise}
  */
-export const queryPostDetail = (params: { id: number}): Promise<IResponse> => {
+export const queryPostDetail = (params: { id: number }): Promise<IResponse> => {
     return axiosInstance.post('/api/system/post/queryPostDetail', params).then(res => res.data);
 };
 

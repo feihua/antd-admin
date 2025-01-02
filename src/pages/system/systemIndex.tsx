@@ -1,7 +1,7 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom';
+import {Outlet} from 'react-router-dom';
 
 const SystemIndex: React.FC = () => {
-  return <Outlet />;
+    return <Outlet/>;
 };
 export default SystemIndex;

@@ -164,6 +164,8 @@ const DictData: React.FC = () => {
     //删除单条数据
     const showDeleteConfirm = (param: DictDataVo) => {
         Modal.confirm({
+            okText: '确定',
+            cancelText: '取消',
             content: `确定删除${param.dict_label}吗?`,
             async onOk() {
                 await handleRemove([param.dict_code]);

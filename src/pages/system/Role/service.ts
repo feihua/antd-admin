@@ -45,7 +45,7 @@ export const updateRoleStatus = (params: { ids: number[], roleStatus: number }):
  * @params {id} number
  * @return {Promise}
  */
-export const queryRoleDetail = (params: { id: number}): Promise<IResponse> => {
+export const queryRoleDetail = (params: { id: number }): Promise<IResponse> => {
     return axiosInstance.post('/api/system/role/queryRoleDetail', params).then(res => res.data);
 };
 

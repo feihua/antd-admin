@@ -74,7 +74,8 @@ const AddModal: React.FC<AddModalProps> = ({open, onCreate, onCancel}) => {
     };
 
     return (
-        <Modal title="添加公告" okText="保存" onOk={handleOk} onCancel={onCancel} cancelText="取消" open={open} width={580}
+        <Modal title="添加公告" okText="保存" onOk={handleOk} onCancel={onCancel} cancelText="取消" open={open}
+               width={580}
                style={{top: 150}}>
             <Form labelCol={{span: 6}} wrapperCol={{span: 14}} form={form} initialValues={{notice_type: 1, status: 1}}
                   style={{marginTop: 30}}>

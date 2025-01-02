@@ -156,6 +156,8 @@ const SysMenu: React.FC = () => {
     //删除单条数据
     const showDeleteConfirm = (menu: MenuVo) => {
         Modal.confirm({
+            okText: '确定',
+            cancelText: '取消',
             content: `确定删除${menu.menu_name}吗?`,
             async onOk() {
                 await handleRemove([menu.id]);

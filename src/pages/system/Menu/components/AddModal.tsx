@@ -124,7 +124,12 @@ const AddMenuModal: React.FC<AddFormProps> = ({open, onCreate, onCancel, menuLis
     }
 
     const modalFooter = {title: "新建", okText: '保存', onOk: handleOk, onCancel, cancelText: '取消', open, width: 480};
-    const formLayout = {labelCol: {span: 7}, wrapperCol: {span: 13}, form, initialValues: {"sort": 1, "status_id": 1, "menu_type": 2, "icon": "Setting",}};
+    const formLayout = {
+        labelCol: {span: 7},
+        wrapperCol: {span: 13},
+        form,
+        initialValues: {"sort": 1, "status_id": 1, "menu_type": 2, "icon": "Setting",}
+    };
 
     return (
         <Modal {...modalFooter} style={{top: 150}}>

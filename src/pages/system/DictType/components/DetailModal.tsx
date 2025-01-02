@@ -35,7 +35,7 @@ const DetailModal: React.FC<DetailModalProps> = (props) => {
                     {
                         key: '4',
                         label: '状态',
-                        children: <p>{ res.data.status==1?'正常': '停用'}</p>,
+                        children: <p>{res.data.status == 1 ? '正常' : '停用'}</p>,
                     },
                     {
                         key: '5',

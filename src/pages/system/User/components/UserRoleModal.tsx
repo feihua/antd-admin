@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Modal, Table, Tag} from 'antd';
-import {UserVo, RoleVo} from "../data";
+import {RoleVo, UserVo} from "../data";
 import {ColumnsType} from "antd/es/table";
 import {query_user_role} from "../service";
 

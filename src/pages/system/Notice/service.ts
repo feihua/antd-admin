@@ -1,6 +1,6 @@
 import {axiosInstance, IResponse} from "../../../api/ajax";
-import { NoticeVo, NoticeListParam } from "./data";
-import { message } from "antd";
+import {NoticeListParam, NoticeVo} from "./data";
+import {message} from "antd";
 
 /**
  * @description: 添加通知公告表
@@ -17,7 +17,7 @@ export const addNotice = (params: NoticeVo): Promise<IResponse> => {
  * @return {Promise}
  */
 export const removeNotice = (ids: number[]): Promise<IResponse> => {
-    return axiosInstance.get('/api/system/notice/deleteNotice?ids=[' + ids + "]").then(res => res.data);
+    return axiosInstance.post('/api/system/notice/deleteNotice', {ids}).then(res => res.data);
 };
 
 
@@ -35,7 +35,7 @@ export const updateNotice = (params: NoticeVo): Promise<IResponse> => {
  * @params {id} number
  * @return {Promise}
  */
-export const queryNoticeDetail = (params: { id: number}): Promise<IResponse> => {
+export const queryNoticeDetail = (params: { id: number }): Promise<IResponse> => {
     return axiosInstance.post('/api/system/notice/queryNoticeDetail', params).then(res => res.data);
 };
 

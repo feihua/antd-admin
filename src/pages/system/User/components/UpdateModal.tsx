@@ -61,7 +61,7 @@ const UpdateUserModal: React.FC<UpdateFormProps> = ({open, onCreate, onCancel, u
                     label="排序"
                     name="sort"
                     rules={[{required: true, message: '请输入排序!'}]}>
-                    <InputNumber style={{width:234}}/>
+                    <InputNumber style={{width: 234}}/>
                 </FormItem>
                 <FormItem
                     label="状态"
@@ -83,8 +83,9 @@ const UpdateUserModal: React.FC<UpdateFormProps> = ({open, onCreate, onCancel, u
     }
 
     return (
-        <Modal title="新建" okText="保存" onOk={handleOk} onCancel={onCancel} cancelText="取消" open={open} width={480} style={{ top: 150 }}>
-            <Form labelCol={{ span: 7 }} wrapperCol={{ span: 13 }} form={form} style={{ marginTop: 30 }}>
+        <Modal title="新建" okText="保存" onOk={handleOk} onCancel={onCancel} cancelText="取消" open={open} width={480}
+               style={{top: 150}}>
+            <Form labelCol={{span: 7}} wrapperCol={{span: 13}} form={form} style={{marginTop: 30}}>
                 {updateContent()}
             </Form>
         </Modal>

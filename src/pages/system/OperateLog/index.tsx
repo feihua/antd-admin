@@ -117,6 +117,8 @@ const OperateLog: React.FC = () => {
     //删除单条数据
     const showDeleteConfirm = (param: OperateLogVo) => {
         Modal.confirm({
+            okText: '确定',
+            cancelText: '取消',
             content: `确定删除${param.id}吗?`,
             async onOk() {
                 await handleRemove([param.id]);

@@ -1,7 +1,7 @@
 import React from 'react';
 import {SearchOutlined} from '@ant-design/icons';
 import {Button, Form, FormProps, Input, Select, Space} from 'antd';
-import { LoginLogVo} from "../data";
+import {LoginLogVo} from "../data";
 
 interface CreateFormProps {
     search: (values: LoginLogVo) => void;
@@ -26,22 +26,22 @@ const AdvancedSearchForm: React.FC<CreateFormProps> = ({search, reSet}) => {
         return (
             <>
                 <FormItem
-                  name="login_name"
-                  label="用户名称"
+                    name="login_name"
+                    label="用户名称"
                 >
                     <Input id="search-login_name" placeholder={'请输入登录账号'}/>
                 </FormItem>
                 <FormItem
-                  name="ipaddr"
-                  label="登录地址"
+                    name="ipaddr"
+                    label="登录地址"
                 >
                     <Input id="search-ipaddr" placeholder={'请输入登录IP地址'}/>
                 </FormItem>
                 <FormItem
-                  name="status"
-                  label="状态"
+                    name="status"
+                    label="状态"
                 >
-                    <Select style={ {width: 200}}  placeholder={'选择登录状态'}>
+                    <Select style={{width: 200}} placeholder={'选择登录状态'}>
                         <Select.Option value={1}>成功</Select.Option>
                         <Select.Option value={0}>失败</Select.Option>
                     </Select>
@@ -49,10 +49,10 @@ const AdvancedSearchForm: React.FC<CreateFormProps> = ({search, reSet}) => {
 
                 <FormItem>
                     <Space>
-                        <Button type="primary" htmlType="submit" icon={<SearchOutlined/>} style={ {width: 120} }>
+                        <Button type="primary" htmlType="submit" icon={<SearchOutlined/>} style={{width: 120}}>
                             查询
                         </Button>
-                        <Button htmlType="button" onClick={onReset} style={ {width: 100} }>
+                        <Button htmlType="button" onClick={onReset} style={{width: 100}}>
                             重置
                         </Button>
                     </Space>

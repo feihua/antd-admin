@@ -21,7 +21,7 @@ const UpdateModal: React.FC<UpdateModalProps> = ({open, onCreate, onCancel, id})
         if (open) {
             queryNoticeDetail({id}).then((res) => {
                 form.setFieldsValue(res.data);
-                setTitle(res.data.notice_type == 1?"更新通知":"更新公告")
+                setTitle(res.data.notice_type == 1 ? "更新通知" : "更新公告")
             });
         }
     }, [open]);

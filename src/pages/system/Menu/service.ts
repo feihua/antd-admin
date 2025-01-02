@@ -1,6 +1,6 @@
 import {axiosInstance, IResponse} from "../../../api/ajax";
-import { MenuVo, MenuListParam } from "./data";
-import { message } from "antd";
+import {MenuListParam, MenuVo} from "./data";
+import {message} from "antd";
 
 /**
  * @description: 添加菜单信息
@@ -17,7 +17,7 @@ export const addMenu = (params: MenuVo): Promise<IResponse> => {
  * @return {Promise}
  */
 export const removeMenu = (ids: number[]): Promise<IResponse> => {
-    return axiosInstance.get('/api/system/menu/deleteMenu?ids=[' + ids + "]").then(res => res.data);
+    return axiosInstance.post('/api/system/menu/deleteMenu', {ids}).then(res => res.data);
 };
 
 
@@ -45,7 +45,7 @@ export const updateMenuStatus = (params: { ids: number[], menuStatus: number }):
  * @params {id} number
  * @return {Promise}
  */
-export const queryMenuDetail = (params: { id: number}): Promise<IResponse> => {
+export const queryMenuDetail = (params: { id: number }): Promise<IResponse> => {
     return axiosInstance.post('/api/system/menu/queryMenuDetail', params).then(res => res.data);
 };
 
