@@ -1,7 +1,8 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Form, Input, Modal, Radio} from 'antd';
 import {NoticeVo} from "../data";
 import {queryNoticeDetail} from "../service";
+import TextArea from "antd/es/input/TextArea";
 
 interface UpdateModalProps {
     open: boolean;
@@ -14,10 +15,13 @@ const UpdateModal: React.FC<UpdateModalProps> = ({open, onCreate, onCancel, id})
     const [form] = Form.useForm();
     const FormItem = Form.Item;
 
+    const [title, setTitle] = useState<string>("更新通知");
+
     useEffect(() => {
         if (open) {
-            queryNoticeDetail(id).then((res) => {
+            queryNoticeDetail({id}).then((res) => {
                 form.setFieldsValue(res.data);
+                setTitle(res.data.notice_type == 1?"更新通知":"更新公告")
             });
         }
     }, [open]);
@@ -33,7 +37,7 @@ const UpdateModal: React.FC<UpdateModalProps> = ({open, onCreate, onCancel, id})
             });
     }
 
-    const renderContent = () => {
+    const updateContent = () => {
         return (
             <>
                 <FormItem
@@ -52,34 +56,36 @@ const UpdateModal: React.FC<UpdateModalProps> = ({open, onCreate, onCancel, id})
                 </FormItem>
                 <FormItem
                     name="notice_type"
-                    label="公告类型（1:通知,2:公告）"
-                    rules={[{required: true, message: '请输入公告类型（1:通知,2:公告）!'}]}
+                    label="公告类型"
+                    rules={[{required: true, message: '请输入公告类型!'}]}
                 >
-                    <Input id="create-notice_type" placeholder={'请输入公告类型（1:通知,2:公告）!'}/>
+                    <Radio.Group>
+                        <Radio value={1}>通知</Radio>
+                        <Radio value={2}>公告</Radio>
+                    </Radio.Group>
+                </FormItem>
+                <FormItem
+                    name="status"
+                    label="公告状态"
+                    rules={[{required: true, message: '请输入公告状态!'}]}
+                >
+                    <Radio.Group>
+                        <Radio value={1}>正常</Radio>
+                        <Radio value={0}>关闭</Radio>
+                    </Radio.Group>
                 </FormItem>
                 <FormItem
                     name="notice_content"
                     label="公告内容"
                     rules={[{required: true, message: '请输入公告内容!'}]}
                 >
-                    <Input id="create-notice_content" placeholder={'请输入公告内容!'}/>
-                </FormItem>
-                <FormItem
-                    name="status"
-                    label="公告状态（0:关闭,1:正常 ）"
-                    rules={[{required: true, message: '请输入公告状态（0:关闭,1:正常 ）!'}]}
-                >
-                    <Radio.Group>
-                        <Radio value={0}>禁用</Radio>
-                        <Radio value={1}>正常</Radio>
-                    </Radio.Group>
+                    <TextArea rows={4} placeholder="请输入公告内容"/>
                 </FormItem>
                 <FormItem
                     name="remark"
                     label="备注"
-                    rules={[{required: true, message: '请输入备注!'}]}
                 >
-                    <Input id="create-remark" placeholder={'请输入备注!'}/>
+                    <TextArea rows={2} placeholder="请输入备注"/>
                 </FormItem>
 
 
@@ -87,14 +93,17 @@ const UpdateModal: React.FC<UpdateModalProps> = ({open, onCreate, onCancel, id})
         );
     };
 
+    const modalFooter = {title: title, okText: '保存', onOk: handleOk, onCancel, cancelText: '取消', open, width: 580};
+    const formLayout = {labelCol: {span: 7}, wrapperCol: {span: 13}, form};
+
     return (
-        <Modal title="更新" okText="保存" onOk={handleOk} onCancel={onCancel} cancelText="取消" open={open} width="480"
-               style={{top: 150}}>
-            <Form labelCol={{span: 7}} wrapperCol={{span: 13}} form={form} style={{marginTop: 30}}>
-                {renderContent()}
+        <Modal {...modalFooter} style={{top: 150}}>
+            <Form {...formLayout} style={{marginTop: 30}}>
+                {updateContent()}
             </Form>
         </Modal>
     );
+
 };
 
 export default UpdateModal;

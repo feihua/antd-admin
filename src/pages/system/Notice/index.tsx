@@ -1,14 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import type {MenuProps} from 'antd';
-import {Button, Divider, Dropdown, message, Modal, Space, Switch, Table} from 'antd';
+import {Button, Divider, message, Modal, Space, Table, Tag} from 'antd';
 import type {ColumnsType} from 'antd/es/table';
-import {DeleteOutlined, DownOutlined, EditOutlined, ExclamationCircleOutlined, PlusOutlined} from '@ant-design/icons';
+import {DeleteOutlined, EditOutlined, PlusOutlined} from '@ant-design/icons';
 import {NoticeVo} from './data';
 import AddModal from "./components/AddModal";
 import UpdateModal from "./components/UpdateModal";
 import AdvancedSearchForm from "./components/SearchForm";
 import DetailModal from "./components/DetailModal";
-import {addNotice, handleResp, queryNoticeList, removeNotice, updateNotice, updateNoticeStatus} from "./service";
+import {addNotice, handleResp, queryNoticeList, removeNotice, updateNotice} from "./service";
 
 
 const Notice: React.FC = () => {
@@ -41,23 +40,34 @@ const Notice: React.FC = () => {
             dataIndex: 'notice_title',
         },
         {
-            title: '公告类型（1:通知,2:公告）',
+            title: '公告类型',
             dataIndex: 'notice_type',
+            render: (_, {notice_type}) => (
+                <>
+                    {
+
+                        <Tag color={notice_type === 1 ? 'green' : 'geekblue'}
+                             style={{width: 50, height: 30, textAlign: "center", paddingTop: 4}}>
+                            {notice_type === 1 ? '通知' : '公告'}
+                        </Tag>
+                    }
+                </>
+            ),
         },
         {
-            title: '公告内容',
-            dataIndex: 'notice_content',
-        },
-        {
-            title: '公告状态（0:关闭,1:正常 ）',
+            title: '公告状态',
             dataIndex: 'status',
-            render: (_dom, entity) => {
-                return (
-                    <Switch checked={entity.status == 1} onChange={(flag) => {
-                        showStatusConfirm([entity.id], flag ? 1 : 0)
-                    }}/>
-                );
-            },
+            render: (_, {status}) => (
+                <>
+                    {
+
+                        <Tag color={status === 1 ? 'green' : 'volcano'}
+                             style={{width: 50, height: 30, textAlign: "center", paddingTop: 4}}>
+                            {status === 1 ? '正常' : '关闭'}
+                        </Tag>
+                    }
+                </>
+            ),
         },
         {
             title: '备注',
@@ -79,71 +89,16 @@ const Notice: React.FC = () => {
             render: (_, record) => (
                 <div>
                     <Button type="link" size={'small'} icon={<EditOutlined/>}
-                            onClick={() => showDetailModal(record)}>详情</Button>
-                    <Button type="link" size={'small'} icon={<EditOutlined/>}
                             onClick={() => showEditModal(record)}>编辑</Button>
+                    <Button type="link" size={'small'} icon={<EditOutlined/>}
+                            onClick={() => showDetailModal(record)}>详情</Button>
                     <Button type="link" size={'small'} danger icon={<DeleteOutlined/>}
                             onClick={() => showDeleteConfirm(record)}>删除</Button>
-                    <Dropdown menu={{items}}>
-                        <a onMouseEnter={(e) => {
-                            setCurrentNotice(record)
-                            return e.preventDefault()
-                        }}>
-                            <Space>
-                                更多
-                                <DownOutlined/>
-                            </Space>
-                        </a>
-                    </Dropdown>
                 </div>
             ),
         },
     ];
 
-    const items: MenuProps['items'] = [
-        {
-            key: '1',
-            label: (
-                <a key="1" onClick={() => {
-                    //handleMoreModalVisible(true);
-                }}
-                >
-                    更多操作
-                </a>
-            ),
-            icon: <PlusOutlined/>,
-        },
-    ];
-
-    const showStatusConfirm = (ids: number[], status: number) => {
-        Modal.confirm({
-            title: `确定${status == 1 ? "启用" : "禁用"}吗？`,
-            icon: <ExclamationCircleOutlined/>,
-            async onOk() {
-                await handleStatus(ids, status)
-                //actionRef.current?.clearSelected?.();
-                //actionRef.current?.reload?.();
-            },
-            onCancel() {
-            },
-        });
-    };
-    const handleStatus = async (ids: number[], status: number) => {
-        const hide = message.loading('正在更新状态');
-        if (ids.length == 0) {
-            hide();
-            return true;
-        }
-        try {
-            await updateNoticeStatus({ids, noticeStatus: status});
-            hide();
-            message.success('更新状态成功');
-            return true;
-        } catch (error) {
-            hide();
-            return false;
-        }
-    };
 
     const showModal = () => {
         setShowAddModal(true);

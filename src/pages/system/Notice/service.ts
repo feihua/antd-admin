@@ -31,22 +31,12 @@ export const updateNotice = (params: NoticeVo): Promise<IResponse> => {
 };
 
 /**
- * @description: 批量更新通知公告表状态
- @params {ids} number[]
- @params { noticeStatus} number
- * @return {Promise}
- */
-export const updateNoticeStatus = (params: { ids: number[], noticeStatus: number }): Promise<IResponse> => {
-    return axiosInstance.post('/api/system/notice/updateNoticeStatus', params).then(res => res.data);
-};
-
-/**
  * @description: 查询通知公告表详情
  * @params {id} number
  * @return {Promise}
  */
-export const queryNoticeDetail = (id: number): Promise<IResponse> => {
-    return axiosInstance.get('/api/system/notice/queryNoticeDetail?id=' + id).then(res => res.data);
+export const queryNoticeDetail = (params: { id: number}): Promise<IResponse> => {
+    return axiosInstance.post('/api/system/notice/queryNoticeDetail', params).then(res => res.data);
 };
 
 
