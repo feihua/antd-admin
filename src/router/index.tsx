@@ -13,6 +13,7 @@ import Setting from "../pages/system/account/settings";
 import Notice from "../pages/system/Notice";
 import Post from "../pages/system/Post";
 import DictType from "../pages/system/DictType";
+import DictData from "../pages/system/DictData";
 
 const routes = [
     {
@@ -42,6 +43,10 @@ const routes = [
             {
                 path: '/system/dictType',
                 element: <DictType />,
+            },
+            {
+                path: '/system/dictData',
+                element: <DictData />,
             },
             {
                 path: '/system/notice',
