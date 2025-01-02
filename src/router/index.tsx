@@ -12,6 +12,7 @@ import Center from "../pages/system/account/center";
 import Setting from "../pages/system/account/settings";
 import Notice from "../pages/system/Notice";
 import Post from "../pages/system/Post";
+import DictType from "../pages/system/DictType";
 
 const routes = [
     {
@@ -37,6 +38,10 @@ const routes = [
             {
                 path: '/system/post',
                 element: <Post />,
+            },
+            {
+                path: '/system/dictType',
+                element: <DictType />,
             },
             {
                 path: '/system/notice',
