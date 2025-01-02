@@ -22,7 +22,7 @@ const DetailModal: React.FC<DetailModalProps> = (props) => {
                 setColumns([
                     {
                         key: '1',
-                        label: '公告ID',
+                        label: '公告编号',
                         children: <p>{res.data.id}</p>,
                     },
                     {
@@ -49,7 +49,7 @@ const DetailModal: React.FC<DetailModalProps> = (props) => {
 
                     {
                         key: '6',
-                        label: '备注',
+                        label: '公告备注',
                         children: <p>{res.data.remark}</p>,
                         span: 3
                     },

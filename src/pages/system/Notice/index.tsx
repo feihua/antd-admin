@@ -32,7 +32,7 @@ const Notice: React.FC = () => {
 
     const columns: ColumnsType<NoticeVo> = [
         {
-            title: '公告ID',
+            title: '公告编号',
             dataIndex: 'id',
         },
         {

@@ -16,7 +16,6 @@ const AddModal: React.FC<AddModalProps> = ({open, onCreate, onCancel}) => {
     const handleOk = () => {
         form.validateFields()
             .then((values) => {
-                console.log(values)
                 onCreate(values);
                 form.resetFields();
             })
