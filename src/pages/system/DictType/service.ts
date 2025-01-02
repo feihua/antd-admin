@@ -17,7 +17,7 @@ export const addDictType = (params: DictTypeVo): Promise<IResponse> => {
  * @return {Promise}
  */
 export const removeDictType = (ids: number[]): Promise<IResponse> => {
-    return axiosInstance.get('/api/system/dictType/deleteDictType?ids=[' + ids + "]").then(res => res.data);
+    return axiosInstance.post('/api/system/dictType/deleteDictType', {ids}).then(res => res.data);
 };
 
 
