@@ -11,6 +11,7 @@ import Pie from "../pages/system/charts/pie.tsx";
 import Center from "../pages/system/account/center";
 import Setting from "../pages/system/account/settings";
 import Notice from "../pages/system/Notice";
+import Post from "../pages/system/Post";
 
 const routes = [
     {
@@ -32,6 +33,10 @@ const routes = [
             {
                 path: '/system/menu',
                 element: <SysMenu />,
+            },
+            {
+                path: '/system/post',
+                element: <Post />,
             },
             {
                 path: '/system/notice',

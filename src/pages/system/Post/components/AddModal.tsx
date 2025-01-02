@@ -1,0 +1,83 @@
+import React from 'react';
+import {Form, Input, InputNumber, message, Modal, Radio} from 'antd';
+import {PostVo} from "../data";
+
+interface AddModalProps {
+    open: boolean;
+    onCreate: (values: PostVo) => void;
+    onCancel: () => void;
+}
+
+const AddModal: React.FC<AddModalProps> = ({open, onCreate, onCancel}) => {
+    const [form] = Form.useForm();
+    const FormItem = Form.Item;
+
+    const handleOk = () => {
+        form.validateFields()
+            .then((values) => {
+                console.log(values)
+                onCreate(values);
+                form.resetFields();
+            })
+            .catch((info) => {
+                message.error(info);
+            });
+    }
+
+    const renderContent = () => {
+        return (
+            <>
+                <FormItem
+                    name="post_code"
+                    label="岗位编码"
+                    rules={[{required: true, message: '请输入岗位编码!'}]}
+                >
+                    <Input id="create-post_code" placeholder={'请输入岗位编码!'}/>
+                </FormItem>
+                <FormItem
+                    name="post_name"
+                    label="岗位名称"
+                    rules={[{required: true, message: '请输入岗位名称!'}]}
+                >
+                    <Input id="create-post_name" placeholder={'请输入岗位名称!'}/>
+                </FormItem>
+                <FormItem
+                    name="sort"
+                    label="显示顺序"
+                    rules={[{required: true, message: '请输入显示顺序!'}]}
+                >
+                    <InputNumber style={{width: 255}}/>
+                </FormItem>
+                <FormItem
+                    name="status"
+                    label="部门状态"
+                    rules={[{required: true, message: '请输入部门状态!'}]}
+                >
+                    <Radio.Group>
+                        <Radio value={1}>正常</Radio>
+                        <Radio value={0}>停用</Radio>
+                    </Radio.Group>
+                </FormItem>
+                <FormItem
+                    name="remark"
+                    label="备注"
+                >
+                    <Input.TextArea rows={2} placeholder={'请输入备注'}/>
+                </FormItem>
+
+            </>
+        );
+    };
+
+    return (
+        <Modal title="新建" okText="保存" onOk={handleOk} onCancel={onCancel} cancelText="取消" open={open} width={480}
+               style={{top: 150}}>
+            <Form labelCol={{span: 7}} wrapperCol={{span: 13}} form={form} initialValues={{sort: 1, status: 1}}
+                  style={{marginTop: 30}}>
+                {renderContent()}
+            </Form>
+        </Modal>
+    );
+};
+
+export default AddModal;
