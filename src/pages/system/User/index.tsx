@@ -293,7 +293,7 @@ const SysUser: React.FC = () => {
 
             <AddUserModal onCancel={handleAddCancel} onCreate={handleAddOk} open={isShowAddModal}></AddUserModal>
             <UpdateUserModal onCancel={handleEditCancel} onCreate={handleEditOk} open={isShowEditModal}
-                             userVo={currentUser}></UpdateUserModal>
+                             id={currentUser.id}></UpdateUserModal>
             <DetailModal onCancel={handleDetailCancel} open={isShowDetailModal} id={currentUser.id}></DetailModal>
             <SetUserRoleModal onCancel={handleRoleCancel} onCreate={handleRoleOk} open={isShowRoleModal}
                               userVo={currentUser}></SetUserRoleModal>

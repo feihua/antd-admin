@@ -19,7 +19,7 @@ const DetailModal: React.FC<DetailModalProps> = (props) => {
                 setColumns([
                     {
                         key: '1',
-                        label: '主键',
+                        label: '用户编号',
                         children: <p>{res.data.id}</p>,
                     },
                     {
@@ -37,15 +37,17 @@ const DetailModal: React.FC<DetailModalProps> = (props) => {
                         label: '用户昵称',
                         children: <p>{res.data.nick_name}</p>,
                     },
-                    {
-                        key: '5',
-                        label: '用户类型（00系统用户）',
-                        children: <p>{res.data.user_type}</p>,
-                    },
+
                     {
                         key: '6',
                         label: '头像路径',
                         children: <p>{res.data.avatar}</p>,
+                        span:2
+                    },
+                    {
+                        key: '5',
+                        label: '用户类型',
+                        children: <p>{res.data.user_type == '00' ? '系统用户' : '非系统用户'}</p>,
                     },
                     {
                         key: '7',
@@ -53,28 +55,19 @@ const DetailModal: React.FC<DetailModalProps> = (props) => {
                         children: <p>{res.data.email}</p>,
                     },
                     {
-                        key: '8',
-                        label: '密码',
-                        children: <p>{res.data.password}</p>,
-                    },
-                    {
                         key: '9',
-                        label: '状态(1:正常，0:禁用)',
-                        children: <p>{res.data.status}</p>,
+                        label: '用户状态',
+                        children: <p>{res.data.status == 1 ? '正常' : '禁用'}</p>,
                     },
-                    {
-                        key: '10',
-                        label: '排序',
-                        children: <p>{res.data.sort}</p>,
-                    },
+
                     {
                         key: '11',
-                        label: '部门ID',
+                        label: '部门编号',
                         children: <p>{res.data.dept_id}</p>,
                     },
                     {
                         key: '12',
-                        label: '最后登录IP',
+                        label: '最后登录地址',
                         children: <p>{res.data.login_ip}</p>,
                     },
                     {
@@ -101,11 +94,6 @@ const DetailModal: React.FC<DetailModalProps> = (props) => {
                         key: '17',
                         label: '备注',
                         children: <p>{res.data.remark}</p>,
-                    },
-                    {
-                        key: '18',
-                        label: '删除标志（0代表删除 1代表存在）',
-                        children: <p>{res.data.del_flag}</p>,
                     },
                     {
                         key: '19',

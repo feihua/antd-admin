@@ -79,8 +79,8 @@ const DetailModal: React.FC<DetailModalProps> = (props) => {
                     },
                     {
                         key: '13',
-                        label: '登录状态(0:失败,1:成功)',
-                        children: <p>{res.data.status}</p>,
+                        label: '登录状态',
+                        children: <p>{res.data.status == 1 ? '成功' : '失败'}</p>,
                     },
                     {
                         key: '14',
