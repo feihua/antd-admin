@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Form, Input, InputNumber, message, Modal, Radio} from 'antd';
 import {DictDataVo} from "../data";
 
@@ -13,11 +13,16 @@ const AddModal: React.FC<AddModalProps> = ({open, onCreate, onCancel, dict_type}
     const [form] = Form.useForm();
     const FormItem = Form.Item;
 
+    useEffect(() => {
+        if (open) {
+            form.resetFields()
+        }
+    }, [open]);
+
     const handleOk = () => {
         form.validateFields()
             .then((values) => {
                 onCreate(values);
-                form.resetFields();
             })
             .catch((info) => {
                 message.error(info);
@@ -75,8 +80,8 @@ const AddModal: React.FC<AddModalProps> = ({open, onCreate, onCancel, dict_type}
                     rules={[{required: true, message: '请输入是否默认!'}]}
                 >
                     <Radio.Group>
-                        <Radio value={'Y'}>是</Radio>
                         <Radio value={'N'}>否</Radio>
+                        <Radio value={'Y'}>是</Radio>
                     </Radio.Group>
                 </FormItem>
                 <FormItem
@@ -102,7 +107,7 @@ const AddModal: React.FC<AddModalProps> = ({open, onCreate, onCancel, dict_type}
 
     return (
         <Modal title="新建" okText="保存" onOk={handleOk} onCancel={onCancel} cancelText="取消" open={open} width={520}
-               style={{top: 150}}>
+               style={{top: 150}} destroyOnClose={true}>
             <Form labelCol={{span: 7}} wrapperCol={{span: 13}} form={form}
                   initialValues={{dict_sort: 1, status: 1, is_default: 'N', dict_type: dict_type}}
                   style={{marginTop: 30}}>

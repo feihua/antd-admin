@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Form, Input, InputNumber, message, Modal, Radio} from 'antd';
 import {UserVo} from "../data";
 import TextArea from "antd/es/input/TextArea";
@@ -13,12 +13,16 @@ const AddUserModal: React.FC<AddFormProps> = ({open, onCreate, onCancel}) => {
     const [form] = Form.useForm();
     const FormItem = Form.Item;
 
+    useEffect(() => {
+        if (open) {
+            form.resetFields()
+        }
+    }, [open]);
+
     const handleOk = () => {
         form.validateFields()
             .then((values) => {
-                console.log(values)
                 onCreate(values);
-                form.resetFields();
             })
             .catch((info) => {
                 message.error(info);

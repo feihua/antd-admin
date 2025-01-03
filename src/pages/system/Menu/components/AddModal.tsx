@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Form, Input, InputNumber, message, Modal, Radio, RadioChangeEvent, TreeSelect} from 'antd';
 import {MenuVo} from "../data";
 import TextArea from "antd/es/input/TextArea";
@@ -17,11 +17,16 @@ const AddMenuModal: React.FC<AddFormProps> = ({open, onCreate, onCancel, menuLis
     const [form] = Form.useForm();
     const FormItem = Form.Item;
 
+    useEffect(() => {
+        if (open) {
+            form.resetFields()
+        }
+    }, [open]);
+
     const handleOk = () => {
         form.validateFields()
             .then((values) => {
                 onCreate(values);
-                form.resetFields();
             })
             .catch((info) => {
                 message.error(info);

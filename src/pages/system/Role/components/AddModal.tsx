@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Form, Input, InputNumber, message, Modal, Radio} from 'antd';
 import {RoleVo} from "../data";
 import TextArea from "antd/es/input/TextArea";
@@ -13,11 +13,16 @@ const AddRoleModal: React.FC<AddFormProps> = ({open, onCreate, onCancel}) => {
     const [form] = Form.useForm();
     const FormItem = Form.Item;
 
+    useEffect(() => {
+        if (open) {
+            form.resetFields()
+        }
+    }, [open]);
+
     const handleOk = () => {
         form.validateFields()
             .then((values) => {
                 onCreate(values);
-                form.resetFields();
             })
             .catch((info) => {
                 message.error(info);
