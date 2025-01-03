@@ -41,7 +41,11 @@ const LoginLog: React.FC = () => {
         {
             title: '用户名称',
             dataIndex: 'login_name',
-            render: (text: string) => <a>{text}</a>,
+            render: (text, entity) => {
+                return (
+                    <Button type="link" size={'small'} onClick={() => showDetailModal(entity)}>{text}</Button>
+                );
+            },
         },
         {
             title: '登录地址',
