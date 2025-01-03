@@ -1,7 +1,7 @@
-import React, {useEffect} from 'react';
-import {Form, Input, InputNumber, Modal, Radio} from 'antd';
+import React, {useEffect, useState} from 'react';
+import {Form, Input, InputNumber, Modal, Radio, TreeSelect} from 'antd';
 import {DeptVo} from "../data";
-import {queryDeptDetail} from "../service";
+import {queryDeptDetail, queryDeptList} from "../service";
 
 interface UpdateModalProps {
     open: boolean;
@@ -13,11 +13,20 @@ interface UpdateModalProps {
 const UpdateModal: React.FC<UpdateModalProps> = ({open, onCreate, onCancel, id}) => {
     const [form] = Form.useForm();
     const FormItem = Form.Item;
+    const [value, setValue] = useState<string>("0");
+    const [deptListData, setDeptListData] = useState<DeptVo[]>([]);
 
+    const onChange = (newValue: string) => {
+        setValue(newValue);
+    };
     useEffect(() => {
         if (open) {
+            queryDeptList({}).then(res => {
+                setDeptListData(res);
+            });
             queryDeptDetail({id}).then((res) => {
                 form.setFieldsValue(res.data);
+                setValue(res.data.parent_id);
             });
         }
     }, [open]);
@@ -51,14 +60,21 @@ const UpdateModal: React.FC<UpdateModalProps> = ({open, onCreate, onCancel, id})
                 >
                     <Input id="create-ancestors" placeholder={'请输入祖级列表!'}/>
                 </FormItem>
-                <FormItem
+                {value != '0' && <FormItem
                     name="parent_id"
                     label="上级部门"
-                    rules={[{required: true, message: '请输入父部门id!'}]}
+                    rules={[{required: true, message: '请选择上级部门!'}]}
                 >
-                    <InputNumber style={{width: 255}}/>
-                    {/*<Input id="create-parent_id" placeholder={'请输入上级部门!'}/>*/}
-                </FormItem>
+                    <TreeSelect
+                        style={{width: '100%'}}
+                        value={value}
+                        dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
+                        treeData={deptListData}
+                        placeholder="请选择上级部门"
+                        fieldNames={{label: 'dept_name', value: 'id', children: 'children'}}
+                        onChange={onChange}
+                    />
+                </FormItem>}
                 <FormItem
                     name="dept_name"
                     label="部门名称"
