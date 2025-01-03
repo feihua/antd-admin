@@ -39,27 +39,57 @@ const DetailModal: React.FC<DetailModalProps> = (props) => {
                     },
                     {
                         key: '5',
+                        label: '平台信息',
+                        children: <p>{res.data.platform}</p>,
+                    },
+                    {
+                        key: '6',
                         label: '浏览器类型',
                         children: <p>{res.data.browser}</p>,
                     },
                     {
-                        key: '6',
+                        key: '7',
+                        label: '浏览器版本',
+                        children: <p>{res.data.version}</p>,
+                    },
+                    {
+                        key: '8',
                         label: '操作系统',
                         children: <p>{res.data.os}</p>,
                     },
                     {
-                        key: '7',
-                        label: '登录状态',
-                        children: <p>{res.data.status == 1 ? '成功' : '失败'}</p>,
+                        key: '9',
+                        label: '体系结构信息',
+                        children: <p>{res.data.arch}</p>,
                     },
                     {
-                        key: '8',
-                        label: '操作消息',
+                        key: '10',
+                        label: '渲染引擎信息',
+                        children: <p>{res.data.engine}</p>,
+                    },
+                    {
+                        key: '11',
+                        label: '渲染引擎详细信息',
+                        children: <p>{res.data.engine_details}</p>,
+                    },
+                    {
+                        key: '12',
+                        label: '其他信息（可选）',
+                        children: <p>{res.data.extra}</p>,
+                    },
+                    {
+                        key: '13',
+                        label: '登录状态(0:失败,1:成功)',
+                        children: <p>{res.data.status}</p>,
+                    },
+                    {
+                        key: '14',
+                        label: '提示消息',
                         children: <p>{res.data.msg}</p>,
                     },
                     {
-                        key: '9',
-                        label: '登录时间',
+                        key: '15',
+                        label: '访问时间',
                         children: <p>{res.data.login_time}</p>,
                     },
 
