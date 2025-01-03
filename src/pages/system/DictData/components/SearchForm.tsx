@@ -62,7 +62,7 @@ const AdvancedSearchForm: React.FC<CreateFormProps> = ({search, reSet}) => {
         )
     }
     return (
-        <Form form={form} name="horizontal_login" layout="inline" onFinish={onFinish}>
+        <Form form={form} name="horizontal_login" layout="inline" onFinish={onFinish} key={'search_dict_data_form'}>
             {searchForm()}
         </Form>
     );
