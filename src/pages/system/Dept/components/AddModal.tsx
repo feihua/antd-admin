@@ -1,6 +1,7 @@
-import React, {useEffect} from 'react';
-import {Form, Input, InputNumber, message, Modal, Radio} from 'antd';
+import React, {useEffect, useState} from 'react';
+import {Form, Input, InputNumber, message, Modal, Radio, TreeSelect} from 'antd';
 import {DeptVo} from "../data";
+import {queryDeptList} from "../service.ts";
 
 interface AddModalProps {
     open: boolean;
@@ -11,10 +12,19 @@ interface AddModalProps {
 const AddModal: React.FC<AddModalProps> = ({open, onCreate, onCancel}) => {
     const [form] = Form.useForm();
     const FormItem = Form.Item;
+    const [value, setValue] = useState<string>();
+    const [deptListData, setDeptListData] = useState<DeptVo[]>([]);
+
+    const onChange = (newValue: string) => {
+        setValue(newValue);
+    };
 
     useEffect(() => {
         if (open) {
             form.resetFields()
+            queryDeptList({}).then(res => {
+                setDeptListData(res);
+            });
         }
     }, [open]);
 
@@ -36,8 +46,15 @@ const AddModal: React.FC<AddModalProps> = ({open, onCreate, onCancel}) => {
                     label="上级部门"
                     rules={[{required: true, message: '请输入上级部门!'}]}
                 >
-                    <InputNumber style={{width: 255}}/>
-                    {/*<Input id="create-parent_id" placeholder={'请输入上级部门!'}/>*/}
+                    <TreeSelect
+                        style={{width: '100%'}}
+                        value={value}
+                        dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
+                        treeData={deptListData}
+                        placeholder="请选择上级部门"
+                        fieldNames={{label: 'dept_name', value: 'id', children: 'children'}}
+                        onChange={onChange}
+                    />
                 </FormItem>
                 <FormItem
                     name="dept_name"

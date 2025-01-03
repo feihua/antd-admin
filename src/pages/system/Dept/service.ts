@@ -1,6 +1,7 @@
 import {axiosInstance, IResponse} from "../../../api/ajax";
 import {DeptListParam, DeptVo} from "./data";
 import {message} from "antd";
+import {tree} from "../../../utils/treeUtils.ts";
 
 /**
  * @description: 添加部门表
@@ -55,8 +56,14 @@ export const queryDeptDetail = (params: { id: number }): Promise<IResponse> => {
  * @params {params} DeptListParam
  * @return {Promise}
  */
-export const queryDeptList = (params: DeptListParam): Promise<IResponse> => {
-    return axiosInstance.post('/api/system/dept/queryDeptList', params).then(res => res.data);
+export const queryDeptList = async (params: DeptListParam): Promise<DeptVo[]> => {
+    const res = await axiosInstance.post('/api/system/dept/queryDeptList', params);
+    let {code, msg, data} = res.data
+    if (code === 0) {
+        return tree(data, 0, "parent_id")
+    }
+    message.error(msg)
+    return [];
 };
 
 

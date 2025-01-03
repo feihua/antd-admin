@@ -1,6 +1,4 @@
 export interface DeptListParam {
-    current: number;
-    pageSize?: number;
     parent_id?: number; //父部门id
     ancestors?: string; //祖级列表
     dept_name?: string; //部门名称

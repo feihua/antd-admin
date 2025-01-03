@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Divider, message, Modal, Space, Table, Tag} from 'antd';
+import {Button, Divider, Modal, Space, Table, Tag} from 'antd';
 import type {ColumnsType} from 'antd/es/table';
 import {DeleteOutlined, EditOutlined, PlusOutlined} from '@ant-design/icons';
 import {DeptVo} from './data';
@@ -30,9 +30,6 @@ const Dept: React.FC = () => {
         create_time: '',
         update_time: '',
     });
-    const [currentPage, setCurrentPage] = useState<number>(1);
-    const [pageSize, setPageSize] = useState<number>(10);
-    const [total, setTotal] = useState<number>(10);
 
     const columns: ColumnsType<DeptVo> = [
 
@@ -90,9 +87,7 @@ const Dept: React.FC = () => {
     const handleAddOk = async (param: DeptVo) => {
         if (handleResp(await addDept(param))) {
             setShowAddModal(false);
-            const res = await queryDeptList({current: currentPage, pageSize})
-            setTotal(res.total)
-            res.code === 0 ? setDeptListData(res.data) : message.error(res.msg);
+            setDeptListData(await queryDeptList({}));
         }
     }
 
@@ -109,11 +104,7 @@ const Dept: React.FC = () => {
     const handleEditOk = async (param: DeptVo) => {
         if (handleResp(await updateDept(param))) {
             setShowEditModal(false);
-            const res = await queryDeptList({
-                current: currentPage, pageSize,
-            })
-            setTotal(res.total)
-            res.code === 0 ? setDeptListData(res.data) : message.error(res.msg);
+            setDeptListData(await queryDeptList({}));
         }
     };
 
@@ -149,59 +140,25 @@ const Dept: React.FC = () => {
     //批量删除
     const handleRemove = async (ids: number[]) => {
         if (handleResp(await removeDept(ids))) {
-            const res = await queryDeptList({current: currentPage, pageSize})
-            setTotal(res.total)
-            res.code === 0 ? setDeptListData(res.data) : message.error(res.msg);
+            setDeptListData(await queryDeptList({}));
         }
 
     };
 
     const handleSearchOk = async (param: DeptVo) => {
-        const res = await queryDeptList({current: currentPage, ...param, pageSize})
-        setTotal(res.total)
-        res.code === 0 ? setDeptListData(res.data) : message.error(res.msg);
+        setDeptListData(await queryDeptList({...param}));
     };
 
     const handleResetOk = async () => {
-        const res = await queryDeptList({current: currentPage, pageSize})
-        setTotal(res.total)
-        res.code === 0 ? setDeptListData(res.data) : message.error(res.msg);
+        setDeptListData(await queryDeptList({}));
     };
 
     useEffect(() => {
-        queryDeptList({
-            current: currentPage, pageSize
-        }).then(res => {
-            setTotal(res.total)
-            res.code === 0 ? setDeptListData(res.data) : message.error(res.msg);
+        queryDeptList({}).then(res => {
+            setDeptListData(res);
         });
     }, []);
 
-
-    const paginationProps = {
-        defaultCurrent: 1,
-        defaultPageSize: 10,
-        current: currentPage, //当前页码
-        pageSize, // 每页数据条数
-        pageSizeOptions: [10, 20, 30, 40, 50],
-        showQuickJumper: true,
-        showTotal: (total: number) => (
-            <span>总共{total}条</span>
-        ),
-        total,
-        onChange: async (page: number, pageSize: number) => {
-            console.log('onChange', page, pageSize)
-            setCurrentPage(page)
-            setPageSize(pageSize)
-            const res = await queryDeptList({current: page, pageSize})
-            setTotal(res.total)
-            res.code === 0 ? setDeptListData(res.data) : message.error(res.msg);
-
-        }, //改变页码的函数
-        onShowSizeChange: (current: number, size: number) => {
-            console.log('onShowSizeChange', current, size)
-        }
-    }
 
     return (
         <div style={{padding: 24}}>
@@ -224,7 +181,7 @@ const Dept: React.FC = () => {
                 columns={columns}
                 dataSource={deptListData}
                 rowKey={'id'}
-                pagination={paginationProps}
+                pagination={false}
                 // tableLayout={"fixed"}
             />
 
