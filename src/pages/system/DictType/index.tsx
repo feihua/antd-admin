@@ -240,7 +240,7 @@ const DictType: React.FC = () => {
                         setSelectedRowKeys(selectedRowKeys)
                     },
                 }}
-                size={"middle"}
+                size={"small"}
                 columns={columns}
                 dataSource={dictTypeListData}
                 rowKey={'id'}

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Modal, Table, Tag} from 'antd';
+import {Modal, Table} from 'antd';
 import {RoleVo, UserVo} from "../data";
 import {ColumnsType} from "antd/es/table";
 import {query_user_role} from "../service";
@@ -11,47 +11,65 @@ interface UserRoleFormProps {
     userVo: UserVo;
 }
 
-const columns: ColumnsType<RoleVo> = [
-    {
-        title: '角色名称',
-        dataIndex: 'role_name',
-        render: (text: string) => <a>{text}</a>,
-    },
-    {
-        title: '排序',
-        dataIndex: 'sort',
-    },
-    {
-        title: '状态',
-        dataIndex: 'status_id',
-        render: (_, {status_id}) => (
-            <>
-                {
-                    <Tag color={status_id === 0 ? '#ff4d4f' : '#67c23a'}
-                         style={{width: 50, height: 30, textAlign: "center", paddingTop: 4}}>
-                        {status_id === 0 ? '禁用' : '启用'}
-                    </Tag>
-                }
-            </>
-        ),
-    },
-    {
-        title: '备注',
-        dataIndex: 'remark',
-    },
-    {
-        title: '创建时间',
-        dataIndex: 'create_time',
-    },
-    {
-        title: '更新时间',
-        dataIndex: 'update_time',
-    },
-];
 
 const SetUserRoleModal: React.FC<UserRoleFormProps> = ({open, onCreate, onCancel, userVo}) => {
     const [roleList, setRoleList] = useState<RoleVo[]>([]);
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
+
+    //（1：全部数据权限 2：自定数据权限 3：本部门数据权限 4：本部门及以下数据权限）
+    const getDataScope = function (scope: number): string {
+        let text = '';
+        switch (scope) {
+            case 1:
+                text = '全部数据权限'
+                break;
+            case 2:
+                text = '自定数据权限'
+                break;
+            case 3:
+                text = '本部门数据权限'
+                break;
+            default:
+                text = '本部门及以下数据权限'
+        }
+
+        return text;
+
+    }
+
+    const columns: ColumnsType<RoleVo> = [
+        {
+            title: '角色编码',
+            dataIndex: 'id',
+        },
+        {
+            title: '角色名称',
+            dataIndex: 'role_name',
+            render: (text: string) => <a>{text}</a>,
+        },
+        {
+            title: '权限字符',
+            dataIndex: 'role_key',
+        },
+        {
+            title: '数据范围',
+            dataIndex: 'data_scope',
+            render: (_, {data_scope}) => (
+                <>
+                    {getDataScope(data_scope)}
+                </>
+            ),
+        },
+        {
+            title: '备注',
+            dataIndex: 'remark',
+        },
+        {
+            title: '创建时间',
+            dataIndex: 'create_time',
+        },
+    ];
+
 
     useEffect(() => {
         if (open) {

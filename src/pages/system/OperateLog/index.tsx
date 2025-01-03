@@ -203,7 +203,7 @@ const OperateLog: React.FC = () => {
                         setSelectedRowKeys(selectedRowKeys)
                     },
                 }}
-                size={"middle"}
+                size={"small"}
                 columns={columns}
                 dataSource={operateLogListData}
                 rowKey={'id'}

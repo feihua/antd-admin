@@ -227,7 +227,7 @@ const Post: React.FC = () => {
                         setSelectedRowKeys(selectedRowKeys)
                     },
                 }}
-                size={"middle"}
+                size={"small"}
                 columns={columns}
                 dataSource={postListData}
                 rowKey={'id'}

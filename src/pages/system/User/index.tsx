@@ -26,7 +26,28 @@ const SysUser: React.FC = () => {
     const [isShowDetailModal, setShowDetailModal] = useState<boolean>(false);
     const [userListData, setUserListData] = useState<UserVo[]>([]);
     const [currentUser, setCurrentUser] = useState<UserVo>({
-        create_time: "", id: 0, mobile: "", user_name: "", remark: "", sort: 0, status_id: 0, update_time: ""
+        avatar: "",
+        create_time: "",
+        del_flag: 0,
+        dept_id: 0,
+        email: "",
+        id: 0,
+        login_browser: "",
+        login_date: "",
+        login_ip: "",
+        login_os: "",
+        mobile: "",
+        nick_name: "",
+        password: "",
+        post_ids: 0,
+        pwd_update_date: "",
+        remark: "",
+        sort: 0,
+        status: 0,
+        update_time: "",
+        user_name: "",
+        user_type: ""
+
     });
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [pageSize, setPageSize] = useState<number>(10);
@@ -34,25 +55,29 @@ const SysUser: React.FC = () => {
 
     const columns: ColumnsType<UserVo> = [
         {
-            title: '手机号',
+            title: '用户编号',
+            dataIndex: 'id',
+        },
+        {
+            title: '手机号码',
             dataIndex: 'mobile',
+        },
+        {
+            title: '用户账号',
+            dataIndex: 'user_name',
             render: (text: string) => <a>{text}</a>,
         },
         {
-            title: '用户名',
-            dataIndex: 'user_name',
-        },
-        {
-            title: '排序',
-            dataIndex: 'sort',
+            title: '用户昵称',
+            dataIndex: 'nick_name',
+            render: (text: string) => <a>{text}</a>,
         },
         {
             title: '状态',
-            dataIndex: 'status_id',
             render: (_dom, entity) => {
                 return (
                     <Switch
-                        checked={entity.status_id == 1}
+                        checked={entity.status == 1}
                         onChange={(flag) => {
                             showStatusConfirm([entity.id], flag ? 1 : 0);
                         }}
@@ -61,32 +86,31 @@ const SysUser: React.FC = () => {
             },
         },
         {
-            title: '备注',
-            dataIndex: 'remark',
+            title: '部门',
+            dataIndex: 'dept_id',
         },
         {
             title: '创建时间',
             dataIndex: 'create_time',
         },
         {
-            title: '更新时间',
-            dataIndex: 'update_time',
-        },
-        {
             title: '操作',
             key: 'action',
-            render: (_, record) => (
-                <Space size="small">
-                    <Button type="link" size={'small'} icon={<EditOutlined/>}
-                            onClick={() => showEditModal(record)}>编辑</Button>
-                    <Button type="link" size={'small'} icon={<EditOutlined/>}
-                            onClick={() => showDetailModal(record)}>详情</Button>
-                    <Button type="link" size={'small'} icon={<EditOutlined/>}
-                            onClick={() => showRoleModal(record)}>设置角色</Button>
-                    <Button type="link" size={'small'} danger icon={<DeleteOutlined/>}
-                            onClick={() => showDeleteConfirm(record)}>删除</Button>
-                </Space>
-            ),
+            render: (_, record) =>
+                <>
+                    {record.id != 1 &&
+                        <Space size="small">
+                            <Button type="link" size={'small'} icon={<EditOutlined/>}
+                                    onClick={() => showEditModal(record)}>编辑</Button>
+                            <Button type="link" size={'small'} icon={<EditOutlined/>}
+                                    onClick={() => showDetailModal(record)}>详情</Button>
+                            <Button type="link" size={'small'} icon={<EditOutlined/>}
+                                    onClick={() => showRoleModal(record)}>设置角色</Button>
+                            <Button type="link" size={'small'} danger icon={<DeleteOutlined/>}
+                                    onClick={() => showDeleteConfirm(record)}>删除</Button>
+                        </Space>}
+                </>
+
         },
     ];
 
@@ -283,7 +307,7 @@ const SysUser: React.FC = () => {
                         setSelectedRowKeys(selectedRowKeys)
                     },
                 }}
-                size={"middle"}
+                size={"small"}
                 columns={columns}
                 dataSource={userListData}
                 rowKey={'id'}

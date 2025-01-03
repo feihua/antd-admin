@@ -258,7 +258,7 @@ const DictData: React.FC<DictDataProps> = ({dict_type, open}) => {
                         setSelectedRowKeys(selectedRowKeys)
                     },
                 }}
-                size={"middle"}
+                size={"small"}
                 columns={columns}
                 dataSource={dictDataListData}
                 rowKey={'id'}

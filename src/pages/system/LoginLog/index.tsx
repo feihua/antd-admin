@@ -202,7 +202,7 @@ const LoginLog: React.FC = () => {
                         setSelectedRowKeys(selectedRowKeys)
                     },
                 }}
-                size={"middle"}
+                size={"small"}
                 columns={columns}
                 dataSource={loginLogListData}
                 rowKey={'id'}

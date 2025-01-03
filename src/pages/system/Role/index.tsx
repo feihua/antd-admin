@@ -242,7 +242,7 @@ const SysRole: React.FC = () => {
                         setSelectedRowKeys(selectedRowKeys)
                     },
                 }}
-                size={"middle"}
+                size={"small"}
                 columns={columns}
                 dataSource={roleListData}
                 rowKey={'id'}

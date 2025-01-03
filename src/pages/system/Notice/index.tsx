@@ -237,7 +237,7 @@ const Notice: React.FC = () => {
                         setSelectedRowKeys(selectedRowKeys)
                     },
                 }}
-                size={"middle"}
+                size={"small"}
                 columns={columns}
                 dataSource={noticeListData}
                 rowKey={'id'}

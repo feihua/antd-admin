@@ -177,7 +177,7 @@ const Dept: React.FC = () => {
                         setSelectedRowKeys(selectedRowKeys)
                     },
                 }}
-                size={"middle"}
+                size={"small"}
                 columns={columns}
                 dataSource={deptListData}
                 rowKey={'id'}
