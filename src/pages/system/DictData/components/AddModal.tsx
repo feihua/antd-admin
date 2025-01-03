@@ -6,16 +6,16 @@ interface AddModalProps {
     open: boolean;
     onCreate: (values: DictDataVo) => void;
     onCancel: () => void;
+    dict_type: string;
 }
 
-const AddModal: React.FC<AddModalProps> = ({open, onCreate, onCancel}) => {
+const AddModal: React.FC<AddModalProps> = ({open, onCreate, onCancel, dict_type}) => {
     const [form] = Form.useForm();
     const FormItem = Form.Item;
 
     const handleOk = () => {
         form.validateFields()
             .then((values) => {
-                console.log(values)
                 onCreate(values);
                 form.resetFields();
             })
@@ -32,7 +32,7 @@ const AddModal: React.FC<AddModalProps> = ({open, onCreate, onCancel}) => {
                     label="字典类型"
                     rules={[{required: true, message: '请输入字典类型!'}]}
                 >
-                    <Input id="create-dict_type" placeholder={'请输入字典类型!'}/>
+                    <Input id="create-dict_type" placeholder={'请输入字典类型!'} disabled/>
                 </FormItem>
                 <FormItem
                     name="dict_label"
@@ -104,7 +104,7 @@ const AddModal: React.FC<AddModalProps> = ({open, onCreate, onCancel}) => {
         <Modal title="新建" okText="保存" onOk={handleOk} onCancel={onCancel} cancelText="取消" open={open} width={520}
                style={{top: 150}}>
             <Form labelCol={{span: 7}} wrapperCol={{span: 13}} form={form}
-                  initialValues={{dict_sort: 1, status: 1, is_default: 'N'}}
+                  initialValues={{dict_sort: 1, status: 1, is_default: 'N', dict_type: dict_type}}
                   style={{marginTop: 30}}>
                 {renderContent()}
             </Form>

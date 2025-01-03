@@ -8,6 +8,7 @@ import UpdateModal from "./components/UpdateModal";
 import AdvancedSearchForm from "./components/SearchForm";
 import DetailModal from "./components/DetailModal";
 import {addDictType, handleResp, queryDictTypeList, removeDictType, updateDictType} from "./service";
+import DictDataModal from "./components/DictDataModal.tsx";
 
 
 const DictType: React.FC = () => {
@@ -15,6 +16,7 @@ const DictType: React.FC = () => {
     const [isShowAddModal, setShowAddModal] = useState<boolean>(false);
     const [isShowEditModal, setShowEditModal] = useState<boolean>(false);
     const [isShowDetailModal, setShowDetailModal] = useState<boolean>(false);
+    const [isShowDictDataModal, setShowDictDataModal] = useState<boolean>(false);
     const [dictTypeListData, setDictTypeListData] = useState<DictTypeVo[]>([]);
     const [currentDictType, setCurrentDictType] = useState<DictTypeVo>({
         dict_id: 0,
@@ -74,13 +76,15 @@ const DictType: React.FC = () => {
         {
             title: '操作',
             key: 'action',
-            width: 280,
+            width: 320,
             render: (_, record) => (
                 <div>
                     <Button type="link" size={'small'} icon={<EditOutlined/>}
                             onClick={() => showEditModal(record)}>编辑</Button>
                     <Button type="link" size={'small'} icon={<EditOutlined/>}
                             onClick={() => showDetailModal(record)}>详情</Button>
+                    <Button type="link" size={'small'} icon={<EditOutlined/>}
+                            onClick={() => showDictDataModal(record)}>字典数据</Button>
                     <Button type="link" size={'small'} danger icon={<DeleteOutlined/>}
                             onClick={() => showDeleteConfirm(record)}>删除</Button>
                 </div>
@@ -135,6 +139,17 @@ const DictType: React.FC = () => {
     const handleDetailCancel = () => {
         setShowDetailModal(false);
     };
+
+    const showDictDataModal = (param: DictTypeVo) => {
+        setCurrentDictType(param)
+        setShowDictDataModal(true);
+    };
+
+
+    const handleDictDataCancel = () => {
+        setShowDictDataModal(false);
+    };
+
 
     //删除单条数据
     const showDeleteConfirm = (param: DictTypeVo) => {
@@ -238,6 +253,8 @@ const DictType: React.FC = () => {
                          id={currentDictType.dict_id}></UpdateModal>
             <DetailModal onCancel={handleDetailCancel} open={isShowDetailModal}
                          id={currentDictType.dict_id}></DetailModal>
+            <DictDataModal onCancel={handleDictDataCancel} open={isShowDictDataModal}
+                           dict_type={currentDictType.dict_type}></DictDataModal>
 
             {selectedRowKeys.length > 0 &&
                 <div>

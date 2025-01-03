@@ -9,8 +9,12 @@ import AdvancedSearchForm from "./components/SearchForm";
 import DetailModal from "./components/DetailModal";
 import {addDictData, handleResp, queryDictDataList, removeDictData, updateDictData} from "./service";
 
+interface DictDataProps {
+    dict_type: string;
+    open: boolean;
+}
 
-const DictData: React.FC = () => {
+const DictData: React.FC<DictDataProps> = ({dict_type, open}) => {
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
     const [isShowAddModal, setShowAddModal] = useState<boolean>(false);
     const [isShowEditModal, setShowEditModal] = useState<boolean>(false);
@@ -118,9 +122,10 @@ const DictData: React.FC = () => {
     };
 
     const handleAddOk = async (param: DictDataVo) => {
+        param.dict_type = dict_type
         if (handleResp(await addDictData(param))) {
             setShowAddModal(false);
-            const res = await queryDictDataList({current: currentPage, pageSize})
+            const res = await queryDictDataList({current: currentPage, pageSize, dict_type})
             setTotal(res.total)
             res.code === 0 ? setDictDataListData(res.data) : message.error(res.msg);
         }
@@ -137,10 +142,11 @@ const DictData: React.FC = () => {
     };
 
     const handleEditOk = async (param: DictDataVo) => {
+        param.dict_type = dict_type
         if (handleResp(await updateDictData(param))) {
             setShowEditModal(false);
             const res = await queryDictDataList({
-                current: currentPage, pageSize,
+                current: currentPage, pageSize, dict_type
             })
             setTotal(res.total)
             res.code === 0 ? setDictDataListData(res.data) : message.error(res.msg);
@@ -179,7 +185,7 @@ const DictData: React.FC = () => {
     //批量删除
     const handleRemove = async (ids: number[]) => {
         if (handleResp(await removeDictData(ids))) {
-            const res = await queryDictDataList({current: currentPage, pageSize})
+            const res = await queryDictDataList({current: currentPage, pageSize, dict_type})
             setTotal(res.total)
             res.code === 0 ? setDictDataListData(res.data) : message.error(res.msg);
         }
@@ -187,25 +193,27 @@ const DictData: React.FC = () => {
     };
 
     const handleSearchOk = async (param: DictDataVo) => {
-        const res = await queryDictDataList({current: currentPage, ...param, pageSize})
+        const res = await queryDictDataList({current: currentPage, ...param, pageSize, dict_type})
         setTotal(res.total)
         res.code === 0 ? setDictDataListData(res.data) : message.error(res.msg);
     };
 
     const handleResetOk = async () => {
-        const res = await queryDictDataList({current: currentPage, pageSize})
+        const res = await queryDictDataList({current: currentPage, pageSize, dict_type})
         setTotal(res.total)
         res.code === 0 ? setDictDataListData(res.data) : message.error(res.msg);
     };
 
     useEffect(() => {
-        queryDictDataList({
-            current: currentPage, pageSize
-        }).then(res => {
-            setTotal(res.total)
-            res.code === 0 ? setDictDataListData(res.data) : message.error(res.msg);
-        });
-    }, []);
+        if (open) {
+            queryDictDataList({
+                current: currentPage, pageSize, dict_type
+            }).then(res => {
+                setTotal(res.total)
+                res.code === 0 ? setDictDataListData(res.data) : message.error(res.msg);
+            });
+        }
+    }, [open]);
 
 
     const paginationProps = {
@@ -223,7 +231,7 @@ const DictData: React.FC = () => {
             console.log('onChange', page, pageSize)
             setCurrentPage(page)
             setPageSize(pageSize)
-            const res = await queryDictDataList({current: page, pageSize})
+            const res = await queryDictDataList({current: page, pageSize, dict_type})
             setTotal(res.total)
             res.code === 0 ? setDictDataListData(res.data) : message.error(res.msg);
 
@@ -258,7 +266,8 @@ const DictData: React.FC = () => {
                 // tableLayout={"fixed"}
             />
 
-            <AddModal onCancel={handleAddCancel} onCreate={handleAddOk} open={isShowAddModal}></AddModal>
+            <AddModal onCancel={handleAddCancel} onCreate={handleAddOk} open={isShowAddModal}
+                      dict_type={dict_type}></AddModal>
             <UpdateModal onCancel={handleEditCancel} onCreate={handleEditOk} open={isShowEditModal}
                          id={currentDictData.dict_code}></UpdateModal>
             <DetailModal onCancel={handleDetailCancel} open={isShowDetailModal}
