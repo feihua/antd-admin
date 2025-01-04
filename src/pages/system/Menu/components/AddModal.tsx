@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {Form, Input, InputNumber, message, Modal, Radio, RadioChangeEvent, TreeSelect} from 'antd';
-import {MenuVo} from "../data";
+import {MenuVo, TmpMenuVo} from "../data";
 
 interface AddModalProps {
     open: boolean;
     onCreate: (values: MenuVo) => void;
     onCancel: () => void;
-    menuListData: MenuVo[];
+    menuListData: TmpMenuVo[];
 }
 
 const AddModal: React.FC<AddModalProps> = ({open, onCreate, onCancel, menuListData}) => {
@@ -35,6 +35,7 @@ const AddModal: React.FC<AddModalProps> = ({open, onCreate, onCancel, menuListDa
     };
 
     const renderContent = () => {
+
         return (
             <>
                 <FormItem

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Form, Input, InputNumber, Modal, Radio, RadioChangeEvent, TreeSelect} from 'antd';
-import {MenuVo} from "../data";
+import {MenuVo, TmpMenuVo} from "../data";
 import {queryMenuDetail} from "../service";
 
 interface UpdateModalProps {
@@ -8,7 +8,7 @@ interface UpdateModalProps {
     onCreate: (values: MenuVo) => void;
     onCancel: () => void;
     id: number;
-    menuListData: MenuVo[];
+    menuListData: TmpMenuVo[];
 }
 
 const UpdateModal: React.FC<UpdateModalProps> = ({open, onCreate, onCancel, id, menuListData}) => {

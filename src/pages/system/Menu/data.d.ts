@@ -24,3 +24,10 @@ export interface MenuVo {
     update_time: string; //修改时间
 
 }
+
+export interface TmpMenuVo {
+    id: number; //主键
+    menu_name: string; //菜单名称
+    children:MenuVo[]
+
+}

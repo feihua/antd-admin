@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Button, Divider, message, Modal, Space, Table, Tag} from 'antd';
 import type {ColumnsType} from 'antd/es/table';
 import {DeleteOutlined, EditOutlined, PlusOutlined} from '@ant-design/icons';
-import {MenuVo} from './data';
+import {MenuVo, TmpMenuVo} from './data';
 import AddMenuModal from "./components/AddModal.tsx";
 import UpdateMenuModal from "./components/UpdateModal.tsx";
 import {addMenu, handleResp, queryMenuList, removeMenu, updateMenu} from "./service";
@@ -15,7 +15,23 @@ const SysMenu: React.FC = () => {
     const [isShowEditModal, setShowEditModal] = useState<boolean>(false);
     const [isShowDetailModal, setShowDetailModal] = useState<boolean>(false);
     const [menuListData, setMenuListData] = useState<MenuVo[]>([]);
-    const [currentMenu, setCurrentMenu] = useState<MenuVo>();
+    const [tmpMenuVo, setTmpMenuVo] = useState<TmpMenuVo[]>([]);
+    const [currentMenu, setCurrentMenu] = useState<MenuVo>({
+        api_url: "",
+        create_time: "",
+        id: 0,
+        menu_icon: "",
+        menu_name: "",
+        menu_type: 0,
+        menu_url: "",
+        parent_id: 0,
+        remark: "",
+        sort: 0,
+        status: 0,
+        update_time: "",
+        visible: 0
+
+    });
 
     const columns: ColumnsType<MenuVo> = [
         {
@@ -39,32 +55,6 @@ const SysMenu: React.FC = () => {
             title: '接口地址',
             dataIndex: 'api_url',
         },
-        // {
-        //     title: '类型',
-        //     dataIndex: 'menu_type',
-        //     render: (_, {menu_type}) => (
-        //         <>
-        //             {
-        //                 menu_type === 1 && (
-        //                     <Tag color={'#ef62df'} style={{width: 50, height: 30, textAlign: "center", paddingTop: 4}}>
-        //                         目录
-        //                     </Tag>)
-        //             }
-        //             {
-        //                 menu_type === 2 && (
-        //                     <Tag color={'#3f80e9'} style={{width: 50, height: 30, textAlign: "center", paddingTop: 4}}>
-        //                         菜单
-        //                     </Tag>)
-        //             }
-        //             {
-        //                 menu_type === 3 && (
-        //                     <Tag color={'#67c23a'} style={{width: 50, height: 30, textAlign: "center", paddingTop: 4}}>
-        //                         功能
-        //                     </Tag>)
-        //             }
-        //         </>
-        //     ),
-        // },
         {
             title: '状态',
             dataIndex: 'status',
@@ -101,6 +91,13 @@ const SysMenu: React.FC = () => {
     ];
 
     const showModal = () => {
+
+        let menuList: TmpMenuVo = {
+            id: 0,
+            menu_name: '主类目',
+            children: menuListData
+        };
+        setTmpMenuVo([menuList])
         setShowAddModal(true);
     };
 
@@ -120,6 +117,12 @@ const SysMenu: React.FC = () => {
 
     const showEditModal = (menu: MenuVo) => {
         setCurrentMenu(menu)
+        let menuList: TmpMenuVo = {
+            id: 0,
+            menu_name: '主类目',
+            children: menuListData
+        };
+        setTmpMenuVo([menuList])
         setShowEditModal(true);
     };
 
@@ -199,10 +202,10 @@ const SysMenu: React.FC = () => {
             />
 
             <AddMenuModal onCancel={handleAddCancel} onCreate={handleAddOk} open={isShowAddModal}
-                          menuListData={menuListData}></AddMenuModal>
+                          menuListData={tmpMenuVo}></AddMenuModal>
             <UpdateMenuModal onCancel={handleEditCancel} onCreate={handleEditOk} open={isShowEditModal}
-                             id={currentMenu?.id || 0} menuListData={menuListData}></UpdateMenuModal>
-            <DetailModal onCancel={handleDetailCancel} open={isShowDetailModal} id={currentMenu?.id || 0}></DetailModal>
+                             id={currentMenu.id} menuListData={tmpMenuVo}></UpdateMenuModal>
+            <DetailModal onCancel={handleDetailCancel} open={isShowDetailModal} id={currentMenu.id}></DetailModal>
 
 
         </div>
