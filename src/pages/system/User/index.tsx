@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Divider, message, Modal, Space, Switch, Table} from 'antd';
+import {Button, Divider, message, Modal, Space, Splitter, Switch, Table, Tree, TreeProps } from 'antd';
 import type {ColumnsType} from 'antd/es/table';
 import {DeleteOutlined, EditOutlined, ExclamationCircleOutlined, PlusOutlined} from '@ant-design/icons';
 import {UserListParam, UserVo} from './data';
@@ -17,6 +17,8 @@ import {
 import AdvancedSearchForm from "./components/SearchForm.tsx";
 import SetUserRoleModal from "./components/UserRoleModal.tsx";
 import DetailModal from "./components/DetailModal.tsx";
+import {queryDeptList} from "../Dept/service.ts";
+import {DeptVo} from "../Dept/data";
 
 const SysUser: React.FC = () => {
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
@@ -52,6 +54,7 @@ const SysUser: React.FC = () => {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [pageSize, setPageSize] = useState<number>(10);
     const [total, setTotal] = useState<number>(10);
+    const [deptListData, setDeptListData] = useState<DeptVo[]>([]);
 
     const columns: ColumnsType<UserVo> = [
         {
@@ -256,6 +259,9 @@ const SysUser: React.FC = () => {
     };
 
     useEffect(() => {
+        queryDeptList({}).then(res => {
+            setDeptListData(res);
+        });
         queryUserList({
             current: currentPage, pageSize
         }).then(res => {
@@ -290,51 +296,81 @@ const SysUser: React.FC = () => {
         }
     }
 
+    const onSelect: TreeProps['onSelect'] = (selectedKeys, info) => {
+        console.log('selected', selectedKeys, info);
+        console.log('info', info.node.key);
+        const dept_id = info.node.key as number
+        queryUserList({
+            current: currentPage, pageSize, dept_id
+        }).then(res => {
+            setTotal(res.total)
+            res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
+        });
+    };
+
     return (
         <div style={{padding: 24}}>
-            <div>
-                <Space size={100}>
-                    <Button type="primary" icon={<PlusOutlined/>} onClick={showModal}>新建</Button>
-                    <AdvancedSearchForm search={handleSearchOk} reSet={handleResetOk}></AdvancedSearchForm>
-                </Space>
-            </div>
+            <Splitter >
+                <Splitter.Panel defaultSize="16%" min="16%" max="40%">
+                    {deptListData.length != 0 && <Tree
+                        onSelect={onSelect}
+                        // @ts-ignore
+                        treeData={deptListData}
+                        defaultExpandAll
+                        fieldNames={{title: 'dept_name', key: 'id', children: 'children'}}
+                    />}
+                </Splitter.Panel>
+                <Splitter.Panel>
+                    <div style={{paddingLeft:15}}>
+                        <div>
+                            <Space size={100}>
+                                <Button type="primary" icon={<PlusOutlined/>} onClick={showModal}>新建</Button>
+                                <AdvancedSearchForm search={handleSearchOk} reSet={handleResetOk}></AdvancedSearchForm>
+                            </Space>
+                        </div>
 
-            <Divider/>
+                        <Divider/>
 
-            <Table
-                rowSelection={{
-                    onChange: (selectedRowKeys: React.Key[]) => {
-                        setSelectedRowKeys(selectedRowKeys)
-                    },
-                }}
-                size={"small"}
-                columns={columns}
-                dataSource={userListData}
-                rowKey={'id'}
-                pagination={paginationProps}
-                // tableLayout={"fixed"}
-            />
-
-            <AddUserModal onCancel={handleAddCancel} onCreate={handleAddOk} open={isShowAddModal}></AddUserModal>
-            <UpdateUserModal onCancel={handleEditCancel} onCreate={handleEditOk} open={isShowEditModal}
-                             id={currentUser.id}></UpdateUserModal>
-            <DetailModal onCancel={handleDetailCancel} open={isShowDetailModal} id={currentUser.id}></DetailModal>
-            <SetUserRoleModal onCancel={handleRoleCancel} onCreate={handleRoleOk} open={isShowRoleModal}
-                              userVo={currentUser}></SetUserRoleModal>
-
-            {selectedRowKeys.length > 0 &&
-                <div>
-                    已选择 {selectedRowKeys.length} 项
-                    <Button style={{float: "right"}} danger icon={<DeleteOutlined/>} type={'primary'}
-                            onClick={async () => {
-                                await handleRemove(selectedRowKeys as number[]);
-                                setSelectedRowKeys([]);
+                        <Table
+                            rowSelection={{
+                                onChange: (selectedRowKeys: React.Key[]) => {
+                                    setSelectedRowKeys(selectedRowKeys)
+                                },
                             }}
-                    >
-                        批量删除
-                    </Button>
-                </div>
-            }
+                            size={"small"}
+                            columns={columns}
+                            dataSource={userListData}
+                            rowKey={'id'}
+                            pagination={paginationProps}
+                            // tableLayout={"fixed"}
+                        />
+
+                        <AddUserModal onCancel={handleAddCancel} onCreate={handleAddOk}
+                                      open={isShowAddModal}></AddUserModal>
+                        <UpdateUserModal onCancel={handleEditCancel} onCreate={handleEditOk} open={isShowEditModal}
+                                         id={currentUser.id}></UpdateUserModal>
+                        <DetailModal onCancel={handleDetailCancel} open={isShowDetailModal}
+                                     id={currentUser.id}></DetailModal>
+                        <SetUserRoleModal onCancel={handleRoleCancel} onCreate={handleRoleOk} open={isShowRoleModal}
+                                          userVo={currentUser}></SetUserRoleModal>
+
+                        {selectedRowKeys.length > 0 &&
+                            <div>
+                                已选择 {selectedRowKeys.length} 项
+                                <Button style={{float: "right"}} danger icon={<DeleteOutlined/>} type={'primary'}
+                                        onClick={async () => {
+                                            await handleRemove(selectedRowKeys as number[]);
+                                            setSelectedRowKeys([]);
+                                        }}
+                                >
+                                    批量删除
+                                </Button>
+                            </div>
+                        }
+                    </div>
+                </Splitter.Panel>
+            </Splitter>
+
 
         </div>
     );
