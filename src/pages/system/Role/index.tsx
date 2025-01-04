@@ -1,11 +1,19 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Divider, message, Modal, Space, Table, Tag} from 'antd';
+import {Button, Divider, message, Modal, Space, Switch, Table} from 'antd';
 import type {ColumnsType} from 'antd/es/table';
-import {DeleteOutlined, EditOutlined, PlusOutlined} from '@ant-design/icons';
+import {DeleteOutlined, EditOutlined, ExclamationCircleOutlined, PlusOutlined} from '@ant-design/icons';
 import {RoleVo} from './data';
 import CreateRoleForm from "./components/AddModal.tsx";
 import UpdateRoleForm from "./components/UpdateModal.tsx";
-import {addRole, handleResp, queryRoleList, removeRole, update_role_menu, updateRole} from "./service";
+import {
+    addRole,
+    handleResp,
+    queryRoleList,
+    removeRole,
+    update_role_menu,
+    updateRole,
+    updateRoleStatus
+} from "./service";
 import AdvancedSearchForm from "./components/SearchForm.tsx";
 import SetRoleMenuForm from "./components/RoleMenu.tsx";
 import DetailModal from "./components/DetailModal.tsx";
@@ -19,40 +27,76 @@ const SysRole: React.FC = () => {
     const [roleListData, setRoleListData] = useState<RoleVo[]>([]);
     const [currentRole, setCurrentRole] = useState<RoleVo>({
         create_time: "",
+        data_scope: 0,
+        del_flag: 0,
         id: 0,
         remark: "",
+        role_key: "",
         role_name: "",
-        sort: 0,
-        status_id: 0,
+        status: 0,
         update_time: ""
+
     });
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [pageSize, setPageSize] = useState<number>(10);
     const [total, setTotal] = useState<number>(10);
 
+    //（1：全部数据权限 2：自定数据权限 3：本部门数据权限 4：本部门及以下数据权限）
+    const getDataScope = function (scope: number): string {
+        let text = '';
+        switch (scope) {
+            case 1:
+                text = '全部数据权限'
+                break;
+            case 2:
+                text = '自定数据权限'
+                break;
+            case 3:
+                text = '本部门数据权限'
+                break;
+            default:
+                text = '本部门及以下数据权限'
+        }
+
+        return text;
+
+    }
+
     const columns: ColumnsType<RoleVo> = [
+        {
+            title: '角色编号',
+            dataIndex: 'id',
+        },
         {
             title: '角色名称',
             dataIndex: 'role_name',
             render: (text: string) => <a>{text}</a>,
         },
         {
-            title: '排序',
-            dataIndex: 'sort',
+            title: '权限字符',
+            dataIndex: 'role_key',
+        },
+        {
+            title: '数据范围',
+            dataIndex: 'data_scope',
+            render: (_, {data_scope}) => (
+                <>
+                    {getDataScope(data_scope)}
+                </>
+            ),
         },
         {
             title: '状态',
-            dataIndex: 'status_id',
-            render: (_, {status_id}) => (
-                <>
-                    {
-                        <Tag color={status_id === 0 ? '#ff4d4f' : '#67c23a'}
-                             style={{width: 50, height: 30, textAlign: "center", paddingTop: 4}}>
-                            {status_id === 0 ? '禁用' : '启用'}
-                        </Tag>
-                    }
-                </>
-            ),
+            render: (_dom, entity) => {
+                return (
+                    <Switch
+                        checked={entity.status == 1}
+                        onChange={(flag) => {
+                            showStatusConfirm([entity.id], flag ? 1 : 0);
+                        }}
+                    />
+                );
+            },
         },
         {
             title: '备注',
@@ -61,10 +105,6 @@ const SysRole: React.FC = () => {
         {
             title: '创建时间',
             dataIndex: 'create_time',
-        },
-        {
-            title: '更新时间',
-            dataIndex: 'update_time',
         },
         {
             title: '操作',
@@ -83,6 +123,42 @@ const SysRole: React.FC = () => {
             ),
         },
     ];
+
+    const showStatusConfirm = (ids: number[], status: number) => {
+        Modal.confirm({
+            title: `确定${status == 1 ? "启用" : "禁用"}吗？`,
+            okText: '确定',
+            cancelText: '取消',
+            icon: <ExclamationCircleOutlined/>,
+            async onOk() {
+                await handleStatus(ids, status)
+                //actionRef.current?.clearSelected?.();
+                //actionRef.current?.reload?.();
+            },
+            onCancel() {
+            },
+        });
+    };
+    const handleStatus = async (ids: number[], status: number) => {
+        const hide = message.loading('正在更新状态');
+        if (ids.length == 0) {
+            hide();
+            return true;
+        }
+        try {
+            await updateRoleStatus({ids, status});
+            hide();
+            let res = await queryRoleList({current: currentPage, pageSize})
+            setTotal(res.total)
+            res.code === 0 ? setRoleListData(res.data) : message.error(res.msg);
+            message.success('更新状态成功');
+            return true;
+        } catch (error) {
+            hide();
+            return false;
+        }
+    };
+
 
     const showModal = () => {
         setShowAddModal(true);

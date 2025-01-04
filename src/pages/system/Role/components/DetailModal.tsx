@@ -12,6 +12,27 @@ export interface DetailModalProps {
 const DetailModal: React.FC<DetailModalProps> = (props) => {
     const {open, id, onCancel} = props;
 
+    //（1：全部数据权限 2：自定数据权限 3：本部门数据权限 4：本部门及以下数据权限）
+    const getDataScope = function (scope: number): string {
+        let text = '';
+        switch (scope) {
+            case 1:
+                text = '全部数据权限'
+                break;
+            case 2:
+                text = '自定数据权限'
+                break;
+            case 3:
+                text = '本部门数据权限'
+                break;
+            default:
+                text = '本部门及以下数据权限'
+        }
+
+        return text;
+
+    }
+
     const [columns, setColumns] = useState<DescriptionsProps['items']>([]);
     useEffect(() => {
         if (open) {
@@ -19,43 +40,33 @@ const DetailModal: React.FC<DetailModalProps> = (props) => {
                 setColumns([
                     {
                         key: '1',
-                        label: '主键',
+                        label: '角色编号',
                         children: <p>{res.data.id}</p>,
                     },
                     {
                         key: '2',
-                        label: '名称',
+                        label: '角色名称',
                         children: <p>{res.data.role_name}</p>,
                     },
                     {
                         key: '3',
-                        label: '角色权限字符串',
+                        label: '权限字符',
                         children: <p>{res.data.role_key}</p>,
                     },
                     {
                         key: '4',
-                        label: '数据范围（1：全部数据权限 2：自定数据权限 3：本部门数据权限 4：本部门及以下数据权限）',
-                        children: <p>{res.data.data_scope}</p>,
+                        label: '数据范围',
+                        children: <p>{getDataScope(res.data.data_scope)}</p>,
                     },
                     {
                         key: '5',
-                        label: '状态(1:正常，0:禁用)',
-                        children: <p>{res.data.status}</p>,
-                    },
-                    {
-                        key: '6',
-                        label: '排序',
-                        children: <p>{res.data.sort}</p>,
+                        label: '状态',
+                        children: <p>{res.data.status == 1 ? '正常' : '禁用'}</p>,
                     },
                     {
                         key: '7',
                         label: '备注',
                         children: <p>{res.data.remark}</p>,
-                    },
-                    {
-                        key: '8',
-                        label: '删除标志（0代表删除 1代表存在）',
-                        children: <p>{res.data.del_flag}</p>,
                     },
                     {
                         key: '9',

@@ -33,6 +33,12 @@ const AdvancedSearchForm: React.FC<SearchFormProps> = ({search, reSet}) => {
                     <Input placeholder="角色名称"/>
                 </FormItem>
                 <FormItem
+                    name="role_key"
+                    label="权限字符"
+                >
+                    <Input id="search-role_key" placeholder={'请输入权限字符'}/>
+                </FormItem>
+                <FormItem
                     label={'状态'}
                     name="status_id"
                 >

@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
-import {Form, Input, InputNumber, Modal, Radio} from 'antd';
+import {Form, Input, Modal, Radio, Select} from 'antd';
 import {RoleVo} from "../data";
-import TextArea from "antd/es/input/TextArea";
 
 interface UpdateFormProps {
     open: boolean;
@@ -23,7 +22,6 @@ const UpdateRoleModal: React.FC<UpdateFormProps> = ({open, onCreate, onCancel, r
     const handleOk = () => {
         form.validateFields()
             .then((values) => {
-                form.resetFields();
                 onCreate(values);
             })
             .catch((info) => {
@@ -42,33 +40,52 @@ const UpdateRoleModal: React.FC<UpdateFormProps> = ({open, onCreate, onCancel, r
                     <Input/>
                 </FormItem>
                 <FormItem
-                    label="角色名称"
                     name="role_name"
-                    rules={[{required: true, message: '请输入角色名称!'}]}
+                    label="角色名称"
+                    rules={[{required: true, message: '请输入名称!'}]}
                 >
-                    <Input/>
-                </FormItem>
-
-                <FormItem
-                    label="排序"
-                    name="sort"
-                    rules={[{required: true, message: '请输入排序!'}]}>
-                    <InputNumber defaultValue={1} style={{width: 234}}/>
+                    <Input id="create-role_name" placeholder={'请输入名称!'}/>
                 </FormItem>
                 <FormItem
+                    name="role_key"
+                    label="权限字符"
+                    rules={[{required: true, message: '请输入权限字符串!'}]}
+                >
+                    <Input id="create-role_key" placeholder={'请输入权限字符串!'}/>
+                </FormItem>
+                <FormItem
+                    name="data_scope"
+                    label="数据范围"
+                    rules={[{
+                        required: true,
+                        message: '请输入数据范围!'
+                    }]}
+                >
+                    <Select
+                        // style={{width: 120}}
+                        options={[
+                            {value: 1, label: '全部数据权限'},
+                            {value: 2, label: '自定数据权限'},
+                            {value: 3, label: '本部门数据权限'},
+                            {value: 4, label: '本部门及以下数据权限'},
+                        ]}
+                    />
+                </FormItem>
+                <FormItem
+                    name="status"
                     label="状态"
-                    name="status_id"
-                    rules={[{required: true, message: '请输入状态!'}]}>
+                    rules={[{required: true, message: '请输入状态(1:正常，0:禁用)!'}]}
+                >
                     <Radio.Group>
-                        <Radio value={1}>启用</Radio>
+                        <Radio value={1}>正常</Radio>
                         <Radio value={0}>禁用</Radio>
                     </Radio.Group>
                 </FormItem>
                 <FormItem
-                    label="备注"
                     name="remark"
+                    label="备注"
                 >
-                    <TextArea rows={2} placeholder="备注"/>
+                    <Input.TextArea rows={2} placeholder={'请输入备注'}/>
                 </FormItem>
             </>
         )
