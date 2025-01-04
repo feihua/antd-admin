@@ -11,7 +11,6 @@ import {IResponse} from "../../../api/ajax";
 import DetailModal from "./components/DetailModal.tsx";
 
 const SysMenu: React.FC = () => {
-    const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
     const [isShowAddModal, setShowAddModal] = useState<boolean>(false);
     const [isShowEditModal, setShowEditModal] = useState<boolean>(false);
     const [isShowDetailModal, setShowDetailModal] = useState<boolean>(false);
@@ -25,6 +24,14 @@ const SysMenu: React.FC = () => {
             render: (text: string) => <a>{text}</a>,
         },
         {
+            title: '菜单图标',
+            dataIndex: 'menu_icon',
+        },
+        {
+            title: '排序',
+            dataIndex: 'sort',
+        },
+        {
             title: '路径',
             dataIndex: 'menu_url',
         },
@@ -32,66 +39,51 @@ const SysMenu: React.FC = () => {
             title: '接口地址',
             dataIndex: 'api_url',
         },
-        {
-            title: '类型',
-            dataIndex: 'menu_type',
-            render: (_, {menu_type}) => (
-                <>
-                    {
-                        menu_type === 1 && (
-                            <Tag color={'#ef62df'} style={{width: 50, height: 30, textAlign: "center", paddingTop: 4}}>
-                                目录
-                            </Tag>)
-                    }
-                    {
-                        menu_type === 2 && (
-                            <Tag color={'#3f80e9'} style={{width: 50, height: 30, textAlign: "center", paddingTop: 4}}>
-                                菜单
-                            </Tag>)
-                    }
-                    {
-                        menu_type === 3 && (
-                            <Tag color={'#67c23a'} style={{width: 50, height: 30, textAlign: "center", paddingTop: 4}}>
-                                功能
-                            </Tag>)
-                    }
-                </>
-            ),
-        },
-        {
-            title: '排序',
-            dataIndex: 'sort',
-        },
-        {
-            title: '图标',
-            dataIndex: 'icon',
-        },
+        // {
+        //     title: '类型',
+        //     dataIndex: 'menu_type',
+        //     render: (_, {menu_type}) => (
+        //         <>
+        //             {
+        //                 menu_type === 1 && (
+        //                     <Tag color={'#ef62df'} style={{width: 50, height: 30, textAlign: "center", paddingTop: 4}}>
+        //                         目录
+        //                     </Tag>)
+        //             }
+        //             {
+        //                 menu_type === 2 && (
+        //                     <Tag color={'#3f80e9'} style={{width: 50, height: 30, textAlign: "center", paddingTop: 4}}>
+        //                         菜单
+        //                     </Tag>)
+        //             }
+        //             {
+        //                 menu_type === 3 && (
+        //                     <Tag color={'#67c23a'} style={{width: 50, height: 30, textAlign: "center", paddingTop: 4}}>
+        //                         功能
+        //                     </Tag>)
+        //             }
+        //         </>
+        //     ),
+        // },
         {
             title: '状态',
-            dataIndex: 'status_id',
-            render: (_, {status_id}) => (
+            dataIndex: 'status',
+            render: (_, {status}) => (
                 <>
                     {
-                        <Tag color={status_id === 0 ? '#ff4d4f' : '#67c23a'}
+
+                        <Tag color={status === 1 ? 'green' : 'volcano'}
                              style={{width: 50, height: 30, textAlign: "center", paddingTop: 4}}>
-                            {status_id === 0 ? '禁用' : '启用'}
+                            {status === 1 ? '正常' : '停用'}
                         </Tag>
                     }
                 </>
             ),
         },
         {
-            title: '备注',
-            dataIndex: 'remark',
+            title: '创建时间',
+            dataIndex: 'create_time',
         },
-        // {
-        //     title: '创建时间',
-        //     dataIndex: 'create_time',
-        // },
-        // {
-        //     title: '更新时间',
-        //     dataIndex: 'update_time',
-        // },
         {
             title: '操作',
             key: 'action',
@@ -113,10 +105,10 @@ const SysMenu: React.FC = () => {
     };
 
     const handleAddOk = async (menu: MenuVo) => {
-        console.log(menu)
         if (handleResp(await addMenu(menu))) {
             setShowAddModal(false);
             let res = await queryMenuList({})
+            console.log(res)
             res.code === 0 ? setMenuDataTree(res) : message.error(res.msg);
         }
     }
@@ -199,11 +191,6 @@ const SysMenu: React.FC = () => {
             <Divider/>
 
             <Table
-                rowSelection={{
-                    onChange: (selectedRowKeys: React.Key[]) => {
-                        setSelectedRowKeys(selectedRowKeys)
-                    },
-                }}
                 size={"small"}
                 columns={columns}
                 dataSource={menuListData}
@@ -214,22 +201,9 @@ const SysMenu: React.FC = () => {
             <AddMenuModal onCancel={handleAddCancel} onCreate={handleAddOk} open={isShowAddModal}
                           menuListData={menuListData}></AddMenuModal>
             <UpdateMenuModal onCancel={handleEditCancel} onCreate={handleEditOk} open={isShowEditModal}
-                             menuVo={currentMenu}></UpdateMenuModal>
+                             id={currentMenu?.id || 0} menuListData={menuListData}></UpdateMenuModal>
             <DetailModal onCancel={handleDetailCancel} open={isShowDetailModal} id={currentMenu?.id || 0}></DetailModal>
 
-            {selectedRowKeys.length > 0 &&
-                <div>
-                    已选择 {selectedRowKeys.length} 项
-                    <Button style={{float: "right"}} danger icon={<DeleteOutlined/>} type={'primary'}
-                            onClick={async () => {
-                                await handleRemove(selectedRowKeys as number[]);
-                                setSelectedRowKeys([]);
-                            }}
-                    >
-                        批量删除
-                    </Button>
-                </div>
-            }
 
         </div>
     );

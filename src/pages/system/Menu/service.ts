@@ -65,6 +65,7 @@ export const queryMenuList = (params: MenuListParam): Promise<IResponse> => {
  * @param resp
  */
 export const handleResp = (resp: IResponse): boolean => {
+    console.log(resp);
     resp.code === 0 ? message.success(resp.msg) : message.error(resp.msg);
     return resp.code === 0
 };

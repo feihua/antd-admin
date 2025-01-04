@@ -1,143 +1,169 @@
 import React, {useEffect, useState} from 'react';
-import {Form, Input, InputNumber, Modal, Radio} from 'antd';
+import {Form, Input, InputNumber, Modal, Radio, RadioChangeEvent, TreeSelect} from 'antd';
 import {MenuVo} from "../data";
-import TextArea from "antd/es/input/TextArea";
+import {queryMenuDetail} from "../service";
 
-interface UpdateFormProps {
+interface UpdateModalProps {
     open: boolean;
     onCreate: (values: MenuVo) => void;
     onCancel: () => void;
-    menuVo?: MenuVo;
+    id: number;
+    menuListData: MenuVo[];
 }
 
-const UpdateMenuModal: React.FC<UpdateFormProps> = ({open, onCreate, onCancel, menuVo}) => {
-    const [menuType, setMenuType] = useState<number>(2);
-    const [menuName, setMenuName] = useState<string>('菜单名称');
-
+const UpdateModal: React.FC<UpdateModalProps> = ({open, onCreate, onCancel, id, menuListData}) => {
     const [form] = Form.useForm();
     const FormItem = Form.Item;
 
-    useEffect(() => {
-        if (menuVo) {
-            form.setFieldsValue(menuVo);
+    const [menuType, setMenuType] = useState<number>(2);
 
-            let t = menuVo.menu_type
-            setMenuType(t)
-            if (t === 1) {
-                setMenuName('目录名称');
-            } else {
-                setMenuName(t === 2 ? '菜单名称' : '按钮名称');
-            }
+    useEffect(() => {
+        if (open) {
+            queryMenuDetail({id}).then((res) => {
+                setMenuType(res.data.menu_type)
+                form.setFieldsValue(res.data);
+
+            });
         }
-    }, [menuVo]);
+    }, [open]);
 
     const handleOk = () => {
         form.validateFields()
             .then((values) => {
-                // form.resetFields();
-                onCreate({"api_url": '', "menu_url": '', "icon": '', ...values});
+                form.resetFields();
+                onCreate(values);
             })
             .catch((info) => {
                 console.log('Validate Failed:', info);
             });
     }
 
-    const updateContent = () => {
+    const onChange = (e: RadioChangeEvent) => {
+        setMenuType(e.target.value)
+    };
+
+    const renderContent = () => {
         return (
             <>
                 <FormItem
-                    label="id"
                     name="id"
-                    hidden={true}
+                    label="主键"
+                    hidden
                 >
-                    <Input/>
+                    <Input id="update-id"/>
                 </FormItem>
                 <FormItem
-                    label="parent_id"
+                    label="上级菜单"
                     name="parent_id"
-                    hidden={true}
+                    rules={[{required: true, message: '请选择上级菜单!'}]}
                 >
-                    <Input/>
+                    <TreeSelect
+                        // style={{width: '100%'}}
+                        // dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
+                        treeData={menuListData}
+                        placeholder="请选择上级菜单"
+                        fieldNames={{label: 'menu_name', value: 'id', children: 'children'}}
+                        allowClear
+                    />
                 </FormItem>
                 <FormItem
-                    label="类型"
+                    label="菜单类型"
                     name="menu_type"
+                    rules={[{required: true, message: '请选择菜单类型!'}]}
                 >
-                    <Radio.Group disabled>
+                    <Radio.Group onChange={onChange} value={menuType}>
                         <Radio value={1}>目录</Radio>
                         <Radio value={2}>菜单</Radio>
                         <Radio value={3}>按钮</Radio>
                     </Radio.Group>
                 </FormItem>
                 <FormItem
-                    label={menuName}
                     name="menu_name"
+                    label="菜单名称"
                     rules={[{required: true, message: '请输入菜单名称!'}]}
                 >
-                    <Input/>
+                    <Input id="update-menu_name" placeholder={'请输入菜单名称'}/>
                 </FormItem>
                 {menuType !== 3 &&
                     <FormItem
-                        label="路径"
-                        name="menu_url"
-                        rules={[{required: true, message: '请输入路径!'}]}
+                        name="menu_icon"
+                        label="菜单图标"
+                        rules={[{required: true, message: '请输入菜单图标!'}]}
                     >
-                        <Input/>
+                        <Input id="update-menu_icon" placeholder={'请输入菜单图标'}/>
+                    </FormItem>
+                }
+
+                <FormItem
+                    name="sort"
+                    label="显示排序"
+                    rules={[{required: true, message: '请输入排序!'}]}
+                >
+                    <InputNumber style={{width: 255}}/>
+                </FormItem>
+                <FormItem
+                    name="visible"
+                    label="显示状态"
+                    rules={[{required: true, message: '请选择显示状态!'}]}
+                >
+                    <Radio.Group>
+                        <Radio value={1}>显示</Radio>
+                        <Radio value={0}>隐藏</Radio>
+
+                    </Radio.Group>
+                </FormItem>
+                <FormItem
+                    name="status"
+                    label="菜单状态"
+                    rules={[{required: true, message: '请选择菜单状态!'}]}
+                >
+                    <Radio.Group>
+                        <Radio value={1}>正常</Radio>
+                        <Radio value={0}>禁用</Radio>
+
+                    </Radio.Group>
+                </FormItem>
+
+                {menuType !== 3 &&
+                    <FormItem
+                        name="menu_url"
+                        label="路由路径"
+                        rules={[{required: true, message: '请输入路由路径!'}]}
+                    >
+                        <Input id="update-menu_url" placeholder={'请输入路由路径'}/>
                     </FormItem>
                 }
                 {menuType === 3 &&
                     <FormItem
-                        label="接口地址"
                         name="api_url"
+                        label="接口地址"
                         rules={[{required: true, message: '请输入接口地址!'}]}
                     >
-                        <Input/>
+                        <Input id="update-api_url" placeholder={'请输入接口地址'}/>
                     </FormItem>
                 }
-                <FormItem
-                    label="排序"
-                    name="sort"
-                    rules={[{required: true, message: '请输入排序!'}]}>
-                    <InputNumber style={{width: 234}}/>
-                </FormItem>
-                {menuType !== 3 &&
-                    <FormItem
-                        label="图标"
-                        name="icon"
-                        rules={[{required: true, message: '请输入图标!'}]}
-                    >
-                        <Input/>
-                    </FormItem>
-                }
-                <FormItem
-                    label="状态"
-                    name="status"
-                    rules={[{required: true, message: '请输入状态!'}]}>
-                    <Radio.Group>
-                        <Radio value={1}>启用</Radio>
-                        <Radio value={0}>禁用</Radio>
-                    </Radio.Group>
-                </FormItem>
-                <FormItem
-                    label="备注"
-                    name="remark"
-                >
-                    <TextArea rows={2} placeholder="备注"/>
-                </FormItem>
-            </>
-        )
-    }
 
-    const modalFooter = {title: "更新", okText: '保存', onOk: handleOk, onCancel, cancelText: '取消', open, width: 480};
-    const formLayout = {labelCol: {span: 7}, wrapperCol: {span: 13}, form};
+
+                <FormItem
+                    name="remark"
+                    label="备注"
+                >
+                    <Input.TextArea rows={2} placeholder={'请输入备注'}/>
+                </FormItem>
+
+
+            </>
+        );
+    };
 
     return (
-        <Modal {...modalFooter} style={{top: 150}}>
-            <Form {...formLayout} style={{marginTop: 30}}>
-                {updateContent()}
+        <Modal title="更新" okText="保存" onOk={handleOk} onCancel={onCancel} cancelText="取消" open={open} width={480}
+               style={{top: 150}}>
+            <Form labelCol={{span: 7}} wrapperCol={{span: 13}} form={form} style={{marginTop: 30}}>
+                {renderContent()}
             </Form>
         </Modal>
     );
 };
 
-export default UpdateMenuModal;
+export default UpdateModal;
