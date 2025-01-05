@@ -40,7 +40,7 @@ const AdvancedSearchForm: React.FC<SearchFormProps> = ({search, reSet}) => {
                 </FormItem>
                 <FormItem
                     label={'状态'}
-                    name="status_id"
+                    name="status"
                 >
                     <Select style={{width: 200}} placeholder="状态">
                         <Option value={1}>启用</Option>
