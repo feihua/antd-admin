@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Button, Divider, message, Modal, Space, Table, Tag} from 'antd';
 import type {ColumnsType} from 'antd/es/table';
 import {DeleteOutlined, EditOutlined, PlusOutlined} from '@ant-design/icons';
-import {MenuVo, TmpMenuVo} from './data';
+import {MenuVo} from './data';
 import AddMenuModal from "./components/AddModal.tsx";
 import UpdateMenuModal from "./components/UpdateModal.tsx";
 import {addMenu, handleResp, queryMenuList, removeMenu, updateMenu} from "./service";
@@ -15,7 +15,6 @@ const SysMenu: React.FC = () => {
     const [isShowEditModal, setShowEditModal] = useState<boolean>(false);
     const [isShowDetailModal, setShowDetailModal] = useState<boolean>(false);
     const [menuListData, setMenuListData] = useState<MenuVo[]>([]);
-    const [tmpMenuVo, setTmpMenuVo] = useState<TmpMenuVo[]>([]);
     const [currentMenu, setCurrentMenu] = useState<MenuVo>({
         api_url: "",
         create_time: "",
@@ -91,13 +90,6 @@ const SysMenu: React.FC = () => {
     ];
 
     const showModal = () => {
-
-        let menuList: TmpMenuVo = {
-            id: 0,
-            menu_name: '主类目',
-            children: menuListData
-        };
-        setTmpMenuVo([menuList])
         setShowAddModal(true);
     };
 
@@ -117,12 +109,6 @@ const SysMenu: React.FC = () => {
 
     const showEditModal = (menu: MenuVo) => {
         setCurrentMenu(menu)
-        let menuList: TmpMenuVo = {
-            id: 0,
-            menu_name: '主类目',
-            children: menuListData
-        };
-        setTmpMenuVo([menuList])
         setShowEditModal(true);
     };
 
@@ -201,10 +187,9 @@ const SysMenu: React.FC = () => {
                 pagination={false}
             />
 
-            <AddMenuModal onCancel={handleAddCancel} onCreate={handleAddOk} open={isShowAddModal}
-                          menuListData={tmpMenuVo}></AddMenuModal>
+            <AddMenuModal onCancel={handleAddCancel} onCreate={handleAddOk} open={isShowAddModal}></AddMenuModal>
             <UpdateMenuModal onCancel={handleEditCancel} onCreate={handleEditOk} open={isShowEditModal}
-                             id={currentMenu.id} menuListData={tmpMenuVo}></UpdateMenuModal>
+                             id={currentMenu.id}></UpdateMenuModal>
             <DetailModal onCancel={handleDetailCancel} open={isShowDetailModal} id={currentMenu.id}></DetailModal>
 
 

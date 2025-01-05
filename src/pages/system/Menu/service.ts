@@ -59,6 +59,14 @@ export const queryMenuList = (params: MenuListParam): Promise<IResponse> => {
     return axiosInstance.post('/api/system/menu/queryMenuList', {params}).then(res => res.data);
 };
 
+/**
+ * @description: 分页查询菜单信息列表
+ * @params {params} MenuListParam
+ * @return {Promise}
+ */
+export const queryMenuListSimple = (): Promise<IResponse> => {
+    return axiosInstance.get('/api/system/menu/queryMenuListSimple').then(res => res.data);
+};
 
 /**
  * 统一处理

@@ -1,22 +1,37 @@
 import React, {useEffect, useState} from 'react';
 import {Form, Input, InputNumber, message, Modal, Radio, RadioChangeEvent, TreeSelect} from 'antd';
 import {MenuVo, TmpMenuVo} from "../data";
+import {queryMenuListSimple} from "../service.ts";
+import {tree} from "../../../../utils/treeUtils.ts";
 
 interface AddModalProps {
     open: boolean;
     onCreate: (values: MenuVo) => void;
     onCancel: () => void;
-    menuListData: TmpMenuVo[];
 }
 
-const AddModal: React.FC<AddModalProps> = ({open, onCreate, onCancel, menuListData}) => {
+const AddModal: React.FC<AddModalProps> = ({open, onCreate, onCancel}) => {
     const [form] = Form.useForm();
     const FormItem = Form.Item;
     const [menuType, setMenuType] = useState<number>(2);
+    const [tmpMenuVo, setTmpMenuVo] = useState<TmpMenuVo[]>([]);
 
     useEffect(() => {
         if (open) {
             form.resetFields()
+            queryMenuListSimple().then(res => {
+                if (res.code === 0) {
+
+                    let menuList: TmpMenuVo = {
+                        id: 0,
+                        menu_name: '主类目',
+                        children: tree(res.data, 0, "parent_id")
+                    };
+                    setTmpMenuVo([menuList])
+                } else {
+                    message.error(res.msg)
+                }
+            });
         }
     }, [open]);
 
@@ -46,7 +61,7 @@ const AddModal: React.FC<AddModalProps> = ({open, onCreate, onCancel, menuListDa
                     <TreeSelect
                         // style={{width: '100%'}}
                         // dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
-                        treeData={menuListData}
+                        treeData={tmpMenuVo}
                         placeholder="请选择上级菜单"
                         fieldNames={{label: 'menu_name', value: 'id', children: 'children'}}
                         allowClear
