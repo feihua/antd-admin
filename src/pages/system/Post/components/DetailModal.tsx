@@ -65,7 +65,8 @@ const DetailModal: React.FC<DetailModalProps> = (props) => {
 
 
     return (
-        <Modal forceRender destroyOnClose title={"岗位详细信息"} open={open} footer={false} width={800} onCancel={onCancel}>
+        <Modal forceRender destroyOnClose title={"岗位详细信息"} open={open} footer={false} width={800}
+               onCancel={onCancel}>
             <Descriptions items={columns} style={{margin: 30}} column={2}/>
         </Modal>
     );

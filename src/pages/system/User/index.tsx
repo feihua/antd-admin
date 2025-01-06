@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Divider, message, Modal, Space, Splitter, Switch, Table, Tree, TreeProps } from 'antd';
+import {Button, Divider, message, Modal, Space, Splitter, Switch, Table, Tree, TreeProps} from 'antd';
 import type {ColumnsType} from 'antd/es/table';
 import {DeleteOutlined, EditOutlined, ExclamationCircleOutlined, PlusOutlined} from '@ant-design/icons';
 import {UserListParam, UserVo} from './data';
@@ -310,7 +310,7 @@ const SysUser: React.FC = () => {
 
     return (
         <div style={{padding: 24}}>
-            <Splitter >
+            <Splitter>
                 <Splitter.Panel defaultSize="16%" min="16%" max="40%">
                     {deptListData.length != 0 && <Tree
                         onSelect={onSelect}
@@ -321,7 +321,7 @@ const SysUser: React.FC = () => {
                     />}
                 </Splitter.Panel>
                 <Splitter.Panel>
-                    <div style={{paddingLeft:15}}>
+                    <div style={{paddingLeft: 15}}>
                         <div>
                             <Space size={100}>
                                 <Button type="primary" icon={<PlusOutlined/>} onClick={showModal}>新建</Button>

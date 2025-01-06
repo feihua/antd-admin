@@ -42,7 +42,7 @@ const DetailModal: React.FC<DetailModalProps> = (props) => {
                         key: '6',
                         label: '头像路径',
                         children: <p>{res.data.avatar}</p>,
-                        span:2
+                        span: 2
                     },
                     {
                         key: '5',

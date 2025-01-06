@@ -1,4 +1,3 @@
-
 export interface UserListParam {
     current: number;
     pageSize?: number;

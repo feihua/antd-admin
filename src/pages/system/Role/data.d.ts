@@ -1,4 +1,3 @@
-
 export interface RoleListParam {
     current: number;
     pageSize?: number;

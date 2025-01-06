@@ -1,4 +1,3 @@
-
 export interface MenuListParam {
     menu_name?: string; //菜单名称
     menu_type?: number; //菜单类型(1：目录   2：菜单   3：按钮)
@@ -28,6 +27,6 @@ export interface MenuVo {
 export interface TmpMenuVo {
     id: number; //主键
     menu_name: string; //菜单名称
-    children:MenuVo[]
+    children: MenuVo[]
 
 }

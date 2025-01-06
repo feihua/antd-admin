@@ -1,4 +1,3 @@
-
 export interface LoginLogListParam {
     current: number;
     pageSize?: number;

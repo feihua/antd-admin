@@ -72,6 +72,10 @@ export const queryDeptList = async (params: DeptListParam): Promise<DeptVo[]> =>
  * @param resp
  */
 export const handleResp = (resp: IResponse): boolean => {
-    resp.code === 0 ? message.success(resp.msg) : message.error(resp.msg);
+    if (resp.code === 0) {
+        message.success(resp.msg)
+    } else {
+        message.error(resp.msg)
+    }
     return resp.code === 0
 };

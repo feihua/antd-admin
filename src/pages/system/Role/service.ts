@@ -85,6 +85,10 @@ export const update_role_menu = (role_id: Number, menu_ids: Number[]): Promise<I
  * @param resp
  */
 export const handleResp = (resp: IResponse): boolean => {
-    resp.code === 0 ? message.success(resp.msg) : message.error(resp.msg);
+    if (resp.code === 0) {
+        message.success(resp.msg)
+    } else {
+        message.error(resp.msg)
+    }
     return resp.code === 0
 };
