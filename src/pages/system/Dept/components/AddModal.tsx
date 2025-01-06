@@ -22,7 +22,7 @@ const AddModal: React.FC<AddModalProps> = ({open, onCreate, onCancel}) => {
     useEffect(() => {
         if (open) {
             form.resetFields()
-            queryDeptList({}).then(res => {
+            queryDeptList({status:1}).then(res => {
                 setDeptListData(res);
             });
         }

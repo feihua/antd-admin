@@ -21,7 +21,7 @@ const UpdateModal: React.FC<UpdateModalProps> = ({open, onCreate, onCancel, id})
     };
     useEffect(() => {
         if (open) {
-            queryDeptList({}).then(res => {
+            queryDeptList({status: 1}).then(res => {
                 setDeptListData(res);
             });
             queryDeptDetail({id}).then((res) => {
