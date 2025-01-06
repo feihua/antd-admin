@@ -44,7 +44,6 @@ const UpdateModal: React.FC<UpdateModalProps> = ({open, onCreate, onCancel, id})
     const handleOk = () => {
         form.validateFields()
             .then((values) => {
-                form.resetFields();
                 onCreate(values);
             })
             .catch((info) => {

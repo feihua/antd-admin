@@ -34,7 +34,6 @@ const UpdateModal: React.FC<UpdateModalProps> = ({open, onCreate, onCancel, id})
     const handleOk = () => {
         form.validateFields()
             .then((values) => {
-                form.resetFields();
                 onCreate(values);
             })
             .catch((info) => {
@@ -51,14 +50,6 @@ const UpdateModal: React.FC<UpdateModalProps> = ({open, onCreate, onCancel, id})
                     hidden
                 >
                     <Input id="update-id"/>
-                </FormItem>
-                <FormItem
-                    name="ancestors"
-                    label="祖级列表"
-                    hidden
-                    initialValue={'1'}
-                >
-                    <Input id="create-ancestors" placeholder={'请输入祖级列表!'}/>
                 </FormItem>
                 {value != '0' && <FormItem
                     name="parent_id"
