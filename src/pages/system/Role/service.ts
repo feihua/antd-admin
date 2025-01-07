@@ -112,7 +112,7 @@ export const cancel_auth_user = (param: { user_id: number, role_id: number }): P
  * @params param
  * @return {Promise}
  */
-export const batch_cancel_auth_user = (param: { user_ids: number, role_id: number }): Promise<IResponse> => {
+export const batch_cancel_auth_user = (param: { user_ids: number[], role_id: number }): Promise<IResponse> => {
     return axiosInstance.post('/api/system/role/batchCancelAuthUser', param).then(res => res.data);
 };
 
@@ -121,7 +121,7 @@ export const batch_cancel_auth_user = (param: { user_ids: number, role_id: numbe
  * @params param
  * @return {Promise}
  */
-export const batch_auth_user = (param: { user_ids: number, role_id: number }): Promise<IResponse> => {
+export const batch_auth_user = (param: { user_ids: number[], role_id: number }): Promise<IResponse> => {
     return axiosInstance.post('/api/system/role/batchAuthUser', param).then(res => res.data);
 };
 

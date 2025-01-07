@@ -10,7 +10,7 @@ import {QueryUserListParam, RoleVo} from "../data";
 interface RoleDataProps {
     open: boolean;
     onCancel: () => void;
-    onBatchAuthUserAll: (values: { user_ids: number, role_id: number }) => void;
+    onBatchAuthUserAll: (values: { user_ids: number[], role_id: number }) => void;
     roleVo: RoleVo;
 }
 
@@ -93,11 +93,13 @@ const UnallocatedUser: React.FC<RoleDataProps> = ({roleVo, open, onCancel, onBat
     };
 
     useEffect(() => {
-        query_unallocated_list(param).then(res => {
-            setTotal(res.total)
-            res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
-        });
-    }, []);
+        if (open){
+            query_unallocated_list(param).then(res => {
+                setTotal(res.total)
+                res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
+            });
+        }
+    }, [open]);
 
 
     const paginationProps = {
@@ -146,7 +148,7 @@ const UnallocatedUser: React.FC<RoleDataProps> = ({roleVo, open, onCancel, onBat
 
                 <div>
                     <Space size={100}>
-                        <AdvancedSearchUserForm search={handleSearchOk} reSet={handleResetOk}></AdvancedSearchUserForm>
+                        <AdvancedSearchUserForm search={handleSearchOk} reSet={handleResetOk} key={"unallocatedUser"}></AdvancedSearchUserForm>
                     </Space>
                 </div>
 

@@ -61,7 +61,7 @@ const AdvancedSearchForm: React.FC<SearchFormProps> = ({search, reSet}) => {
         )
     }
     return (
-        <Form form={form} name="horizontal_login" layout="inline" onFinish={onFinish}>
+        <Form form={form} name="horizontal_login" layout="inline" onFinish={onFinish} key={"role_search_form"}>
             {searchForm()}
         </Form>
     );

@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Divider, message, Modal, Space, Table, Tag} from 'antd';
 import type {ColumnsType} from 'antd/es/table';
-import {DeleteOutlined, ExclamationCircleOutlined, PlusOutlined} from '@ant-design/icons';
+import {EditOutlined, ExclamationCircleOutlined, PlusOutlined} from '@ant-design/icons';
 
 import AdvancedSearchUserForm from "./SearchUserForm.tsx";
 import {QueryUserListParam, RoleVo} from "../data";
-import {UserListParam, UserVo} from "../../User/data";
+import {UserVo} from "../../User/data";
 import {
     batch_auth_user,
     batch_cancel_auth_user,
@@ -74,7 +74,7 @@ const AllocatedUser: React.FC<RoleDataProps> = ({roleVo, open, onCancel}) => {
                 <>
                     {record.id != 1 &&
                         <Space size="small">
-                            <Button type="link" size={'small'} icon={<DeleteOutlined/>}
+                            <Button type="link" size={'small'} icon={<EditOutlined/>}
                                     onClick={() => showCancelConfirm({
                                         role_id: roleVo.id,
                                         user_id: record.id
@@ -108,13 +108,7 @@ const AllocatedUser: React.FC<RoleDataProps> = ({roleVo, open, onCancel}) => {
         try {
             await batch_cancel_auth_user({user_ids, role_id});
             hide();
-            let res = await query_allocated_list({
-                mobile: "",
-                role_id: 0,
-                user_name: "",
-                current: currentPage,
-                pageSize
-            });
+            let res = await query_allocated_list(param);
             setTotal(res.total);
             res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
             message.success('更新状态成功');
@@ -133,17 +127,18 @@ const AllocatedUser: React.FC<RoleDataProps> = ({roleVo, open, onCancel}) => {
         setShowUnallocatedModal(false);
     };
 
-    const handleUnallocatedOk = async (param: { user_ids: number, role_id: number }) => {
-        if (handleResp(await batch_auth_user(param))) {
+    const handleUnallocatedOk = async (params: { user_ids: number[], role_id: number }) => {
+        if (handleResp(await batch_auth_user(params))) {
             setShowUnallocatedModal(false);
-            let res = await query_allocated_list({role_id: roleVo.id})
+            console.log('param', param)
+            let res = await query_allocated_list(param)
             setTotal(res.total)
             res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
         }
     }
 
     //取消授权用户
-    const showCancelConfirm = (params: { user_ids: number, role_id: number }) => {
+    const showCancelConfirm = (params: { user_id: number, role_id: number }) => {
         Modal.confirm({
             okText: '确定',
             cancelText: '取消',
@@ -163,23 +158,39 @@ const AllocatedUser: React.FC<RoleDataProps> = ({roleVo, open, onCancel}) => {
     };
 
 
-    const handleSearchOk = async (user: UserListParam) => {
-        user.current = currentPage
-        user.pageSize = pageSize
-        let res = await query_allocated_list({current: 0, mobile: "", pageSize: 0, role_id: 0, user_name: ""})
+    const handleSearchOk = async (user: QueryUserListParam) => {
+        user.role_id = roleVo.id
+        setParam(user)
+        let res = await query_allocated_list(user)
         setTotal(res.total)
         res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
     };
 
     const handleResetOk = async () => {
         setCurrentPage(1)
-        let res = await query_allocated_list({current: 0, mobile: "", pageSize: 0, role_id: 0, user_name: ""})
+        setParam({
+            current: 1, mobile: "", pageSize: 10, role_id: roleVo.id, user_name: ""
+
+        })
+        let res = await query_allocated_list({
+            current: 1,
+            mobile: "",
+            pageSize: pageSize,
+            role_id: roleVo.id,
+            user_name: ""
+        })
         setTotal(res.total)
         res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
     };
 
     useEffect(() => {
         if (open) {
+
+            setParam({
+                current: 1, mobile: "", pageSize: 10, role_id: roleVo.id, user_name: ""
+
+            })
+            console.log('useEffect param', param)
             query_allocated_list({
                 role_id: roleVo.id, current: currentPage, pageSize
             }).then(res => {
@@ -226,13 +237,12 @@ const AllocatedUser: React.FC<RoleDataProps> = ({roleVo, open, onCancel}) => {
             <div style={{padding: 24}}>
 
                 <div>
-                    <Space size={100}>
+                    <Space size={10}>
                         <Button type="primary" icon={<PlusOutlined/>} onClick={showUnallocatedModal}>添加用户</Button>
-                        <AdvancedSearchUserForm search={handleSearchOk} reSet={handleResetOk}></AdvancedSearchUserForm>
+
                         {selectedRowKeys.length > 0 &&
                             <div>
-                                已选择 {selectedRowKeys.length} 项
-                                <Button style={{float: "right"}} icon={<DeleteOutlined/>} type={'primary'}
+                                <Button style={{float: "right"}} icon={<EditOutlined/>} type={'primary'}
                                         onClick={async () => {
                                             showStatusConfirm(selectedRowKeys as number[], roleVo.id);
                                             setSelectedRowKeys([]);
@@ -242,6 +252,8 @@ const AllocatedUser: React.FC<RoleDataProps> = ({roleVo, open, onCancel}) => {
                                 </Button>
                             </div>
                         }
+                        <AdvancedSearchUserForm search={handleSearchOk} reSet={handleResetOk}
+                                                key={"allocatedUser"}></AdvancedSearchUserForm>
                     </Space>
                 </div>
 
