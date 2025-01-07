@@ -1,5 +1,5 @@
 import {axiosInstance, IResponse} from "../../../api/ajax";
-import {RoleListParam, RoleVo} from "./data";
+import {QueryUserListParam, RoleListParam, RoleVo} from "./data";
 import {message} from "antd";
 
 /**
@@ -78,6 +78,51 @@ export const update_role_menu = (role_id: Number, menu_ids: Number[]): Promise<I
         role_id: role_id,
         menu_ids: menu_ids
     }).then(res => res.data);
+};
+
+/**
+ * @description: 查询已分配用户角色列表
+ * @params param
+ * @return {Promise}
+ */
+export const query_allocated_list = (param: QueryUserListParam): Promise<IResponse> => {
+    return axiosInstance.post('/api/system/role/queryAllocatedList', param).then(res => res.data);
+};
+
+/**
+ * @description: 查询未分配用户角色列表
+ * @params param
+ * @return {Promise}
+ */
+export const query_unallocated_list = (param: QueryUserListParam): Promise<IResponse> => {
+    return axiosInstance.post('/api/system/role/queryUnallocatedList', param).then(res => res.data);
+};
+
+/**
+ * @description: 取消授权用户
+ * @params param
+ * @return {Promise}
+ */
+export const cancel_auth_user = (param: { user_id: number, role_id: number }): Promise<IResponse> => {
+    return axiosInstance.post('/api/system/role/cancelAuthUser', param).then(res => res.data);
+};
+
+/**
+ * @description: 批量取消授权用户
+ * @params param
+ * @return {Promise}
+ */
+export const batch_cancel_auth_user = (param: { user_ids: number, role_id: number }): Promise<IResponse> => {
+    return axiosInstance.post('/api/system/role/batchCancelAuthUser', param).then(res => res.data);
+};
+
+/**
+ * @description: 批量选择用户授权
+ * @params param
+ * @return {Promise}
+ */
+export const batch_auth_user = (param: { user_ids: number, role_id: number }): Promise<IResponse> => {
+    return axiosInstance.post('/api/system/role/batchAuthUser', param).then(res => res.data);
 };
 
 /**

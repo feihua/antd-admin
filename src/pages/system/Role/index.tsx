@@ -17,6 +17,7 @@ import {
 import AdvancedSearchForm from "./components/SearchForm.tsx";
 import SetRoleMenuForm from "./components/RoleMenu.tsx";
 import DetailModal from "./components/DetailModal.tsx";
+import AllocatedUser from "./components/AllocatedUser.tsx";
 
 const SysRole: React.FC = () => {
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
@@ -24,6 +25,7 @@ const SysRole: React.FC = () => {
     const [isShowEditModal, setShowEditModal] = useState<boolean>(false);
     const [isShowDetailModal, setShowDetailModal] = useState<boolean>(false);
     const [isShowMenuModal, setShowMenuModal] = useState<boolean>(false);
+    const [isShowUserModal, setShowUserModal] = useState<boolean>(false);
     const [roleListData, setRoleListData] = useState<RoleVo[]>([]);
     const [currentRole, setCurrentRole] = useState<RoleVo>({
         create_time: "",
@@ -117,6 +119,8 @@ const SysRole: React.FC = () => {
                             onClick={() => showDetailModal(record)}>详情</Button>
                     <Button type="link" size={'small'} icon={<EditOutlined/>}
                             onClick={() => showRoleMenuModal(record)}>设置菜单</Button>
+                    <Button type="link" size={'small'} icon={<EditOutlined/>}
+                            onClick={() => showRoleUserModal(record)}>分配用户</Button>
                     <Button type="link" size={'small'} danger icon={<DeleteOutlined/>}
                             onClick={() => showDeleteConfirm(record)}>删除</Button>
                 </Space>
@@ -228,6 +232,15 @@ const SysRole: React.FC = () => {
         setShowMenuModal(false);
     };
 
+    const showRoleUserModal = (role: RoleVo) => {
+        setCurrentRole(role)
+        setShowUserModal(true);
+    };
+
+    const handleUserCancel = () => {
+        setShowUserModal(false);
+    };
+
     //删除单条数据
     const showDeleteConfirm = (role: RoleVo) => {
         Modal.confirm({
@@ -332,6 +345,8 @@ const SysRole: React.FC = () => {
             <DetailModal onCancel={handleDetailCancel} open={isShowDetailModal} id={currentRole.id}></DetailModal>
             <SetRoleMenuForm onCancel={handleMenuCancel} onCreate={handleMenuOk} open={isShowMenuModal}
                              roleVo={currentRole}></SetRoleMenuForm>
+            <AllocatedUser onCancel={handleUserCancel} open={isShowUserModal}
+                           roleVo={currentRole}></AllocatedUser>
 
             {selectedRowKeys.length > 0 &&
                 <div>

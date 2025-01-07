@@ -20,3 +20,11 @@ export interface RoleVo {
     update_time: string; //修改时间
 
 }
+
+export interface QueryUserListParam {
+    current?: number;
+    pageSize?: number;
+    role_id: number; //角色id
+    user_name?: string; //用户账号
+    mobile?: string; //手机号码
+}
