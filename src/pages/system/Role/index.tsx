@@ -111,19 +111,24 @@ const SysRole: React.FC = () => {
         {
             title: '操作',
             key: 'action',
+            width: '380px',
             render: (_, record) => (
-                <Space size="small">
-                    <Button type="link" size={'small'} icon={<EditOutlined/>}
-                            onClick={() => showEditModal(record)}>编辑</Button>
-                    <Button type="link" size={'small'} icon={<EditOutlined/>}
-                            onClick={() => showDetailModal(record)}>详情</Button>
-                    <Button type="link" size={'small'} icon={<EditOutlined/>}
-                            onClick={() => showRoleMenuModal(record)}>设置菜单</Button>
-                    <Button type="link" size={'small'} icon={<EditOutlined/>}
-                            onClick={() => showRoleUserModal(record)}>分配用户</Button>
-                    <Button type="link" size={'small'} danger icon={<DeleteOutlined/>}
-                            onClick={() => showDeleteConfirm(record)}>删除</Button>
-                </Space>
+                <>
+                    {record.id != 1 &&
+                        <Space size="small">
+                            <Button type="link" size={'small'} icon={<EditOutlined/>}
+                                    onClick={() => showEditModal(record)}>编辑</Button>
+                            <Button type="link" size={'small'} icon={<EditOutlined/>}
+                                    onClick={() => showDetailModal(record)}>详情</Button>
+                            <Button type="link" size={'small'} icon={<EditOutlined/>}
+                                    onClick={() => showRoleMenuModal(record)}>设置菜单</Button>
+                            <Button type="link" size={'small'} icon={<EditOutlined/>}
+                                    onClick={() => showRoleUserModal(record)}>分配用户</Button>
+                            <Button type="link" size={'small'} danger icon={<DeleteOutlined/>}
+                                    onClick={() => showDeleteConfirm(record)}>删除</Button>
+                        </Space>}
+
+                </>
             ),
         },
     ];
