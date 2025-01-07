@@ -72,14 +72,13 @@ const AllocatedUser: React.FC<RoleDataProps> = ({roleVo, open, onCancel}) => {
             key: 'action',
             render: (_, record) =>
                 <>
-                    {record.id != 1 &&
-                        <Space size="small">
-                            <Button type="link" size={'small'} icon={<EditOutlined/>}
-                                    onClick={() => showCancelConfirm({
-                                        role_id: roleVo.id,
-                                        user_id: record.id
-                                    })}>取消授权</Button>
-                        </Space>}
+                    <Space size="small">
+                        <Button type="link" size={'small'} icon={<EditOutlined/>}
+                                onClick={() => showCancelConfirm({
+                                    role_id: roleVo.id,
+                                    user_id: record.id
+                                })}>取消授权</Button>
+                    </Space>
                 </>
 
         },
@@ -239,10 +238,9 @@ const AllocatedUser: React.FC<RoleDataProps> = ({roleVo, open, onCancel}) => {
                 <div>
                     <Space size={10}>
                         <Button type="primary" icon={<PlusOutlined/>} onClick={showUnallocatedModal}>添加用户</Button>
-
                         {selectedRowKeys.length > 0 &&
                             <div>
-                                <Button style={{float: "right"}} icon={<EditOutlined/>} type={'primary'}
+                                <Button color="danger" variant="filled" style={{float: "right"}} icon={<PlusOutlined/>}
                                         onClick={async () => {
                                             showStatusConfirm(selectedRowKeys as number[], roleVo.id);
                                             setSelectedRowKeys([]);
