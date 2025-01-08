@@ -1,5 +1,5 @@
 export interface UserListParam {
-    current: number;
+    pageNo: number;
     pageSize?: number;
     mobile?: string; //手机号码
     userName?: string; //用户账号

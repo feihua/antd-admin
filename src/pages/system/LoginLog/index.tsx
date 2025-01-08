@@ -131,7 +131,7 @@ const LoginLog: React.FC = () => {
     //批量删除
     const handleRemove = async (ids: number[]) => {
         if (handleResp(await removeLoginLog(ids))) {
-            const res = await queryLoginLogList({current: currentPage, pageSize})
+            const res = await queryLoginLogList({pageNo: currentPage, pageSize})
             setTotal(res.total)
             res.code === 0 ? setLoginLogListData(res.data) : message.error(res.msg);
         }
@@ -139,20 +139,20 @@ const LoginLog: React.FC = () => {
     };
 
     const handleSearchOk = async (param: LoginLogVo) => {
-        const res = await queryLoginLogList({current: currentPage, ...param, pageSize})
+        const res = await queryLoginLogList({pageNo: currentPage, ...param, pageSize})
         setTotal(res.total)
         res.code === 0 ? setLoginLogListData(res.data) : message.error(res.msg);
     };
 
     const handleResetOk = async () => {
-        const res = await queryLoginLogList({current: currentPage, pageSize})
+        const res = await queryLoginLogList({pageNo: currentPage, pageSize})
         setTotal(res.total)
         res.code === 0 ? setLoginLogListData(res.data) : message.error(res.msg);
     };
 
     useEffect(() => {
         queryLoginLogList({
-            current: currentPage, pageSize
+            pageNo: currentPage, pageSize
         }).then(res => {
             setTotal(res.total)
             res.code === 0 ? setLoginLogListData(res.data) : message.error(res.msg);

@@ -1,5 +1,5 @@
 export interface OperateLogListParam {
-    current: number;
+    pageNo: number;
     pageSize?: number;
     title?: string; //模块标题
     businessType?: number; //业务类型（0其它 1新增 2修改 3删除）

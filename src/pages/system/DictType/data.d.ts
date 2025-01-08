@@ -1,5 +1,5 @@
 export interface DictTypeListParam {
-    current: number;
+    pageNo: number;
     pageSize?: number;
     dictName?: string; //字典名称
     dictType?: string; //字典类型

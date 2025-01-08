@@ -139,7 +139,7 @@ const SysUser: React.FC = () => {
         try {
             await updateUserStatus({ids, status});
             hide();
-            let res = await queryUserList({current: currentPage, pageSize});
+            let res = await queryUserList({pageNo: currentPage, pageSize});
             setTotal(res.total);
             res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
             message.success('更新状态成功');
@@ -157,7 +157,7 @@ const SysUser: React.FC = () => {
     const handleAddOk = async (user: UserVo) => {
         if (handleResp(await addUser(user))) {
             setShowAddModal(false);
-            let res = await queryUserList({current: currentPage, pageSize})
+            let res = await queryUserList({pageNo: currentPage, pageSize})
             setTotal(res.total)
             res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
         }
@@ -177,7 +177,7 @@ const SysUser: React.FC = () => {
         if (handleResp(await updateUser(user))) {
             setShowEditModal(false);
             let res = await queryUserList({
-                current: currentPage, pageSize,
+                pageNo: currentPage, pageSize,
             })
             setTotal(res.total)
             res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
@@ -207,7 +207,7 @@ const SysUser: React.FC = () => {
         if (handleResp(await update_user_role(userId, roleIds))) {
             setShowRoleModal(false);
             let res = await queryUserList({
-                current: currentPage, pageSize,
+                pageNo: currentPage, pageSize,
             })
             setTotal(res.total)
             res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
@@ -236,7 +236,7 @@ const SysUser: React.FC = () => {
     //批量删除
     const handleRemove = async (ids: number[]) => {
         if (handleResp(await removeUser({ids: ids}))) {
-            let res = await queryUserList({current: currentPage, mobile: "", pageSize})
+            let res = await queryUserList({pageNo: currentPage, mobile: "", pageSize})
             setTotal(res.total)
             res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
         }
@@ -244,7 +244,7 @@ const SysUser: React.FC = () => {
     };
 
     const handleSearchOk = async (user: UserListParam) => {
-        user.current = currentPage
+        user.pageNo = currentPage
         user.pageSize = pageSize
         let res = await queryUserList({...user})
         setTotal(res.total)
@@ -253,7 +253,7 @@ const SysUser: React.FC = () => {
 
     const handleResetOk = async () => {
         setCurrentPage(1)
-        let res = await queryUserList({current: 1, pageSize})
+        let res = await queryUserList({pageNo: 1, pageSize})
         setTotal(res.total)
         res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
     };
@@ -263,7 +263,7 @@ const SysUser: React.FC = () => {
             setDeptListData(res);
         });
         queryUserList({
-            current: currentPage, pageSize
+            pageNo: currentPage, pageSize
         }).then(res => {
             setTotal(res.total)
             res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
@@ -286,7 +286,7 @@ const SysUser: React.FC = () => {
             console.log('onChange', page, pageSize)
             setCurrentPage(page)
             setPageSize(pageSize)
-            let res = await queryUserList({current: page, pageSize})
+            let res = await queryUserList({pageNo: page, pageSize})
             setTotal(res.total)
             res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
 
@@ -301,7 +301,7 @@ const SysUser: React.FC = () => {
         console.log('info', info.node.key);
         const deptId = info.node.key as number
         queryUserList({
-            current: currentPage, pageSize, deptId
+            pageNo: currentPage, pageSize, deptId
         }).then(res => {
             setTotal(res.total)
             res.code === 0 ? setUserListData(res.data) : message.error(res.msg);

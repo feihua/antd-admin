@@ -97,7 +97,7 @@ const Post: React.FC = () => {
     const handleAddOk = async (param: PostVo) => {
         if (handleResp(await addPost(param))) {
             setShowAddModal(false);
-            const res = await queryPostList({current: currentPage, pageSize})
+            const res = await queryPostList({pageNo: currentPage, pageSize})
             setTotal(res.total)
             res.code === 0 ? setPostListData(res.data) : message.error(res.msg);
         }
@@ -117,7 +117,7 @@ const Post: React.FC = () => {
         if (handleResp(await updatePost(param))) {
             setShowEditModal(false);
             const res = await queryPostList({
-                current: currentPage, pageSize,
+                pageNo: currentPage, pageSize,
             })
             setTotal(res.total)
             res.code === 0 ? setPostListData(res.data) : message.error(res.msg);
@@ -156,7 +156,7 @@ const Post: React.FC = () => {
     //批量删除
     const handleRemove = async (ids: number[]) => {
         if (handleResp(await removePost(ids))) {
-            const res = await queryPostList({current: currentPage, pageSize})
+            const res = await queryPostList({pageNo: currentPage, pageSize})
             setTotal(res.total)
             res.code === 0 ? setPostListData(res.data) : message.error(res.msg);
         }
@@ -164,20 +164,20 @@ const Post: React.FC = () => {
     };
 
     const handleSearchOk = async (param: PostVo) => {
-        const res = await queryPostList({current: currentPage, ...param, pageSize})
+        const res = await queryPostList({pageNo: currentPage, ...param, pageSize})
         setTotal(res.total)
         res.code === 0 ? setPostListData(res.data) : message.error(res.msg);
     };
 
     const handleResetOk = async () => {
-        const res = await queryPostList({current: currentPage, pageSize})
+        const res = await queryPostList({pageNo: currentPage, pageSize})
         setTotal(res.total)
         res.code === 0 ? setPostListData(res.data) : message.error(res.msg);
     };
 
     useEffect(() => {
         queryPostList({
-            current: currentPage, pageSize
+            pageNo: currentPage, pageSize
         }).then(res => {
             setTotal(res.total)
             res.code === 0 ? setPostListData(res.data) : message.error(res.msg);

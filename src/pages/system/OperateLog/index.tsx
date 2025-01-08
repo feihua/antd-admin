@@ -132,7 +132,7 @@ const OperateLog: React.FC = () => {
     //批量删除
     const handleRemove = async (ids: number[]) => {
         if (handleResp(await removeOperateLog(ids))) {
-            const res = await queryOperateLogList({current: currentPage, pageSize})
+            const res = await queryOperateLogList({pageNo: currentPage, pageSize})
             setTotal(res.total)
             res.code === 0 ? setOperateLogListData(res.data) : message.error(res.msg);
         }
@@ -140,20 +140,20 @@ const OperateLog: React.FC = () => {
     };
 
     const handleSearchOk = async (param: OperateLogVo) => {
-        const res = await queryOperateLogList({current: currentPage, ...param, pageSize})
+        const res = await queryOperateLogList({pageNo: currentPage, ...param, pageSize})
         setTotal(res.total)
         res.code === 0 ? setOperateLogListData(res.data) : message.error(res.msg);
     };
 
     const handleResetOk = async () => {
-        const res = await queryOperateLogList({current: currentPage, pageSize})
+        const res = await queryOperateLogList({pageNo: currentPage, pageSize})
         setTotal(res.total)
         res.code === 0 ? setOperateLogListData(res.data) : message.error(res.msg);
     };
 
     useEffect(() => {
         queryOperateLogList({
-            current: currentPage, pageSize
+            pageNo: currentPage, pageSize
         }).then(res => {
             setTotal(res.total)
             res.code === 0 ? setOperateLogListData(res.data) : message.error(res.msg);

@@ -157,7 +157,7 @@ const SysRole: React.FC = () => {
         try {
             await updateRoleStatus({ids, status});
             hide();
-            let res = await queryRoleList({current: currentPage, pageSize})
+            let res = await queryRoleList({pageNo: currentPage, pageSize})
             setTotal(res.total)
             res.code === 0 ? setRoleListData(res.data) : message.error(res.msg);
             message.success('更新状态成功');
@@ -176,7 +176,7 @@ const SysRole: React.FC = () => {
     const handleAddOk = async (role: RoleVo) => {
         if (handleResp(await addRole(role))) {
             setShowAddModal(false);
-            let res = await queryRoleList({current: currentPage, pageSize})
+            let res = await queryRoleList({pageNo: currentPage, pageSize})
             setTotal(res.total)
             res.code === 0 ? setRoleListData(res.data) : message.error(res.msg);
         }
@@ -196,7 +196,7 @@ const SysRole: React.FC = () => {
         if (handleResp(await updateRole(role))) {
             setShowEditModal(false);
             let res = await queryRoleList({
-                current: currentPage, pageSize
+                pageNo: currentPage, pageSize
             })
             setTotal(res.total)
             res.code === 0 ? setRoleListData(res.data) : message.error(res.msg);
@@ -226,7 +226,7 @@ const SysRole: React.FC = () => {
         if (handleResp(await update_role_menu(roleId, menuIds))) {
             setShowMenuModal(false);
             let res = await queryRoleList({
-                current: currentPage, pageSize
+                pageNo: currentPage, pageSize
             })
             setTotal(res.total)
             res.code === 0 ? setRoleListData(res.data) : message.error(res.msg);
@@ -264,7 +264,7 @@ const SysRole: React.FC = () => {
     //批量删除
     const handleRemove = async (ids: number[]) => {
         if (handleResp(await removeRole({ids}))) {
-            let res = await queryRoleList({current: currentPage, pageSize})
+            let res = await queryRoleList({pageNo: currentPage, pageSize})
             setTotal(res.total)
             res.code === 0 ? setRoleListData(res.data) : message.error(res.msg);
         }
@@ -272,7 +272,7 @@ const SysRole: React.FC = () => {
     };
 
     const handleSearchOk = async (role: RoleVo) => {
-        let res = await queryRoleList({current: currentPage, pageSize, ...role,})
+        let res = await queryRoleList({pageNo: currentPage, pageSize, ...role,})
         setTotal(res.total)
         res.code === 0 ? setRoleListData(res.data) : message.error(res.msg);
     };
@@ -286,7 +286,7 @@ const SysRole: React.FC = () => {
 
     useEffect(() => {
         queryRoleList({
-            current: currentPage, pageSize
+            pageNo: currentPage, pageSize
         }).then(res => {
             setTotal(res.total)
             res.code === 0 ? setRoleListData(res.data) : message.error(res.msg);

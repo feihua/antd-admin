@@ -191,7 +191,7 @@ const AllocatedUser: React.FC<RoleDataProps> = ({roleVo, open, onCancel}) => {
             })
             console.log('useEffect param', param)
             query_allocated_list({
-                roleId: roleVo.id, current: currentPage, pageSize
+                roleId: roleVo.id, pageNo: currentPage, pageSize
             }).then(res => {
                 setTotal(res.total)
                 res.code === 0 ? setUserListData(res.data) : message.error(res.msg);

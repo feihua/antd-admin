@@ -1,5 +1,5 @@
 export interface RoleListParam {
-    current: number;
+    pageNo: number;
     pageSize?: number;
     roleName?: string; //名称
     roleKey?: string; //角色权限字符串

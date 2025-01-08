@@ -125,7 +125,7 @@ const DictData: React.FC<DictDataProps> = ({dictType, open}) => {
         param.dictType = dictType
         if (handleResp(await addDictData(param))) {
             setShowAddModal(false);
-            const res = await queryDictDataList({current: currentPage, pageSize, dictType})
+            const res = await queryDictDataList({pageNo: currentPage, pageSize, dictType})
             setTotal(res.total)
             res.code === 0 ? setDictDataListData(res.data) : message.error(res.msg);
         }
@@ -146,7 +146,7 @@ const DictData: React.FC<DictDataProps> = ({dictType, open}) => {
         if (handleResp(await updateDictData(param))) {
             setShowEditModal(false);
             const res = await queryDictDataList({
-                current: currentPage, pageSize, dictType
+                pageNo: currentPage, pageSize, dictType
             })
             setTotal(res.total)
             res.code === 0 ? setDictDataListData(res.data) : message.error(res.msg);
@@ -185,7 +185,7 @@ const DictData: React.FC<DictDataProps> = ({dictType, open}) => {
     //批量删除
     const handleRemove = async (ids: number[]) => {
         if (handleResp(await removeDictData(ids))) {
-            const res = await queryDictDataList({current: currentPage, pageSize, dictType})
+            const res = await queryDictDataList({pageNo: currentPage, pageSize, dictType})
             setTotal(res.total)
             res.code === 0 ? setDictDataListData(res.data) : message.error(res.msg);
         }
@@ -193,13 +193,13 @@ const DictData: React.FC<DictDataProps> = ({dictType, open}) => {
     };
 
     const handleSearchOk = async (param: DictDataVo) => {
-        const res = await queryDictDataList({current: currentPage, ...param, pageSize, dictType})
+        const res = await queryDictDataList({pageNo: currentPage, ...param, pageSize, dictType})
         setTotal(res.total)
         res.code === 0 ? setDictDataListData(res.data) : message.error(res.msg);
     };
 
     const handleResetOk = async () => {
-        const res = await queryDictDataList({current: currentPage, pageSize, dictType})
+        const res = await queryDictDataList({pageNo: currentPage, pageSize, dictType})
         setTotal(res.total)
         res.code === 0 ? setDictDataListData(res.data) : message.error(res.msg);
     };
@@ -207,7 +207,7 @@ const DictData: React.FC<DictDataProps> = ({dictType, open}) => {
     useEffect(() => {
         if (open) {
             queryDictDataList({
-                current: currentPage, pageSize, dictType
+                pageNo: currentPage, pageSize, dictType
             }).then(res => {
                 setTotal(res.total)
                 res.code === 0 ? setDictDataListData(res.data) : message.error(res.msg);

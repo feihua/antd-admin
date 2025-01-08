@@ -1,5 +1,5 @@
 export interface PostListParam {
-    current: number;
+    pageNo: number;
     pageSize?: number;
     postCode?: string; //岗位编码
     postName?: string; //岗位名称

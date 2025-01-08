@@ -107,7 +107,7 @@ const Notice: React.FC = () => {
     const handleAddOk = async (param: NoticeVo) => {
         if (handleResp(await addNotice(param))) {
             setShowAddModal(false);
-            const res = await queryNoticeList({current: currentPage, pageSize})
+            const res = await queryNoticeList({pageNo: currentPage, pageSize})
             setTotal(res.total)
             res.code === 0 ? setNoticeListData(res.data) : message.error(res.msg);
         }
@@ -127,7 +127,7 @@ const Notice: React.FC = () => {
         if (handleResp(await updateNotice(param))) {
             setShowEditModal(false);
             const res = await queryNoticeList({
-                current: currentPage, pageSize,
+                pageNo: currentPage, pageSize,
             })
             setTotal(res.total)
             res.code === 0 ? setNoticeListData(res.data) : message.error(res.msg);
@@ -166,7 +166,7 @@ const Notice: React.FC = () => {
     //批量删除
     const handleRemove = async (ids: number[]) => {
         if (handleResp(await removeNotice(ids))) {
-            const res = await queryNoticeList({current: currentPage, pageSize})
+            const res = await queryNoticeList({pageNo: currentPage, pageSize})
             setTotal(res.total)
             res.code === 0 ? setNoticeListData(res.data) : message.error(res.msg);
         }
@@ -174,20 +174,20 @@ const Notice: React.FC = () => {
     };
 
     const handleSearchOk = async (param: NoticeVo) => {
-        const res = await queryNoticeList({current: currentPage, ...param, pageSize})
+        const res = await queryNoticeList({pageNo: currentPage, ...param, pageSize})
         setTotal(res.total)
         res.code === 0 ? setNoticeListData(res.data) : message.error(res.msg);
     };
 
     const handleResetOk = async () => {
-        const res = await queryNoticeList({current: currentPage, pageSize})
+        const res = await queryNoticeList({pageNo: currentPage, pageSize})
         setTotal(res.total)
         res.code === 0 ? setNoticeListData(res.data) : message.error(res.msg);
     };
 
     useEffect(() => {
         queryNoticeList({
-            current: currentPage, pageSize
+            pageNo: currentPage, pageSize
         }).then(res => {
             setTotal(res.total)
             res.code === 0 ? setNoticeListData(res.data) : message.error(res.msg);

@@ -1,5 +1,5 @@
 export interface NoticeListParam {
-    current: number;
+    pageNo: number;
     pageSize?: number;
     noticeTitle?: string; //公告标题
     noticeType?: number; //公告类型（1:通知,2:公告）

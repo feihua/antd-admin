@@ -1,5 +1,5 @@
 export interface LoginLogListParam {
-    current: number;
+    pageNo: number;
     pageSize?: number;
     loginName?: string; //登录账号
     ipaddr?: string; //登录IP地址

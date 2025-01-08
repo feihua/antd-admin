@@ -99,7 +99,7 @@ const DictType: React.FC = () => {
     const handleAddOk = async (param: DictTypeVo) => {
         if (handleResp(await addDictType(param))) {
             setShowAddModal(false);
-            const res = await queryDictTypeList({current: currentPage, pageSize})
+            const res = await queryDictTypeList({pageNo: currentPage, pageSize})
             setTotal(res.total)
             res.code === 0 ? setDictTypeListData(res.data) : message.error(res.msg);
         }
@@ -119,7 +119,7 @@ const DictType: React.FC = () => {
         if (handleResp(await updateDictType(param))) {
             setShowEditModal(false);
             const res = await queryDictTypeList({
-                current: currentPage, pageSize,
+                pageNo: currentPage, pageSize,
             })
             setTotal(res.total)
             res.code === 0 ? setDictTypeListData(res.data) : message.error(res.msg);
@@ -169,7 +169,7 @@ const DictType: React.FC = () => {
     //批量删除
     const handleRemove = async (ids: number[]) => {
         if (handleResp(await removeDictType(ids))) {
-            const res = await queryDictTypeList({current: currentPage, pageSize})
+            const res = await queryDictTypeList({pageNo: currentPage, pageSize})
             setTotal(res.total)
             res.code === 0 ? setDictTypeListData(res.data) : message.error(res.msg);
         }
@@ -177,20 +177,20 @@ const DictType: React.FC = () => {
     };
 
     const handleSearchOk = async (param: DictTypeVo) => {
-        const res = await queryDictTypeList({current: currentPage, ...param, pageSize})
+        const res = await queryDictTypeList({pageNo: currentPage, ...param, pageSize})
         setTotal(res.total)
         res.code === 0 ? setDictTypeListData(res.data) : message.error(res.msg);
     };
 
     const handleResetOk = async () => {
-        const res = await queryDictTypeList({current: currentPage, pageSize})
+        const res = await queryDictTypeList({pageNo: currentPage, pageSize})
         setTotal(res.total)
         res.code === 0 ? setDictTypeListData(res.data) : message.error(res.msg);
     };
 
     useEffect(() => {
         queryDictTypeList({
-            current: currentPage, pageSize
+            pageNo: currentPage, pageSize
         }).then(res => {
             setTotal(res.total)
             res.code === 0 ? setDictTypeListData(res.data) : message.error(res.msg);

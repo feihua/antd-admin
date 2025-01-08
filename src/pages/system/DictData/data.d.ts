@@ -1,5 +1,5 @@
 export interface DictDataListParam {
-    current: number;
+    pageNo: number;
     pageSize?: number;
     dictLabel?: string; //字典标签
     dictValue?: string; //字典键值
