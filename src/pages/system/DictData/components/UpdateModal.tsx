@@ -36,56 +36,56 @@ const UpdateModal: React.FC<UpdateModalProps> = ({open, onCreate, onCancel, id})
         return (
             <>
                 <FormItem
-                    name="dict_code"
+                    name="dictCode"
                     label="主键"
                     hidden
                 >
-                    <Input id="update-dict_code"/>
+                    <Input id="update-dictCode"/>
                 </FormItem>
                 <FormItem
-                    name="dict_type"
+                    name="dictType"
                     label="字典类型"
                     rules={[{required: true, message: '请输入字典类型!'}]}
                 >
-                    <Input id="update-dict_type" placeholder={'请输入字典类型!'}/>
+                    <Input id="update-dictType" placeholder={'请输入字典类型!'}/>
                 </FormItem>
                 <FormItem
-                    name="dict_label"
+                    name="dictLabel"
                     label="数据标签"
                     rules={[{required: true, message: '请输入数据标签!'}]}
                 >
-                    <Input id="update-dict_label" placeholder={'请输入数据标签!'}/>
+                    <Input id="update-dictLabel" placeholder={'请输入数据标签!'}/>
                 </FormItem>
                 <FormItem
-                    name="dict_value"
+                    name="dictValue"
                     label="数据键值"
                     rules={[{required: true, message: '请输入数据键值!'}]}
                 >
-                    <Input id="update-dict_value" placeholder={'请输入数据键值!'}/>
+                    <Input id="update-dictValue" placeholder={'请输入数据键值!'}/>
                 </FormItem>
                 <FormItem
-                    name="css_class"
+                    name="cssClass"
                     label="样式属性"
                     rules={[{required: true, message: '请输入样式属性（其他样式扩展）!'}]}
                 >
-                    <Input id="update-css_class" placeholder={'请输入样式属性（其他样式扩展）!'}/>
+                    <Input id="update-cssClass" placeholder={'请输入样式属性（其他样式扩展）!'}/>
                 </FormItem>
                 <FormItem
-                    name="list_class"
+                    name="listClass"
                     label="回显样式"
                     rules={[{required: true, message: '请输入表格回显样式!'}]}
                 >
-                    <Input id="update-list_class" placeholder={'请输入表格回显样式!'}/>
+                    <Input id="update-listClass" placeholder={'请输入表格回显样式!'}/>
                 </FormItem>
                 <FormItem
-                    name="dict_sort"
+                    name="dictSort"
                     label="显示排序"
                     rules={[{required: true, message: '请输入显示排序!'}]}
                 >
                     <InputNumber style={{width: 255}}/>
                 </FormItem>
                 <FormItem
-                    name="is_default"
+                    name="isDefault"
                     label="是否默认"
                     rules={[{required: true, message: '请输入是否默认!'}]}
                 >

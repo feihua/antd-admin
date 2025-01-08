@@ -26,10 +26,10 @@ const AdvancedSearchForm: React.FC<CreateFormProps> = ({search, reSet}) => {
         return (
             <>
                 <FormItem
-                    name="login_name"
+                    name="loginName"
                     label="用户名称"
                 >
-                    <Input id="search-login_name" placeholder={'请输入登录账号'}/>
+                    <Input id="search-loginName" placeholder={'请输入登录账号'}/>
                 </FormItem>
                 <FormItem
                     name="ipaddr"

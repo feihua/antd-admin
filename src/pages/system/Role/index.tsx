@@ -28,15 +28,15 @@ const SysRole: React.FC = () => {
     const [isShowUserModal, setShowUserModal] = useState<boolean>(false);
     const [roleListData, setRoleListData] = useState<RoleVo[]>([]);
     const [currentRole, setCurrentRole] = useState<RoleVo>({
-        create_time: "",
-        data_scope: 0,
-        del_flag: 0,
+        createTime: "",
+        dataScope: 0,
+        delFlag: 0,
         id: 0,
         remark: "",
-        role_key: "",
-        role_name: "",
+        roleKey: "",
+        roleName: "",
         status: 0,
-        update_time: ""
+        updateTime: ""
 
     });
     const [currentPage, setCurrentPage] = useState<number>(1);
@@ -71,19 +71,19 @@ const SysRole: React.FC = () => {
         },
         {
             title: '角色名称',
-            dataIndex: 'role_name',
+            dataIndex: 'roleName',
             render: (text: string) => <a>{text}</a>,
         },
         {
             title: '权限字符',
-            dataIndex: 'role_key',
+            dataIndex: 'roleKey',
         },
         {
             title: '数据范围',
-            dataIndex: 'data_scope',
-            render: (_, {data_scope}) => (
+            dataIndex: 'dataScope',
+            render: (_, {dataScope}) => (
                 <>
-                    {getDataScope(data_scope)}
+                    {getDataScope(dataScope)}
                 </>
             ),
         },
@@ -106,7 +106,7 @@ const SysRole: React.FC = () => {
         },
         {
             title: '创建时间',
-            dataIndex: 'create_time',
+            dataIndex: 'createTime',
         },
         {
             title: '操作',
@@ -222,8 +222,8 @@ const SysRole: React.FC = () => {
         setShowMenuModal(true);
     };
 
-    const handleMenuOk = async (role_id: Number, menu_ids: Number[]) => {
-        if (handleResp(await update_role_menu(role_id, menu_ids))) {
+    const handleMenuOk = async (roleId: Number, menuIds: Number[]) => {
+        if (handleResp(await update_role_menu(roleId, menuIds))) {
             setShowMenuModal(false);
             let res = await queryRoleList({
                 current: currentPage, pageSize
@@ -251,7 +251,7 @@ const SysRole: React.FC = () => {
         Modal.confirm({
             okText: '确定',
             cancelText: '取消',
-            content: `确定删除${role.role_name}吗?`,
+            content: `确定删除${role.roleName}吗?`,
             async onOk() {
                 await handleRemove([role.id]);
             },

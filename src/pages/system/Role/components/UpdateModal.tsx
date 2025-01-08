@@ -40,21 +40,21 @@ const UpdateRoleModal: React.FC<UpdateFormProps> = ({open, onCreate, onCancel, r
                     <Input/>
                 </FormItem>
                 <FormItem
-                    name="role_name"
+                    name="roleName"
                     label="角色名称"
                     rules={[{required: true, message: '请输入名称!'}]}
                 >
-                    <Input id="create-role_name" placeholder={'请输入名称!'}/>
+                    <Input id="create-roleName" placeholder={'请输入名称!'}/>
                 </FormItem>
                 <FormItem
-                    name="role_key"
+                    name="roleKey"
                     label="权限字符"
                     rules={[{required: true, message: '请输入权限字符串!'}]}
                 >
-                    <Input id="create-role_key" placeholder={'请输入权限字符串!'}/>
+                    <Input id="create-roleKey" placeholder={'请输入权限字符串!'}/>
                 </FormItem>
                 <FormItem
-                    name="data_scope"
+                    name="dataScope"
                     label="数据范围"
                     rules={[{
                         required: true,

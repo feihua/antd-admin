@@ -34,7 +34,7 @@ const AdvancedSearchUserForm: React.FC<SearchFormProps> = ({search, reSet}) => {
                 </FormItem>
                 <FormItem
                     label={'用户名'}
-                    name="user_name"
+                    name="userName"
                 >
                     <Input placeholder="用户名"/>
                 </FormItem>

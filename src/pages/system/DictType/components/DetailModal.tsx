@@ -20,17 +20,17 @@ const DetailModal: React.FC<DetailModalProps> = (props) => {
                     {
                         key: '1',
                         label: '字典主键',
-                        children: <p>{res.data.dict_id}</p>,
+                        children: <p>{res.data.dictId}</p>,
                     },
                     {
                         key: '2',
                         label: '字典名称',
-                        children: <p>{res.data.dict_name}</p>,
+                        children: <p>{res.data.dictName}</p>,
                     },
                     {
                         key: '3',
                         label: '字典类型',
-                        children: <p>{res.data.dict_type}</p>,
+                        children: <p>{res.data.dictType}</p>,
                     },
                     {
                         key: '4',
@@ -46,12 +46,12 @@ const DetailModal: React.FC<DetailModalProps> = (props) => {
                     {
                         key: '6',
                         label: '创建时间',
-                        children: <p>{res.data.create_time}</p>,
+                        children: <p>{res.data.createTime}</p>,
                     },
                     {
                         key: '7',
                         label: '修改时间',
-                        children: <p>{res.data.update_time}</p>,
+                        children: <p>{res.data.updateTime}</p>,
                     },
 
                 ])

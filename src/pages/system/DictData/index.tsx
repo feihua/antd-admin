@@ -10,29 +10,29 @@ import DetailModal from "./components/DetailModal";
 import {addDictData, handleResp, queryDictDataList, removeDictData, updateDictData} from "./service";
 
 interface DictDataProps {
-    dict_type: string;
+    dictType: string;
     open: boolean;
 }
 
-const DictData: React.FC<DictDataProps> = ({dict_type, open}) => {
+const DictData: React.FC<DictDataProps> = ({dictType, open}) => {
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
     const [isShowAddModal, setShowAddModal] = useState<boolean>(false);
     const [isShowEditModal, setShowEditModal] = useState<boolean>(false);
     const [isShowDetailModal, setShowDetailModal] = useState<boolean>(false);
     const [dictDataListData, setDictDataListData] = useState<DictDataVo[]>([]);
     const [currentDictData, setCurrentDictData] = useState<DictDataVo>({
-        dict_code: 0,
-        dict_sort: 0,
-        dict_label: '',
-        dict_value: '',
-        dict_type: '',
-        css_class: '',
-        list_class: '',
-        is_default: '',
+        dictCode: 0,
+        dictSort: 0,
+        dictLabel: '',
+        dictValue: '',
+        dictType: '',
+        cssClass: '',
+        listClass: '',
+        isDefault: '',
         status: 0,
         remark: '',
-        create_time: '',
-        update_time: '',
+        createTime: '',
+        updateTime: '',
     });
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [pageSize, setPageSize] = useState<number>(10);
@@ -41,35 +41,35 @@ const DictData: React.FC<DictDataProps> = ({dict_type, open}) => {
     const columns: ColumnsType<DictDataVo> = [
         {
             title: '字典编码',
-            dataIndex: 'dict_code',
+            dataIndex: 'dictCode',
         },
 
         {
             title: '字典标签',
-            dataIndex: 'dict_label',
+            dataIndex: 'dictLabel',
         },
         {
             title: '字典键值',
-            dataIndex: 'dict_value',
+            dataIndex: 'dictValue',
         },
         {
             title: '字典排序',
-            dataIndex: 'dict_sort',
+            dataIndex: 'dictSort',
         },
         {
             title: '字典类型',
-            dataIndex: 'dict_type',
+            dataIndex: 'dictType',
         },
         {
             title: '是否默认',
-            dataIndex: 'is_default',
-            render: (_, {is_default}) => (
+            dataIndex: 'isDefault',
+            render: (_, {isDefault}) => (
                 <>
                     {
 
-                        <Tag color={is_default === 'Y' ? 'green' : 'volcano'}
+                        <Tag color={isDefault === 'Y' ? 'green' : 'volcano'}
                              style={{width: 50, height: 30, textAlign: "center", paddingTop: 4}}>
-                            {is_default === 'Y' ? '是' : '否'}
+                            {isDefault === 'Y' ? '是' : '否'}
                         </Tag>
                     }
                 </>
@@ -96,7 +96,7 @@ const DictData: React.FC<DictDataProps> = ({dict_type, open}) => {
         },
         {
             title: '创建时间',
-            dataIndex: 'create_time',
+            dataIndex: 'createTime',
         },
 
         {
@@ -122,10 +122,10 @@ const DictData: React.FC<DictDataProps> = ({dict_type, open}) => {
     };
 
     const handleAddOk = async (param: DictDataVo) => {
-        param.dict_type = dict_type
+        param.dictType = dictType
         if (handleResp(await addDictData(param))) {
             setShowAddModal(false);
-            const res = await queryDictDataList({current: currentPage, pageSize, dict_type})
+            const res = await queryDictDataList({current: currentPage, pageSize, dictType})
             setTotal(res.total)
             res.code === 0 ? setDictDataListData(res.data) : message.error(res.msg);
         }
@@ -142,11 +142,11 @@ const DictData: React.FC<DictDataProps> = ({dict_type, open}) => {
     };
 
     const handleEditOk = async (param: DictDataVo) => {
-        param.dict_type = dict_type
+        param.dictType = dictType
         if (handleResp(await updateDictData(param))) {
             setShowEditModal(false);
             const res = await queryDictDataList({
-                current: currentPage, pageSize, dict_type
+                current: currentPage, pageSize, dictType
             })
             setTotal(res.total)
             res.code === 0 ? setDictDataListData(res.data) : message.error(res.msg);
@@ -172,9 +172,9 @@ const DictData: React.FC<DictDataProps> = ({dict_type, open}) => {
         Modal.confirm({
             okText: '确定',
             cancelText: '取消',
-            content: `确定删除${param.dict_label}吗?`,
+            content: `确定删除${param.dictLabel}吗?`,
             async onOk() {
-                await handleRemove([param.dict_code]);
+                await handleRemove([param.dictCode]);
             },
             onCancel() {
                 console.log('Cancel');
@@ -185,7 +185,7 @@ const DictData: React.FC<DictDataProps> = ({dict_type, open}) => {
     //批量删除
     const handleRemove = async (ids: number[]) => {
         if (handleResp(await removeDictData(ids))) {
-            const res = await queryDictDataList({current: currentPage, pageSize, dict_type})
+            const res = await queryDictDataList({current: currentPage, pageSize, dictType})
             setTotal(res.total)
             res.code === 0 ? setDictDataListData(res.data) : message.error(res.msg);
         }
@@ -193,13 +193,13 @@ const DictData: React.FC<DictDataProps> = ({dict_type, open}) => {
     };
 
     const handleSearchOk = async (param: DictDataVo) => {
-        const res = await queryDictDataList({current: currentPage, ...param, pageSize, dict_type})
+        const res = await queryDictDataList({current: currentPage, ...param, pageSize, dictType})
         setTotal(res.total)
         res.code === 0 ? setDictDataListData(res.data) : message.error(res.msg);
     };
 
     const handleResetOk = async () => {
-        const res = await queryDictDataList({current: currentPage, pageSize, dict_type})
+        const res = await queryDictDataList({current: currentPage, pageSize, dictType})
         setTotal(res.total)
         res.code === 0 ? setDictDataListData(res.data) : message.error(res.msg);
     };
@@ -207,7 +207,7 @@ const DictData: React.FC<DictDataProps> = ({dict_type, open}) => {
     useEffect(() => {
         if (open) {
             queryDictDataList({
-                current: currentPage, pageSize, dict_type
+                current: currentPage, pageSize, dictType
             }).then(res => {
                 setTotal(res.total)
                 res.code === 0 ? setDictDataListData(res.data) : message.error(res.msg);
@@ -231,7 +231,7 @@ const DictData: React.FC<DictDataProps> = ({dict_type, open}) => {
             console.log('onChange', page, pageSize)
             setCurrentPage(page)
             setPageSize(pageSize)
-            const res = await queryDictDataList({current: page, pageSize, dict_type})
+            const res = await queryDictDataList({current: page, pageSize, dictType})
             setTotal(res.total)
             res.code === 0 ? setDictDataListData(res.data) : message.error(res.msg);
 
@@ -267,11 +267,11 @@ const DictData: React.FC<DictDataProps> = ({dict_type, open}) => {
             />
 
             <AddModal onCancel={handleAddCancel} onCreate={handleAddOk} open={isShowAddModal}
-                      dict_type={dict_type}></AddModal>
+                      dictType={dictType}></AddModal>
             <UpdateModal onCancel={handleEditCancel} onCreate={handleEditOk} open={isShowEditModal}
-                         id={currentDictData.dict_code}></UpdateModal>
+                         id={currentDictData.dictCode}></UpdateModal>
             <DetailModal onCancel={handleDetailCancel} open={isShowDetailModal}
-                         id={currentDictData.dict_code}></DetailModal>
+                         id={currentDictData.dictCode}></DetailModal>
 
             {selectedRowKeys.length > 0 &&
                 <div>

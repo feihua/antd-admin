@@ -16,8 +16,8 @@ export const addMenu = (params: MenuVo): Promise<IResponse> => {
  * @params {ids} number[]
  * @return {Promise}
  */
-export const removeMenu = (ids: number[]): Promise<IResponse> => {
-    return axiosInstance.post('/api/system/menu/deleteMenu', {ids}).then(res => res.data);
+export const removeMenu = (id: number): Promise<IResponse> => {
+    return axiosInstance.post('/api/system/menu/deleteMenu', {id}).then(res => res.data);
 };
 
 

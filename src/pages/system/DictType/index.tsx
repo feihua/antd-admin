@@ -19,13 +19,13 @@ const DictType: React.FC = () => {
     const [isShowDictDataModal, setShowDictDataModal] = useState<boolean>(false);
     const [dictTypeListData, setDictTypeListData] = useState<DictTypeVo[]>([]);
     const [currentDictType, setCurrentDictType] = useState<DictTypeVo>({
-        dict_id: 0,
-        dict_name: '',
-        dict_type: '',
+        dictId: 0,
+        dictName: '',
+        dictType: '',
         status: 0,
         remark: '',
-        create_time: '',
-        update_time: '',
+        createTime: '',
+        updateTime: '',
     });
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [pageSize, setPageSize] = useState<number>(10);
@@ -34,16 +34,16 @@ const DictType: React.FC = () => {
     const columns: ColumnsType<DictTypeVo> = [
         {
             title: '字典主键',
-            dataIndex: 'dict_id',
+            dataIndex: 'dictId',
         },
         {
             title: '字典名称',
-            dataIndex: 'dict_name',
+            dataIndex: 'dictName',
             render: (text: string) => <a>{text}</a>,
         },
         {
             title: '字典类型',
-            dataIndex: 'dict_type',
+            dataIndex: 'dictType',
         },
         {
             title: '状态',
@@ -66,11 +66,11 @@ const DictType: React.FC = () => {
         },
         {
             title: '创建时间',
-            dataIndex: 'create_time',
+            dataIndex: 'createTime',
         },
         {
             title: '修改时间',
-            dataIndex: 'update_time',
+            dataIndex: 'updateTime',
         },
 
         {
@@ -156,9 +156,9 @@ const DictType: React.FC = () => {
         Modal.confirm({
             okText: '确定',
             cancelText: '取消',
-            content: `确定删除${param.dict_name}吗?`,
+            content: `确定删除${param.dictName}吗?`,
             async onOk() {
-                await handleRemove([param.dict_id]);
+                await handleRemove([param.dictId]);
             },
             onCancel() {
                 console.log('Cancel');
@@ -250,11 +250,11 @@ const DictType: React.FC = () => {
 
             <AddModal onCancel={handleAddCancel} onCreate={handleAddOk} open={isShowAddModal}></AddModal>
             <UpdateModal onCancel={handleEditCancel} onCreate={handleEditOk} open={isShowEditModal}
-                         id={currentDictType.dict_id}></UpdateModal>
+                         id={currentDictType.dictId}></UpdateModal>
             <DetailModal onCancel={handleDetailCancel} open={isShowDetailModal}
-                         id={currentDictType.dict_id}></DetailModal>
+                         id={currentDictType.dictId}></DetailModal>
             <DictDataModal onCancel={handleDictDataCancel} open={isShowDictDataModal}
-                           dict_type={currentDictType.dict_type}></DictDataModal>
+                           dictType={currentDictType.dictType}></DictDataModal>
 
             {selectedRowKeys.length > 0 &&
                 <div>

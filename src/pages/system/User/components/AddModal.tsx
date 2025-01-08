@@ -52,7 +52,7 @@ const AddModal: React.FC<AddModalProps> = ({open, onCreate, onCancel}) => {
         return (
             <>
                 <FormItem
-                    name="dept_id"
+                    name="deptId"
                     label="归属部门"
                     rules={[{required: true, message: '请选择部门!'}]}
                 >
@@ -62,24 +62,24 @@ const AddModal: React.FC<AddModalProps> = ({open, onCreate, onCancel}) => {
                         dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
                         treeData={deptListData}
                         placeholder="请选择部门"
-                        fieldNames={{label: 'dept_name', value: 'id', children: 'children'}}
+                        fieldNames={{label: 'deptName', value: 'id', children: 'children'}}
                         onChange={onChange}
                     />
                 </FormItem>
 
                 <FormItem
-                    name="user_name"
+                    name="userName"
                     label="用户账号"
                     rules={[{required: true, message: '请输入用户账号!'}]}
                 >
-                    <Input id="create-user_name" placeholder={'请输入用户账号!'}/>
+                    <Input id="create-userName" placeholder={'请输入用户账号!'}/>
                 </FormItem>
                 <FormItem
-                    name="nick_name"
+                    name="nickName"
                     label="用户昵称"
                     rules={[{required: true, message: '请输入用户昵称!'}]}
                 >
-                    <Input id="create-nick_name" placeholder={'请输入用户昵称!'}/>
+                    <Input id="create-nickName" placeholder={'请输入用户昵称!'}/>
                 </FormItem>
                 <FormItem
                     name="mobile"
@@ -90,11 +90,11 @@ const AddModal: React.FC<AddModalProps> = ({open, onCreate, onCancel}) => {
                 </FormItem>
 
                 {/*<FormItem*/}
-                {/*    name="user_type"*/}
+                {/*    name="userType"*/}
                 {/*    label="用户类型（00系统用户）"*/}
                 {/*    rules={[{required: true, message: '请输入用户类型（00系统用户）!'}]}*/}
                 {/*>*/}
-                {/*    <Input id="create-user_type" placeholder={'请输入用户类型（00系统用户）!'}/>*/}
+                {/*    <Input id="create-userType" placeholder={'请输入用户类型（00系统用户）!'}/>*/}
                 {/*</FormItem>*/}
                 {/*<FormItem*/}
                 {/*    name="avatar"*/}
@@ -118,7 +118,7 @@ const AddModal: React.FC<AddModalProps> = ({open, onCreate, onCancel}) => {
                     <Input id="create-password" placeholder={'请输入密码!'}/>
                 </FormItem>
                 <FormItem
-                    name="post_ids"
+                    name="postIds"
                     label="岗位"
                     rules={[{required: true, message: '请选择岗位!'}]}
                 >
@@ -128,7 +128,7 @@ const AddModal: React.FC<AddModalProps> = ({open, onCreate, onCancel}) => {
                         allowClear
                         options={postListData}
                         placeholder="请选择岗位"
-                        fieldNames={{label: 'post_name', value: 'id'}}
+                        fieldNames={{label: 'postName', value: 'id'}}
                         onChange={onChange}
                     />
                 </FormItem>

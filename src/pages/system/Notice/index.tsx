@@ -18,13 +18,13 @@ const Notice: React.FC = () => {
     const [noticeListData, setNoticeListData] = useState<NoticeVo[]>([]);
     const [currentNotice, setCurrentNotice] = useState<NoticeVo>({
         id: 0,
-        notice_title: '',
-        notice_type: 0,
-        notice_content: '',
+        noticeTitle: '',
+        noticeType: 0,
+        noticeContent: '',
         status: 0,
         remark: '',
-        create_time: '',
-        update_time: '',
+        createTime: '',
+        updateTime: '',
     });
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [pageSize, setPageSize] = useState<number>(10);
@@ -37,18 +37,18 @@ const Notice: React.FC = () => {
         },
         {
             title: '公告标题',
-            dataIndex: 'notice_title',
+            dataIndex: 'noticeTitle',
         },
         {
             title: '公告类型',
-            dataIndex: 'notice_type',
-            render: (_, {notice_type}) => (
+            dataIndex: 'noticeType',
+            render: (_, {noticeType}) => (
                 <>
                     {
 
-                        <Tag color={notice_type === 1 ? 'green' : 'geekblue'}
+                        <Tag color={noticeType === 1 ? 'green' : 'geekblue'}
                              style={{width: 50, height: 30, textAlign: "center", paddingTop: 4}}>
-                            {notice_type === 1 ? '通知' : '公告'}
+                            {noticeType === 1 ? '通知' : '公告'}
                         </Tag>
                     }
                 </>
@@ -75,11 +75,11 @@ const Notice: React.FC = () => {
         },
         {
             title: '创建时间',
-            dataIndex: 'create_time',
+            dataIndex: 'createTime',
         },
         {
             title: '修改时间',
-            dataIndex: 'update_time',
+            dataIndex: 'updateTime',
         },
 
         {
@@ -153,7 +153,7 @@ const Notice: React.FC = () => {
         Modal.confirm({
             okText: '确定',
             cancelText: '取消',
-            content: `确定删除${param.notice_title}吗?`,
+            content: `确定删除${param.noticeTitle}吗?`,
             async onOk() {
                 await handleRemove([param.id]);
             },

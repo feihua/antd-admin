@@ -32,18 +32,18 @@ const AddModal: React.FC<AddModalProps> = ({open, onCreate, onCancel}) => {
         return (
             <>
                 <FormItem
-                    name="dict_name"
+                    name="dictName"
                     label="字典名称"
                     rules={[{required: true, message: '请输入字典名称!'}]}
                 >
-                    <Input id="create-dict_name" placeholder={'请输入字典名称!'}/>
+                    <Input id="create-dictName" placeholder={'请输入字典名称!'}/>
                 </FormItem>
                 <FormItem
-                    name="dict_type"
+                    name="dictType"
                     label="字典类型"
                     rules={[{required: true, message: '请输入字典类型!'}]}
                 >
-                    <Input id="create-dict_type" placeholder={'请输入字典类型!'}/>
+                    <Input id="create-dictType" placeholder={'请输入字典类型!'}/>
                 </FormItem>
                 <FormItem
                     name="status"

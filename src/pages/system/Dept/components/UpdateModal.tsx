@@ -26,7 +26,7 @@ const UpdateModal: React.FC<UpdateModalProps> = ({open, onCreate, onCancel, id})
             });
             queryDeptDetail({id}).then((res) => {
                 form.setFieldsValue(res.data);
-                setValue(res.data.parent_id);
+                setValue(res.data.parentId);
             });
         }
     }, [open]);
@@ -52,7 +52,7 @@ const UpdateModal: React.FC<UpdateModalProps> = ({open, onCreate, onCancel, id})
                     <Input id="update-id"/>
                 </FormItem>
                 {value != '0' && <FormItem
-                    name="parent_id"
+                    name="parentId"
                     label="上级部门"
                     rules={[{required: true, message: '请选择上级部门!'}]}
                 >
@@ -62,16 +62,16 @@ const UpdateModal: React.FC<UpdateModalProps> = ({open, onCreate, onCancel, id})
                         dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
                         treeData={deptListData}
                         placeholder="请选择上级部门"
-                        fieldNames={{label: 'dept_name', value: 'id', children: 'children'}}
+                        fieldNames={{label: 'deptName', value: 'id', children: 'children'}}
                         onChange={onChange}
                     />
                 </FormItem>}
                 <FormItem
-                    name="dept_name"
+                    name="deptName"
                     label="部门名称"
                     rules={[{required: true, message: '请输入部门名称!'}]}
                 >
-                    <Input id="update-dept_name" placeholder={'请输入部门名称!'}/>
+                    <Input id="update-deptName" placeholder={'请输入部门名称!'}/>
                 </FormItem>
                 <FormItem
                     name="sort"

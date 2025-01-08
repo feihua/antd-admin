@@ -29,7 +29,7 @@ const AllocatedUser: React.FC<RoleDataProps> = ({roleVo, open, onCancel}) => {
     const [pageSize, setPageSize] = useState<number>(10);
     const [total, setTotal] = useState<number>(10);
     const [param, setParam] = useState<QueryUserListParam>({
-        current: 1, mobile: "", pageSize: 10, role_id: roleVo.id, user_name: ""
+        current: 1, mobile: "", pageSize: 10, roleId: roleVo.id, userName: ""
 
     });
     const columns: ColumnsType<UserVo> = [
@@ -43,11 +43,11 @@ const AllocatedUser: React.FC<RoleDataProps> = ({roleVo, open, onCancel}) => {
         },
         {
             title: '用户账号',
-            dataIndex: 'user_name',
+            dataIndex: 'userName',
         },
         {
             title: '用户昵称',
-            dataIndex: 'nick_name',
+            dataIndex: 'nickName',
         },
         {
             title: '状态',
@@ -65,7 +65,7 @@ const AllocatedUser: React.FC<RoleDataProps> = ({roleVo, open, onCancel}) => {
         },
         {
             title: '创建时间',
-            dataIndex: 'create_time',
+            dataIndex: 'createTime',
         },
         {
             title: '操作',
@@ -75,8 +75,8 @@ const AllocatedUser: React.FC<RoleDataProps> = ({roleVo, open, onCancel}) => {
                     <Space size="small">
                         <Button type="link" size={'small'} icon={<EditOutlined/>}
                                 onClick={() => showCancelConfirm({
-                                    role_id: roleVo.id,
-                                    user_id: record.id
+                                    roleId: roleVo.id,
+                                    userId: record.id
                                 })}>取消授权</Button>
                     </Space>
                 </>
@@ -84,28 +84,28 @@ const AllocatedUser: React.FC<RoleDataProps> = ({roleVo, open, onCancel}) => {
         },
     ];
 
-    const showStatusConfirm = (ids: number[], role_id: number) => {
+    const showStatusConfirm = (ids: number[], roleId: number) => {
         Modal.confirm({
             okText: '确定',
             cancelText: '取消',
             title: `确定？`,
             icon: <ExclamationCircleOutlined/>,
             async onOk() {
-                await handleStatus(ids, role_id);
+                await handleStatus(ids, roleId);
             },
             onCancel() {
             },
         });
     };
 
-    const handleStatus = async (user_ids: number[], role_id: number) => {
+    const handleStatus = async (userIds: number[], roleId: number) => {
         const hide = message.loading('正在更新状态');
-        if (user_ids.length == 0) {
+        if (userIds.length == 0) {
             hide();
             return true;
         }
         try {
-            await batch_cancel_auth_user({user_ids, role_id});
+            await batch_cancel_auth_user({userIds, roleId});
             hide();
             let res = await query_allocated_list(param);
             setTotal(res.total);
@@ -126,7 +126,7 @@ const AllocatedUser: React.FC<RoleDataProps> = ({roleVo, open, onCancel}) => {
         setShowUnallocatedModal(false);
     };
 
-    const handleUnallocatedOk = async (params: { user_ids: number[], role_id: number }) => {
+    const handleUnallocatedOk = async (params: { userIds: number[], roleId: number }) => {
         if (handleResp(await batch_auth_user(params))) {
             setShowUnallocatedModal(false);
             console.log('param', param)
@@ -137,7 +137,7 @@ const AllocatedUser: React.FC<RoleDataProps> = ({roleVo, open, onCancel}) => {
     }
 
     //取消授权用户
-    const showCancelConfirm = (params: { user_id: number, role_id: number }) => {
+    const showCancelConfirm = (params: { userId: number, roleId: number }) => {
         Modal.confirm({
             okText: '确定',
             cancelText: '取消',
@@ -158,7 +158,7 @@ const AllocatedUser: React.FC<RoleDataProps> = ({roleVo, open, onCancel}) => {
 
 
     const handleSearchOk = async (user: QueryUserListParam) => {
-        user.role_id = roleVo.id
+        user.roleId = roleVo.id
         setParam(user)
         let res = await query_allocated_list(user)
         setTotal(res.total)
@@ -168,15 +168,15 @@ const AllocatedUser: React.FC<RoleDataProps> = ({roleVo, open, onCancel}) => {
     const handleResetOk = async () => {
         setCurrentPage(1)
         setParam({
-            current: 1, mobile: "", pageSize: 10, role_id: roleVo.id, user_name: ""
+            current: 1, mobile: "", pageSize: 10, roleId: roleVo.id, userName: ""
 
         })
         let res = await query_allocated_list({
             current: 1,
             mobile: "",
             pageSize: pageSize,
-            role_id: roleVo.id,
-            user_name: ""
+            roleId: roleVo.id,
+            userName: ""
         })
         setTotal(res.total)
         res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
@@ -186,12 +186,12 @@ const AllocatedUser: React.FC<RoleDataProps> = ({roleVo, open, onCancel}) => {
         if (open) {
 
             setParam({
-                current: 1, mobile: "", pageSize: 10, role_id: roleVo.id, user_name: ""
+                current: 1, mobile: "", pageSize: 10, roleId: roleVo.id, userName: ""
 
             })
             console.log('useEffect param', param)
             query_allocated_list({
-                role_id: roleVo.id, current: currentPage, pageSize
+                roleId: roleVo.id, current: currentPage, pageSize
             }).then(res => {
                 setTotal(res.total)
                 res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
@@ -214,7 +214,7 @@ const AllocatedUser: React.FC<RoleDataProps> = ({roleVo, open, onCancel}) => {
         onChange: async (page: number, pageSize: number) => {
             setCurrentPage(page)
             setPageSize(pageSize)
-            let res = await query_allocated_list({current: 0, mobile: "", pageSize: 0, role_id: 0, user_name: ""})
+            let res = await query_allocated_list({current: 0, mobile: "", pageSize: 0, roleId: 0, userName: ""})
             setTotal(res.total)
             res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
 

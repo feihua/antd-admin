@@ -14,11 +14,11 @@ export const addDept = (params: DeptVo): Promise<IResponse> => {
 
 /**
  * @description: 删除部门表
- * @params {ids} number[]
+ * @params {ids} number
  * @return {Promise}
  */
-export const removeDept = (ids: number[]): Promise<IResponse> => {
-    return axiosInstance.post('/api/system/dept/deleteDept', {ids}).then(res => res.data);
+export const removeDept = (id: number): Promise<IResponse> => {
+    return axiosInstance.post('/api/system/dept/deleteDept', {id}).then(res => res.data);
 };
 
 
@@ -60,7 +60,7 @@ export const queryDeptList = async (params: DeptListParam): Promise<DeptVo[]> =>
     const res = await axiosInstance.post('/api/system/dept/queryDeptList', params);
     let {code, msg, data} = res.data
     if (code === 0) {
-        return tree(data, 0, "parent_id")
+        return tree(data, 0, "parentId")
     }
     message.error(msg)
     return [];

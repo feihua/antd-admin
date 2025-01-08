@@ -25,12 +25,12 @@ const DetailModal: React.FC<DetailModalProps> = (props) => {
                     {
                         key: '2',
                         label: '岗位编码',
-                        children: <p>{res.data.post_code}</p>,
+                        children: <p>{res.data.postCode}</p>,
                     },
                     {
                         key: '3',
                         label: '岗位名称',
-                        children: <p>{res.data.post_name}</p>,
+                        children: <p>{res.data.postName}</p>,
                     },
                     {
                         key: '4',
@@ -50,12 +50,12 @@ const DetailModal: React.FC<DetailModalProps> = (props) => {
                     {
                         key: '7',
                         label: '创建时间',
-                        children: <p>{res.data.create_time}</p>,
+                        children: <p>{res.data.createTime}</p>,
                     },
                     {
                         key: '8',
                         label: '更新时间',
-                        children: <p>{res.data.update_time}</p>,
+                        children: <p>{res.data.updateTime}</p>,
                     },
 
                 ])

@@ -46,12 +46,12 @@ const DetailModal: React.FC<DetailModalProps> = (props) => {
                     {
                         key: '2',
                         label: '菜单名称',
-                        children: <p>{res.data.menu_name}</p>,
+                        children: <p>{res.data.menuName}</p>,
                     },
                     {
                         key: '3',
                         label: '菜单类型',
-                        children: <p>{getMenuTypeText(res.data.menu_type)}</p>,
+                        children: <p>{getMenuTypeText(res.data.menuType)}</p>,
                     },
                     {
                         key: '4',
@@ -71,22 +71,22 @@ const DetailModal: React.FC<DetailModalProps> = (props) => {
                     {
                         key: '6',
                         label: '上级菜单',
-                        children: <p>{res.data.parent_id}</p>,
+                        children: <p>{res.data.parentId}</p>,
                     },
                     {
                         key: '7',
                         label: '路由路径',
-                        children: <p>{res.data.menu_url}</p>,
+                        children: <p>{res.data.menuUrl}</p>,
                     },
                     {
                         key: '8',
                         label: '接口URL',
-                        children: <p>{res.data.api_url}</p>,
+                        children: <p>{res.data.apiUrl}</p>,
                     },
                     {
                         key: '9',
                         label: '菜单图标',
-                        children: <p>{res.data.menu_icon}</p>,
+                        children: <p>{res.data.menuIcon}</p>,
                     },
                     {
                         key: '10',
@@ -96,12 +96,12 @@ const DetailModal: React.FC<DetailModalProps> = (props) => {
                     {
                         key: '11',
                         label: '创建时间',
-                        children: <p>{res.data.create_time}</p>,
+                        children: <p>{res.data.createTime}</p>,
                     },
                     {
                         key: '12',
                         label: '修改时间',
-                        children: <p>{res.data.update_time}</p>,
+                        children: <p>{res.data.updateTime}</p>,
                     },
 
                 ])

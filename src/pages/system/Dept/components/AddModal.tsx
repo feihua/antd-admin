@@ -42,7 +42,7 @@ const AddModal: React.FC<AddModalProps> = ({open, onCreate, onCancel}) => {
         return (
             <>
                 <FormItem
-                    name="parent_id"
+                    name="parentId"
                     label="上级部门"
                     rules={[{required: true, message: '请输入上级部门!'}]}
                 >
@@ -52,16 +52,16 @@ const AddModal: React.FC<AddModalProps> = ({open, onCreate, onCancel}) => {
                         dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
                         treeData={deptListData}
                         placeholder="请选择上级部门"
-                        fieldNames={{label: 'dept_name', value: 'id', children: 'children'}}
+                        fieldNames={{label: 'deptName', value: 'id', children: 'children'}}
                         onChange={onChange}
                     />
                 </FormItem>
                 <FormItem
-                    name="dept_name"
+                    name="deptName"
                     label="部门名称"
                     rules={[{required: true, message: '请输入部门名称!'}]}
                 >
-                    <Input id="create-dept_name" placeholder={'请输入部门名称!'}/>
+                    <Input id="create-deptName" placeholder={'请输入部门名称!'}/>
                 </FormItem>
                 <FormItem
                     name="sort"

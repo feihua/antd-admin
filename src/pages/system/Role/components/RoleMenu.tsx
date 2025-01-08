@@ -6,7 +6,7 @@ import {tree} from "../../../../utils/treeUtils";
 
 interface UpdateFormProps {
     open: boolean;
-    onCreate: (role_id: Number, menu_ids: Number[]) => void;
+    onCreate: (roleId: Number, menuIds: Number[]) => void;
     onCancel: () => void;
     roleVo: RoleVo;
 }
@@ -25,9 +25,9 @@ const SetRoleMenuForm: React.FC<UpdateFormProps> = ({open, onCreate, onCancel, r
         setCheckedKeys([]);
         query_role_menu(roleVo.id || 0).then((res) => {
             // @ts-ignore
-            setTreeData(tree(res.data.menu_list, 0, "parent_id"))
-            if (res.data.menu_ids) {
-                setCheckedKeys(res.data.menu_ids.map((r: number) => r + ''));
+            setTreeData(tree(res.data.menuList, 0, "parentId"))
+            if (res.data.menuIds) {
+                setCheckedKeys(res.data.menuIds.map((r: number) => r + ''));
             }
         })
 

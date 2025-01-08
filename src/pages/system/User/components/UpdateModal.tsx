@@ -40,8 +40,8 @@ const UpdateUserModal: React.FC<UpdateFormProps> = ({open, onCreate, onCancel, i
 
             queryUserDetail({id}).then((res) => {
                 form.setFieldsValue(res.data);
-                setValue(res.data.dept_id);
-                setPost(res.data.post_ids);
+                setValue(res.data.deptId);
+                setPost(res.data.postIds);
             });
         }
     }, [open]);
@@ -68,7 +68,7 @@ const UpdateUserModal: React.FC<UpdateFormProps> = ({open, onCreate, onCancel, i
                     <Input/>
                 </FormItem>
                 <FormItem
-                    name="dept_id"
+                    name="deptId"
                     label="归属部门"
                     rules={[{required: true, message: '请选择部门!'}]}
                 >
@@ -78,24 +78,24 @@ const UpdateUserModal: React.FC<UpdateFormProps> = ({open, onCreate, onCancel, i
                         dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
                         treeData={deptListData}
                         placeholder="请选择部门"
-                        fieldNames={{label: 'dept_name', value: 'id', children: 'children'}}
+                        fieldNames={{label: 'deptName', value: 'id', children: 'children'}}
                         onChange={onChange}
                     />
                 </FormItem>
 
                 <FormItem
-                    name="user_name"
+                    name="userName"
                     label="用户账号"
                     rules={[{required: true, message: '请输入用户账号!'}]}
                 >
-                    <Input id="update-user_name" placeholder={'请输入用户账号!'}/>
+                    <Input id="update-userName" placeholder={'请输入用户账号!'}/>
                 </FormItem>
                 <FormItem
-                    name="nick_name"
+                    name="nickName"
                     label="用户昵称"
                     rules={[{required: true, message: '请输入用户昵称!'}]}
                 >
-                    <Input id="update-nick_name" placeholder={'请输入用户昵称!'}/>
+                    <Input id="update-nickName" placeholder={'请输入用户昵称!'}/>
                 </FormItem>
                 <FormItem
                     name="mobile"
@@ -106,11 +106,11 @@ const UpdateUserModal: React.FC<UpdateFormProps> = ({open, onCreate, onCancel, i
                 </FormItem>
 
                 {/*<FormItem*/}
-                {/*    name="user_type"*/}
+                {/*    name="userType"*/}
                 {/*    label="用户类型（00系统用户）"*/}
                 {/*    rules={[{required: true, message: '请输入用户类型（00系统用户）!'}]}*/}
                 {/*>*/}
-                {/*    <Input id="update-user_type" placeholder={'请输入用户类型（00系统用户）!'}/>*/}
+                {/*    <Input id="update-userType" placeholder={'请输入用户类型（00系统用户）!'}/>*/}
                 {/*</FormItem>*/}
                 {/*<FormItem*/}
                 {/*    name="avatar"*/}
@@ -134,7 +134,7 @@ const UpdateUserModal: React.FC<UpdateFormProps> = ({open, onCreate, onCancel, i
                 {/*    <Input id="update-password" placeholder={'请输入密码!'}/>*/}
                 {/*</FormItem>*/}
                 <FormItem
-                    name="post_ids"
+                    name="postIds"
                     label="岗位"
                     rules={[{required: true, message: '请选择岗位!'}]}
                 >

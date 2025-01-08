@@ -15,21 +15,21 @@ const OperateLog: React.FC = () => {
     const [currentOperateLog, setCurrentOperateLog] = useState<OperateLogVo>({
         id: 0,
         title: '',
-        business_type: 0,
+        businessType: 0,
         method: '',
-        request_method: '',
-        operator_type: 0,
-        operate_name: '',
-        dept_name: '',
-        operate_url: '',
-        operate_ip: '',
-        operate_location: '',
-        operate_param: '',
-        json_result: '',
+        requestMethod: '',
+        operatorType: 0,
+        operateName: '',
+        deptName: '',
+        operateUrl: '',
+        operateIp: '',
+        operateLocation: '',
+        operateParam: '',
+        jsonResult: '',
         status: 0,
-        error_msg: '',
-        operate_time: '',
-        cost_time: 0,
+        errorMsg: '',
+        operateTime: '',
+        costTime: 0,
     });
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [pageSize, setPageSize] = useState<number>(10);
@@ -46,21 +46,21 @@ const OperateLog: React.FC = () => {
         },
         {
             title: '操作类型',
-            dataIndex: 'business_type',
+            dataIndex: 'businessType',
         },
         {
             title: '操作人员',
-            dataIndex: 'operate_name',
+            dataIndex: 'operateName',
             render: (text: string) => <a>{text}</a>,
         },
         {
             title: '部门名称',
-            dataIndex: 'dept_name',
+            dataIndex: 'deptName',
             render: (text: string) => <a>{text}</a>,
         },
         {
             title: '操作地点',
-            dataIndex: 'operate_location',
+            dataIndex: 'operateLocation',
         },
 
         {
@@ -81,11 +81,11 @@ const OperateLog: React.FC = () => {
 
         {
             title: '操作时间',
-            dataIndex: 'operate_time',
+            dataIndex: 'operateTime',
         },
         {
             title: '消耗时间',
-            dataIndex: 'cost_time',
+            dataIndex: 'costTime',
         },
 
         {

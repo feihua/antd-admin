@@ -24,8 +24,8 @@ const AddModal: React.FC<AddModalProps> = ({open, onCreate, onCancel}) => {
 
                     let menuList: TmpMenuVo = {
                         id: 0,
-                        menu_name: '主类目',
-                        children: tree(res.data, 0, "parent_id")
+                        menuName: '主类目',
+                        children: tree(res.data, 0, "parentId")
                     };
                     setTmpMenuVo([menuList])
                 } else {
@@ -55,7 +55,7 @@ const AddModal: React.FC<AddModalProps> = ({open, onCreate, onCancel}) => {
             <>
                 <FormItem
                     label="上级菜单"
-                    name="parent_id"
+                    name="parentId"
                     rules={[{required: true, message: '请选择上级菜单!'}]}
                 >
                     <TreeSelect
@@ -63,13 +63,13 @@ const AddModal: React.FC<AddModalProps> = ({open, onCreate, onCancel}) => {
                         // dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
                         treeData={tmpMenuVo}
                         placeholder="请选择上级菜单"
-                        fieldNames={{label: 'menu_name', value: 'id', children: 'children'}}
+                        fieldNames={{label: 'menuName', value: 'id', children: 'children'}}
                         allowClear
                     />
                 </FormItem>
                 <FormItem
                     label="菜单类型"
-                    name="menu_type"
+                    name="menuType"
                     rules={[{required: true, message: '请选择菜单类型!'}]}
                 >
                     <Radio.Group onChange={onChange} value={menuType}>
@@ -79,19 +79,19 @@ const AddModal: React.FC<AddModalProps> = ({open, onCreate, onCancel}) => {
                     </Radio.Group>
                 </FormItem>
                 <FormItem
-                    name="menu_name"
+                    name="menuName"
                     label="菜单名称"
                     rules={[{required: true, message: '请输入菜单名称!'}]}
                 >
-                    <Input id="create-menu_name" placeholder={'请输入菜单名称'}/>
+                    <Input id="create-menuName" placeholder={'请输入菜单名称'}/>
                 </FormItem>
                 {menuType !== 3 &&
                     <FormItem
-                        name="menu_icon"
+                        name="menuIcon"
                         label="菜单图标"
                         rules={[{required: true, message: '请输入菜单图标!'}]}
                     >
-                        <Input id="create-menu_icon" placeholder={'请输入菜单图标'}/>
+                        <Input id="create-menuIcon" placeholder={'请输入菜单图标'}/>
                     </FormItem>
                 }
 
@@ -127,20 +127,20 @@ const AddModal: React.FC<AddModalProps> = ({open, onCreate, onCancel}) => {
 
                 {menuType !== 3 &&
                     <FormItem
-                        name="menu_url"
+                        name="menuUrl"
                         label="路由路径"
                         rules={[{required: true, message: '请输入路由路径!'}]}
                     >
-                        <Input id="create-menu_url" placeholder={'请输入路由路径'}/>
+                        <Input id="create-menuUrl" placeholder={'请输入路由路径'}/>
                     </FormItem>
                 }
                 {menuType === 3 &&
                     <FormItem
-                        name="api_url"
+                        name="apiUrl"
                         label="接口地址"
                         rules={[{required: true, message: '请输入接口地址!'}]}
                     >
-                        <Input id="create-api_url" placeholder={'请输入接口地址'}/>
+                        <Input id="create-apiUrl" placeholder={'请输入接口地址'}/>
                     </FormItem>
                 }
 
@@ -160,7 +160,7 @@ const AddModal: React.FC<AddModalProps> = ({open, onCreate, onCancel}) => {
         <Modal title="新建" okText="保存" onOk={handleOk} onCancel={onCancel} cancelText="取消" open={open} width={520}
                style={{top: 150}}>
             <Form labelCol={{span: 7}} wrapperCol={{span: 13}} form={form}
-                  initialValues={{sort: 1, status: 1, visible: 1, menu_type: 1}}
+                  initialValues={{sort: 1, status: 1, visible: 1, menuType: 1}}
                   style={{marginTop: 30}}>
                 {renderContent()}
             </Form>

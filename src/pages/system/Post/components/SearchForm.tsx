@@ -26,16 +26,16 @@ const AdvancedSearchForm: React.FC<CreateFormProps> = ({search, reSet}) => {
         return (
             <>
                 <FormItem
-                    name="post_code"
+                    name="postCode"
                     label="岗位编码"
                 >
-                    <Input id="search-post_code" placeholder={'请输入岗位编码'}/>
+                    <Input id="search-postCode" placeholder={'请输入岗位编码'}/>
                 </FormItem>
                 <FormItem
-                    name="post_name"
+                    name="postName"
                     label="岗位名称"
                 >
-                    <Input id="search-post_name" placeholder={'请输入岗位名称'}/>
+                    <Input id="search-postName" placeholder={'请输入岗位名称'}/>
                 </FormItem>
                 <FormItem
                     name="status"

@@ -10,7 +10,7 @@ import {QueryUserListParam, RoleVo} from "../data";
 interface RoleDataProps {
     open: boolean;
     onCancel: () => void;
-    onBatchAuthUserAll: (values: { user_ids: number[], role_id: number }) => void;
+    onBatchAuthUserAll: (values: { userIds: number[], roleId: number }) => void;
     roleVo: RoleVo;
 }
 
@@ -21,7 +21,7 @@ const UnallocatedUser: React.FC<RoleDataProps> = ({roleVo, open, onCancel, onBat
     const [pageSize, setPageSize] = useState<number>(10);
     const [total, setTotal] = useState<number>(10);
     const [param, setParam] = useState<QueryUserListParam>({
-        current: 1, mobile: "", pageSize: 10, role_id: roleVo.id, user_name: ""
+        current: 1, mobile: "", pageSize: 10, roleId: roleVo.id, userName: ""
 
     });
 
@@ -36,11 +36,11 @@ const UnallocatedUser: React.FC<RoleDataProps> = ({roleVo, open, onCancel, onBat
         },
         {
             title: '用户账号',
-            dataIndex: 'user_name',
+            dataIndex: 'userName',
         },
         {
             title: '用户昵称',
-            dataIndex: 'nick_name',
+            dataIndex: 'nickName',
         },
         {
             title: '状态',
@@ -58,17 +58,17 @@ const UnallocatedUser: React.FC<RoleDataProps> = ({roleVo, open, onCancel, onBat
         },
         {
             title: '创建时间',
-            dataIndex: 'create_time',
+            dataIndex: 'createTime',
         },
     ];
 
 
     const handleOk = () => {
-        onBatchAuthUserAll({user_ids: selectedRowKeys as number[], role_id: roleVo.id});
+        onBatchAuthUserAll({userIds: selectedRowKeys as number[], roleId: roleVo.id});
     }
 
     const handleSearchOk = async (user: QueryUserListParam) => {
-        user.role_id = roleVo.id
+        user.roleId = roleVo.id
         setParam(user)
         let res = await query_unallocated_list(user)
         setTotal(res.total)
@@ -78,15 +78,15 @@ const UnallocatedUser: React.FC<RoleDataProps> = ({roleVo, open, onCancel, onBat
     const handleResetOk = async () => {
         setCurrentPage(1)
         setParam({
-            current: 1, mobile: "", pageSize: 10, role_id: roleVo.id, user_name: ""
+            current: 1, mobile: "", pageSize: 10, roleId: roleVo.id, userName: ""
 
         })
         let res = await query_unallocated_list({
             current: 1,
             mobile: "",
             pageSize: pageSize,
-            role_id: roleVo.id,
-            user_name: ""
+            roleId: roleVo.id,
+            userName: ""
         })
         setTotal(res.total)
         res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
@@ -121,8 +121,8 @@ const UnallocatedUser: React.FC<RoleDataProps> = ({roleVo, open, onCancel, onBat
                 current: page,
                 mobile: param.mobile,
                 pageSize,
-                role_id: roleVo.id,
-                user_name: param.user_name,
+                roleId: roleVo.id,
+                userName: param.userName,
             })
             setTotal(res.total)
             res.code === 0 ? setUserListData(res.data) : message.error(res.msg);

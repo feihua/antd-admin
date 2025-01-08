@@ -36,25 +36,25 @@ const UpdateModal: React.FC<UpdateModalProps> = ({open, onCreate, onCancel, id})
         return (
             <>
                 <FormItem
-                    name="dict_id"
+                    name="dictId"
                     label="主键"
                     hidden
                 >
-                    <Input id="update-dict_id"/>
+                    <Input id="update-dictId"/>
                 </FormItem>
                 <FormItem
-                    name="dict_name"
+                    name="dictName"
                     label="字典名称"
                     rules={[{required: true, message: '请输入字典名称!'}]}
                 >
-                    <Input id="update-dict_name" placeholder={'请输入字典名称!'}/>
+                    <Input id="update-dictName" placeholder={'请输入字典名称!'}/>
                 </FormItem>
                 <FormItem
-                    name="dict_type"
+                    name="dictType"
                     label="字典类型"
                     rules={[{required: true, message: '请输入字典类型!'}]}
                 >
-                    <Input id="update-dict_type" placeholder={'请输入字典类型!'}/>
+                    <Input id="update-dictType" placeholder={'请输入字典类型!'}/>
                 </FormItem>
                 <FormItem
                     name="status"

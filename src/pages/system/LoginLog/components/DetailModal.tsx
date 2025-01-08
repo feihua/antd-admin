@@ -25,7 +25,7 @@ const DetailModal: React.FC<DetailModalProps> = (props) => {
                     {
                         key: '2',
                         label: '用户名称',
-                        children: <p>{res.data.login_name}</p>,
+                        children: <p>{res.data.loginName}</p>,
                     },
                     {
                         key: '3',
@@ -35,7 +35,7 @@ const DetailModal: React.FC<DetailModalProps> = (props) => {
                     {
                         key: '4',
                         label: '登录地点',
-                        children: <p>{res.data.login_location}</p>,
+                        children: <p>{res.data.loginLocation}</p>,
                     },
                     {
                         key: '5',
@@ -70,7 +70,7 @@ const DetailModal: React.FC<DetailModalProps> = (props) => {
                     {
                         key: '11',
                         label: '渲染引擎详细信息',
-                        children: <p>{res.data.engine_details}</p>,
+                        children: <p>{res.data.engineDetails}</p>,
                     },
                     {
                         key: '12',
@@ -90,7 +90,7 @@ const DetailModal: React.FC<DetailModalProps> = (props) => {
                     {
                         key: '15',
                         label: '访问时间',
-                        children: <p>{res.data.login_time}</p>,
+                        children: <p>{res.data.loginTime}</p>,
                     },
 
                 ])

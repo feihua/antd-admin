@@ -25,7 +25,7 @@ const DetailModal: React.FC<DetailModalProps> = (props) => {
                     {
                         key: '2',
                         label: '父部门id',
-                        children: <p>{res.data.parent_id}</p>,
+                        children: <p>{res.data.parentId}</p>,
                     },
                     {
                         key: '3',
@@ -35,7 +35,7 @@ const DetailModal: React.FC<DetailModalProps> = (props) => {
                     {
                         key: '4',
                         label: '部门名称',
-                        children: <p>{res.data.dept_name}</p>,
+                        children: <p>{res.data.deptName}</p>,
                     },
                     {
                         key: '5',
@@ -65,12 +65,12 @@ const DetailModal: React.FC<DetailModalProps> = (props) => {
                     {
                         key: '11',
                         label: '创建时间',
-                        children: <p>{res.data.create_time}</p>,
+                        children: <p>{res.data.createTime}</p>,
                     },
                     {
                         key: '12',
                         label: '修改时间',
-                        children: <p>{res.data.update_time}</p>,
+                        children: <p>{res.data.updateTime}</p>,
                     },
 
                 ])

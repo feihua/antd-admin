@@ -6,7 +6,7 @@ import {query_user_role} from "../service";
 
 interface UserRoleFormProps {
     open: boolean;
-    onCreate: (user_id: number, role_ids: number[]) => void;
+    onCreate: (userId: number, roleIds: number[]) => void;
     onCancel: () => void;
     userVo: UserVo;
 }
@@ -44,19 +44,19 @@ const SetUserRoleModal: React.FC<UserRoleFormProps> = ({open, onCreate, onCancel
         },
         {
             title: '角色名称',
-            dataIndex: 'role_name',
+            dataIndex: 'roleName',
             render: (text: string) => <a>{text}</a>,
         },
         {
             title: '权限字符',
-            dataIndex: 'role_key',
+            dataIndex: 'roleKey',
         },
         {
             title: '数据范围',
-            dataIndex: 'data_scope',
-            render: (_, {data_scope}) => (
+            dataIndex: 'dataScope',
+            render: (_, {dataScope}) => (
                 <>
-                    {getDataScope(data_scope)}
+                    {getDataScope(dataScope)}
                 </>
             ),
         },
@@ -66,7 +66,7 @@ const SetUserRoleModal: React.FC<UserRoleFormProps> = ({open, onCreate, onCancel
         },
         {
             title: '创建时间',
-            dataIndex: 'create_time',
+            dataIndex: 'createTime',
         },
     ];
 
@@ -76,10 +76,10 @@ const SetUserRoleModal: React.FC<UserRoleFormProps> = ({open, onCreate, onCancel
             setRoleList([]);
             setSelectedRowKeys([]);
             query_user_role(userVo.id).then((res) => {
-                setRoleList(res.data.sys_role_list);
+                setRoleList(res.data.sysRoleList);
 
-                if (res.data.user_role_ids) {
-                    setSelectedRowKeys(res.data.user_role_ids)
+                if (res.data.userRoleIds) {
+                    setSelectedRowKeys(res.data.userRoleIds)
                 }
             });
         }

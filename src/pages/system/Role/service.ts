@@ -64,8 +64,8 @@ export const queryRoleList = (params: RoleListParam): Promise<IResponse> => {
  * @params {ids} number[]
  * @return {Promise}
  */
-export const query_role_menu = (role_id: Number): Promise<IResponse> => {
-    return axiosInstance.post('/api/system/role/queryRoleMenu', {role_id: role_id}).then(res => res.data);
+export const query_role_menu = (roleId: Number): Promise<IResponse> => {
+    return axiosInstance.post('/api/system/role/queryRoleMenu', {roleId: roleId}).then(res => res.data);
 };
 
 /**
@@ -73,10 +73,10 @@ export const query_role_menu = (role_id: Number): Promise<IResponse> => {
  * @params {ids} number[]
  * @return {Promise}
  */
-export const update_role_menu = (role_id: Number, menu_ids: Number[]): Promise<IResponse> => {
+export const update_role_menu = (roleId: Number, menuIds: Number[]): Promise<IResponse> => {
     return axiosInstance.post('/api/system/role/updateRoleMenu', {
-        role_id: role_id,
-        menu_ids: menu_ids
+        roleId: roleId,
+        menuIds: menuIds
     }).then(res => res.data);
 };
 
@@ -103,7 +103,7 @@ export const query_unallocated_list = (param: QueryUserListParam): Promise<IResp
  * @params param
  * @return {Promise}
  */
-export const cancel_auth_user = (param: { user_id: number, role_id: number }): Promise<IResponse> => {
+export const cancel_auth_user = (param: { userId: number, roleId: number }): Promise<IResponse> => {
     return axiosInstance.post('/api/system/role/cancelAuthUser', param).then(res => res.data);
 };
 
@@ -112,7 +112,7 @@ export const cancel_auth_user = (param: { user_id: number, role_id: number }): P
  * @params param
  * @return {Promise}
  */
-export const batch_cancel_auth_user = (param: { user_ids: number[], role_id: number }): Promise<IResponse> => {
+export const batch_cancel_auth_user = (param: { userIds: number[], roleId: number }): Promise<IResponse> => {
     return axiosInstance.post('/api/system/role/batchCancelAuthUser', param).then(res => res.data);
 };
 
@@ -121,7 +121,7 @@ export const batch_cancel_auth_user = (param: { user_ids: number[], role_id: num
  * @params param
  * @return {Promise}
  */
-export const batch_auth_user = (param: { user_ids: number[], role_id: number }): Promise<IResponse> => {
+export const batch_auth_user = (param: { userIds: number[], roleId: number }): Promise<IResponse> => {
     return axiosInstance.post('/api/system/role/batchAuthUser', param).then(res => res.data);
 };
 

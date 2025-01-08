@@ -33,14 +33,14 @@ const AddModal: React.FC<AddModalProps> = ({open, onCreate, onCancel}) => {
         return (
             <>
                 <FormItem
-                    name="notice_title"
+                    name="noticeTitle"
                     label="公告标题"
                     rules={[{required: true, message: '请输入公告标题!'}]}
                 >
-                    <Input id="create-notice_title" placeholder={'请输入公告标题!'}/>
+                    <Input id="create-noticeTitle" placeholder={'请输入公告标题!'}/>
                 </FormItem>
                 <FormItem
-                    name="notice_type"
+                    name="noticeType"
                     label="公告类型"
                     rules={[{required: true, message: '请输入公告类型!'}]}
                 >
@@ -60,7 +60,7 @@ const AddModal: React.FC<AddModalProps> = ({open, onCreate, onCancel}) => {
                     </Radio.Group>
                 </FormItem>
                 <FormItem
-                    name="notice_content"
+                    name="noticeContent"
                     label="公告内容"
                     rules={[{required: true, message: '请输入公告内容!'}]}
                 >
@@ -82,7 +82,7 @@ const AddModal: React.FC<AddModalProps> = ({open, onCreate, onCancel}) => {
         <Modal title="添加公告" okText="保存" onOk={handleOk} onCancel={onCancel} cancelText="取消" open={open}
                width={520}
                style={{top: 150}}>
-            <Form labelCol={{span: 6}} wrapperCol={{span: 14}} form={form} initialValues={{notice_type: 1, status: 1}}
+            <Form labelCol={{span: 6}} wrapperCol={{span: 14}} form={form} initialValues={{noticeType: 1, status: 1}}
                   style={{marginTop: 30}}>
                 {addContent()}
             </Form>

@@ -32,18 +32,18 @@ const AddModal: React.FC<AddModalProps> = ({open, onCreate, onCancel}) => {
         return (
             <>
                 <FormItem
-                    name="post_code"
+                    name="postCode"
                     label="岗位编码"
                     rules={[{required: true, message: '请输入岗位编码!'}]}
                 >
-                    <Input id="create-post_code" placeholder={'请输入岗位编码!'}/>
+                    <Input id="create-postCode" placeholder={'请输入岗位编码!'}/>
                 </FormItem>
                 <FormItem
-                    name="post_name"
+                    name="postName"
                     label="岗位名称"
                     rules={[{required: true, message: '请输入岗位名称!'}]}
                 >
-                    <Input id="create-post_name" placeholder={'请输入岗位名称!'}/>
+                    <Input id="create-postName" placeholder={'请输入岗位名称!'}/>
                 </FormItem>
                 <FormItem
                     name="sort"

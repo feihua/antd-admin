@@ -64,8 +64,8 @@ export const queryUserList = (params: UserListParam): Promise<IResponse> => {
  * @params {ids} number[]
  * @return {Promise}
  */
-export const query_user_role = (user_id: Number): Promise<IResponse> => {
-    return axiosInstance.post('/api/system/user/queryUserRole', {user_id: user_id}).then(res => res.data);
+export const query_user_role = (userId: Number): Promise<IResponse> => {
+    return axiosInstance.post('/api/system/user/queryUserRole', {userId: userId}).then(res => res.data);
 };
 
 /**
@@ -73,10 +73,10 @@ export const query_user_role = (user_id: Number): Promise<IResponse> => {
  * @params {ids} number[]
  * @return {Promise}
  */
-export const update_user_role = (user_id: Number, role_ids: Number[]): Promise<IResponse> => {
+export const update_user_role = (userId: Number, roleIds: Number[]): Promise<IResponse> => {
     return axiosInstance.post('/api/system/user/updateUserRole', {
-        user_id: user_id,
-        role_ids: role_ids
+        userId: userId,
+        roleIds: roleIds
     }).then(res => res.data);
 };
 

@@ -25,9 +25,9 @@ type MenuItem = Required<MenuProps>['items'][number];
 //     return {key, icon, children, label} as MenuItem;
 // }
 
-function getMyItem(label: React.ReactNode, key: React.Key, icon?: React.ReactNode, parent_id?: number, id?: number): MyMenuItem {
+function getMyItem(label: React.ReactNode, key: React.Key, icon?: React.ReactNode, parentId?: number, id?: number): MyMenuItem {
 
-    return {label, key, icon, parent_id, id} as MyMenuItem;
+    return {label, key, icon, parentId, id} as MyMenuItem;
 }
 
 // const items: MenuItem[] = [
@@ -87,14 +87,14 @@ const Admin: React.FC = () => {
         query_user_menu().then(res => {
             setUserName(res.data.name)
             setAvatar(res.data.avatar)
-            setMenuItem(tree(menuListTree(res.data.sys_menu), 0, "parent_id"))
+            setMenuItem(tree(menuListTree(res.data.sysMenu), 0, "parentId"))
         })
     }, []);
 
 
     const menuListTree = (menuList: RecordVo[]) => {
         return menuList.map(item => {
-            return getMyItem(<span>{item.name}</span>, item.path, <PieChartOutlined/>, item.parent_id, item.id)
+            return getMyItem(<span>{item.name}</span>, item.path, <PieChartOutlined/>, item.parentId, item.id)
         })
     }
 

@@ -18,13 +18,13 @@ const Post: React.FC = () => {
     const [postListData, setPostListData] = useState<PostVo[]>([]);
     const [currentPost, setCurrentPost] = useState<PostVo>({
         id: 0,
-        post_code: '',
-        post_name: '',
+        postCode: '',
+        postName: '',
         sort: 0,
         status: 0,
         remark: '',
-        create_time: '',
-        update_time: '',
+        createTime: '',
+        updateTime: '',
     });
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [pageSize, setPageSize] = useState<number>(10);
@@ -37,11 +37,11 @@ const Post: React.FC = () => {
         },
         {
             title: '岗位编码',
-            dataIndex: 'post_code',
+            dataIndex: 'postCode',
         },
         {
             title: '岗位名称',
-            dataIndex: 'post_name',
+            dataIndex: 'postName',
             render: (text: string) => <a>{text}</a>,
         },
         {
@@ -69,7 +69,7 @@ const Post: React.FC = () => {
         },
         {
             title: '创建时间',
-            dataIndex: 'create_time',
+            dataIndex: 'createTime',
         },
 
         {

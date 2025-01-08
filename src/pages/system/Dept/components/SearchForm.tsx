@@ -26,10 +26,10 @@ const AdvancedSearchForm: React.FC<CreateFormProps> = ({search, reSet}) => {
         return (
             <>
                 <FormItem
-                    name="dept_name"
+                    name="deptName"
                     label="部门名称"
                 >
-                    <Input id="search-dept_name" placeholder={'请输入部门名称'}/>
+                    <Input id="search-deptName" placeholder={'请输入部门名称'}/>
                 </FormItem>
 
                 <FormItem

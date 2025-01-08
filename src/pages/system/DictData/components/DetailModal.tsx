@@ -20,42 +20,42 @@ const DetailModal: React.FC<DetailModalProps> = (props) => {
                     {
                         key: '1',
                         label: '字典编码',
-                        children: <p>{res.data.dict_code}</p>,
+                        children: <p>{res.data.dictCode}</p>,
                     },
                     {
                         key: '2',
                         label: '字典排序',
-                        children: <p>{res.data.dict_sort}</p>,
+                        children: <p>{res.data.dictSort}</p>,
                     },
                     {
                         key: '3',
                         label: '字典标签',
-                        children: <p>{res.data.dict_label}</p>,
+                        children: <p>{res.data.dictLabel}</p>,
                     },
                     {
                         key: '4',
                         label: '字典键值',
-                        children: <p>{res.data.dict_value}</p>,
+                        children: <p>{res.data.dictValue}</p>,
                     },
                     {
                         key: '5',
                         label: '字典类型',
-                        children: <p>{res.data.dict_type}</p>,
+                        children: <p>{res.data.dictType}</p>,
                     },
                     {
                         key: '6',
                         label: '样式属性',
-                        children: <p>{res.data.css_class}</p>,
+                        children: <p>{res.data.cssClass}</p>,
                     },
                     {
                         key: '7',
                         label: '表格回显样式',
-                        children: <p>{res.data.list_class}</p>,
+                        children: <p>{res.data.listClass}</p>,
                     },
                     {
                         key: '8',
                         label: '是否默认',
-                        children: <p>{res.data.is_default == 'Y' ? '是' : '否'}</p>,
+                        children: <p>{res.data.isDefault == 'Y' ? '是' : '否'}</p>,
                     },
                     {
                         key: '9',
@@ -70,12 +70,12 @@ const DetailModal: React.FC<DetailModalProps> = (props) => {
                     {
                         key: '11',
                         label: '创建时间',
-                        children: <p>{res.data.create_time}</p>,
+                        children: <p>{res.data.createTime}</p>,
                     },
                     {
                         key: '12',
                         label: '修改时间',
-                        children: <p>{res.data.update_time}</p>,
+                        children: <p>{res.data.updateTime}</p>,
                     },
 
                 ])

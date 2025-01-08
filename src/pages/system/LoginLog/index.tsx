@@ -14,20 +14,20 @@ const LoginLog: React.FC = () => {
     const [loginLogListData, setLoginLogListData] = useState<LoginLogVo[]>([]);
     const [currentLoginLog, setCurrentLoginLog] = useState<LoginLogVo>({
         id: 0,
-        login_name: '',
+        loginName: '',
         ipaddr: '',
-        login_location: '',
+        loginLocation: '',
         platform: '',
         browser: '',
         version: '',
         os: '',
         arch: '',
         engine: '',
-        engine_details: '',
+        engineDetails: '',
         extra: '',
         status: 0,
         msg: '',
-        login_time: '',
+        loginTime: '',
     });
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [pageSize, setPageSize] = useState<number>(10);
@@ -40,7 +40,7 @@ const LoginLog: React.FC = () => {
         },
         {
             title: '用户名称',
-            dataIndex: 'login_name',
+            dataIndex: 'loginName',
             render: (text, entity) => {
                 return (
                     <Button type="link" size={'small'} onClick={() => showDetailModal(entity)}>{text}</Button>
@@ -53,7 +53,7 @@ const LoginLog: React.FC = () => {
         },
         {
             title: '登录地点',
-            dataIndex: 'login_location',
+            dataIndex: 'loginLocation',
         },
         {
             title: '操作系统',
@@ -84,7 +84,7 @@ const LoginLog: React.FC = () => {
         },
         {
             title: '登录时间',
-            dataIndex: 'login_time',
+            dataIndex: 'loginTime',
         },
 
         {

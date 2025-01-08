@@ -43,18 +43,18 @@ const UpdateModal: React.FC<UpdateModalProps> = ({open, onCreate, onCancel, id})
                     <Input id="update-id"/>
                 </FormItem>
                 <FormItem
-                    name="post_code"
+                    name="postCode"
                     label="岗位编码"
                     rules={[{required: true, message: '请输入岗位编码!'}]}
                 >
-                    <Input id="update-post_code" placeholder={'请输入岗位编码!'}/>
+                    <Input id="update-postCode" placeholder={'请输入岗位编码!'}/>
                 </FormItem>
                 <FormItem
-                    name="post_name"
+                    name="postName"
                     label="岗位名称"
                     rules={[{required: true, message: '请输入岗位名称!'}]}
                 >
-                    <Input id="update-post_name" placeholder={'请输入岗位名称!'}/>
+                    <Input id="update-postName" placeholder={'请输入岗位名称!'}/>
                 </FormItem>
                 <FormItem
                     name="sort"

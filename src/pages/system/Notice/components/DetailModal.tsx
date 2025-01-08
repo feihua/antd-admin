@@ -18,7 +18,7 @@ const DetailModal: React.FC<DetailModalProps> = (props) => {
     useEffect(() => {
         if (open) {
             queryNoticeDetail({id}).then((res) => {
-                setTitle(res.data.notice_type == 1 ? "通知详情" : "公告详情")
+                setTitle(res.data.noticeType == 1 ? "通知详情" : "公告详情")
                 setColumns([
                     {
                         key: '1',
@@ -28,12 +28,12 @@ const DetailModal: React.FC<DetailModalProps> = (props) => {
                     {
                         key: '2',
                         label: '公告标题',
-                        children: <p>{res.data.notice_title}</p>,
+                        children: <p>{res.data.noticeTitle}</p>,
                     },
                     {
                         key: '3',
                         label: '公告类型',
-                        children: <p>{res.data.notice_type == 1 ? '通知' : '公告'}</p>,
+                        children: <p>{res.data.noticeType == 1 ? '通知' : '公告'}</p>,
                     },
                     {
                         key: '5',
@@ -43,7 +43,7 @@ const DetailModal: React.FC<DetailModalProps> = (props) => {
                     {
                         key: '4',
                         label: '公告内容',
-                        children: <p>{res.data.notice_content}</p>,
+                        children: <p>{res.data.noticeContent}</p>,
                         span: 3
                     },
 
@@ -56,12 +56,12 @@ const DetailModal: React.FC<DetailModalProps> = (props) => {
                     {
                         key: '7',
                         label: '创建时间',
-                        children: <p>{res.data.create_time}</p>,
+                        children: <p>{res.data.createTime}</p>,
                     },
                     {
                         key: '8',
                         label: '修改时间',
-                        children: <p>{res.data.update_time}</p>,
+                        children: <p>{res.data.updateTime}</p>,
                     },
 
                 ])

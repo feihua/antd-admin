@@ -17,8 +17,8 @@ const Login: React.FC = () => {
         let res: IResponse = await reqLogin({mobile, password})
         if (res.code === 0) {
             storageUtils.saveToken(res.data)
-            // if (res.data.user_id) {
-            //     localStorage.setItem('user_id', res.data.user_id);
+            // if (res.data.userId) {
+            //     localStorage.setItem('userId', res.data.userId);
             // }
             navigate('/home')
             message.success(res.msg);

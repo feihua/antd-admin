@@ -18,24 +18,24 @@ const Dept: React.FC = () => {
     const [deptListData, setDeptListData] = useState<DeptVo[]>([]);
     const [currentDept, setCurrentDept] = useState<DeptVo>({
         id: 0,
-        parent_id: 0,
+        parentId: 0,
         ancestors: '',
-        dept_name: '',
+        deptName: '',
         sort: 0,
         leader: '',
         phone: '',
         email: '',
         status: 0,
-        del_flag: 0,
-        create_time: '',
-        update_time: '',
+        delFlag: 0,
+        createTime: '',
+        updateTime: '',
     });
 
     const columns: ColumnsType<DeptVo> = [
 
         {
             title: '部门名称',
-            dataIndex: 'dept_name',
+            dataIndex: 'deptName',
             render: (text: string) => <a>{text}</a>,
         },
         {
@@ -60,7 +60,7 @@ const Dept: React.FC = () => {
         },
         {
             title: '创建时间',
-            dataIndex: 'create_time',
+            dataIndex: 'createTime',
         },
 
         {
@@ -129,7 +129,7 @@ const Dept: React.FC = () => {
             cancelText: '取消',
             content: `确定删除${param.id}吗?`,
             async onOk() {
-                await handleRemove([param.id]);
+                await handleRemove(param.id);
             },
             onCancel() {
                 console.log('Cancel');
@@ -138,8 +138,8 @@ const Dept: React.FC = () => {
     };
 
     //批量删除
-    const handleRemove = async (ids: number[]) => {
-        if (handleResp(await removeDept(ids))) {
+    const handleRemove = async (id: number) => {
+        if (handleResp(await removeDept(id))) {
             setDeptListData(await queryDeptList({}));
         }
 
@@ -190,19 +190,6 @@ const Dept: React.FC = () => {
                          id={currentDept.id}></UpdateModal>
             <DetailModal onCancel={handleDetailCancel} open={isShowDetailModal} id={currentDept.id}></DetailModal>
 
-            {selectedRowKeys.length > 0 &&
-                <div>
-                    已选择 {selectedRowKeys.length} 项
-                    <Button style={{float: "right"}} danger icon={<DeleteOutlined/>} type={'primary'}
-                            onClick={async () => {
-                                await handleRemove(selectedRowKeys as number[]);
-                                setSelectedRowKeys([]);
-                            }}
-                    >
-                        批量删除
-                    </Button>
-                </div>
-            }
 
         </div>
     );

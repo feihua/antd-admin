@@ -28,15 +28,15 @@ const AdvancedSearchForm: React.FC<SearchFormProps> = ({search, reSet}) => {
             <>
                 <FormItem
                     label={'角色名称'}
-                    name="role_name"
+                    name="roleName"
                 >
                     <Input placeholder="角色名称"/>
                 </FormItem>
                 <FormItem
-                    name="role_key"
+                    name="roleKey"
                     label="权限字符"
                 >
-                    <Input id="search-role_key" placeholder={'请输入权限字符'}/>
+                    <Input id="search-roleKey" placeholder={'请输入权限字符'}/>
                 </FormItem>
                 <FormItem
                     label={'状态'}

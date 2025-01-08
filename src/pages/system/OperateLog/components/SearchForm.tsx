@@ -32,23 +32,23 @@ const AdvancedSearchForm: React.FC<CreateFormProps> = ({search, reSet}) => {
                     <Input id="search-title" placeholder={'请输入模块标题'}/>
                 </FormItem>
                 <FormItem
-                    name="business_type"
+                    name="businessType"
                     label="业务类型"
                 >
-                    <Input id="search-business_type" placeholder={'请输入业务类型（0其它 1新增 2修改 3删除）'}/>
+                    <Input id="search-businessType" placeholder={'请输入业务类型（0其它 1新增 2修改 3删除）'}/>
                 </FormItem>
 
                 <FormItem
-                    name="operator_type"
+                    name="operatorType"
                     label="操作类别"
                 >
-                    <Input id="search-operator_type" placeholder={'请输入操作类别（0其它 1后台用户 2手机端用户）'}/>
+                    <Input id="search-operatorType" placeholder={'请输入操作类别（0其它 1后台用户 2手机端用户）'}/>
                 </FormItem>
                 <FormItem
-                    name="operate_name"
+                    name="operateName"
                     label="操作人员"
                 >
-                    <Input id="search-operate_name" placeholder={'请输入操作人员'}/>
+                    <Input id="search-operateName" placeholder={'请输入操作人员'}/>
                 </FormItem>
                 <FormItem
                     name="status"

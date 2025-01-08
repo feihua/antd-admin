@@ -29,26 +29,26 @@ const SysUser: React.FC = () => {
     const [userListData, setUserListData] = useState<UserVo[]>([]);
     const [currentUser, setCurrentUser] = useState<UserVo>({
         avatar: "",
-        create_time: "",
-        del_flag: 0,
-        dept_id: 0,
+        createTime: "",
+        delFlag: 0,
+        deptId: 0,
         email: "",
         id: 0,
-        login_browser: "",
-        login_date: "",
-        login_ip: "",
-        login_os: "",
+        loginBrowser: "",
+        loginDate: "",
+        loginIp: "",
+        loginOs: "",
         mobile: "",
-        nick_name: "",
+        nickName: "",
         password: "",
-        post_ids: 0,
-        pwd_update_date: "",
+        postIds: 0,
+        pwdUpdateDate: "",
         remark: "",
         sort: 0,
         status: 0,
-        update_time: "",
-        user_name: "",
-        user_type: ""
+        updateTime: "",
+        userName: "",
+        userType: ""
 
     });
     const [currentPage, setCurrentPage] = useState<number>(1);
@@ -67,12 +67,12 @@ const SysUser: React.FC = () => {
         },
         {
             title: '用户账号',
-            dataIndex: 'user_name',
+            dataIndex: 'userName',
             render: (text: string) => <a>{text}</a>,
         },
         {
             title: '用户昵称',
-            dataIndex: 'nick_name',
+            dataIndex: 'nickName',
             render: (text: string) => <a>{text}</a>,
         },
         {
@@ -90,11 +90,11 @@ const SysUser: React.FC = () => {
         },
         {
             title: '部门',
-            dataIndex: 'dept_id',
+            dataIndex: 'deptId',
         },
         {
             title: '创建时间',
-            dataIndex: 'create_time',
+            dataIndex: 'createTime',
         },
         {
             title: '操作',
@@ -203,8 +203,8 @@ const SysUser: React.FC = () => {
         setShowRoleModal(true);
     };
 
-    const handleRoleOk = async (user_id: number, role_ids: number[]) => {
-        if (handleResp(await update_user_role(user_id, role_ids))) {
+    const handleRoleOk = async (userId: number, roleIds: number[]) => {
+        if (handleResp(await update_user_role(userId, roleIds))) {
             setShowRoleModal(false);
             let res = await queryUserList({
                 current: currentPage, pageSize,
@@ -223,7 +223,7 @@ const SysUser: React.FC = () => {
         Modal.confirm({
             okText: '确定',
             cancelText: '取消',
-            content: `确定删除${user.user_name}吗?`,
+            content: `确定删除${user.userName}吗?`,
             async onOk() {
                 await handleRemove([user.id]);
             },
@@ -299,9 +299,9 @@ const SysUser: React.FC = () => {
     const onSelect: TreeProps['onSelect'] = (selectedKeys, info) => {
         console.log('selected', selectedKeys, info);
         console.log('info', info.node.key);
-        const dept_id = info.node.key as number
+        const deptId = info.node.key as number
         queryUserList({
-            current: currentPage, pageSize, dept_id
+            current: currentPage, pageSize, deptId
         }).then(res => {
             setTotal(res.total)
             res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
@@ -317,7 +317,7 @@ const SysUser: React.FC = () => {
                         // @ts-ignore
                         treeData={deptListData}
                         defaultExpandAll
-                        fieldNames={{title: 'dept_name', key: 'id', children: 'children'}}
+                        fieldNames={{title: 'deptName', key: 'id', children: 'children'}}
                     />}
                 </Splitter.Panel>
                 <Splitter.Panel>

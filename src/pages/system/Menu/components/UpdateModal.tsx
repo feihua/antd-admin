@@ -25,8 +25,8 @@ const UpdateModal: React.FC<UpdateModalProps> = ({open, onCreate, onCancel, id})
 
                     let menuList: TmpMenuVo = {
                         id: 0,
-                        menu_name: '主类目',
-                        children: tree(res.data, 0, "parent_id")
+                        menuName: '主类目',
+                        children: tree(res.data, 0, "parentId")
                     };
                     setTmpMenuVo([menuList])
                 } else {
@@ -34,7 +34,7 @@ const UpdateModal: React.FC<UpdateModalProps> = ({open, onCreate, onCancel, id})
                 }
             });
             queryMenuDetail({id}).then((res) => {
-                setMenuType(res.data.menu_type)
+                setMenuType(res.data.menuType)
                 form.setFieldsValue(res.data);
 
             });
@@ -67,7 +67,7 @@ const UpdateModal: React.FC<UpdateModalProps> = ({open, onCreate, onCancel, id})
                 </FormItem>
                 <FormItem
                     label="上级菜单"
-                    name="parent_id"
+                    name="parentId"
                     rules={[{required: true, message: '请选择上级菜单!'}]}
                 >
                     <TreeSelect
@@ -76,12 +76,12 @@ const UpdateModal: React.FC<UpdateModalProps> = ({open, onCreate, onCancel, id})
                         treeData={tmpMenuVo}
                         placeholder="请选择上级菜单"
                         allowClear
-                        fieldNames={{label: 'menu_name', value: 'id', children: 'children'}}
+                        fieldNames={{label: 'menuName', value: 'id', children: 'children'}}
                     />
                 </FormItem>
                 <FormItem
                     label="菜单类型"
-                    name="menu_type"
+                    name="menuType"
                     rules={[{required: true, message: '请选择菜单类型!'}]}
                 >
                     <Radio.Group onChange={onChange} value={menuType}>
@@ -91,19 +91,19 @@ const UpdateModal: React.FC<UpdateModalProps> = ({open, onCreate, onCancel, id})
                     </Radio.Group>
                 </FormItem>
                 <FormItem
-                    name="menu_name"
+                    name="menuName"
                     label="菜单名称"
                     rules={[{required: true, message: '请输入菜单名称!'}]}
                 >
-                    <Input id="update-menu_name" placeholder={'请输入菜单名称'}/>
+                    <Input id="update-menuName" placeholder={'请输入菜单名称'}/>
                 </FormItem>
                 {menuType !== 3 &&
                     <FormItem
-                        name="menu_icon"
+                        name="menuIcon"
                         label="菜单图标"
                         rules={[{required: true, message: '请输入菜单图标!'}]}
                     >
-                        <Input id="update-menu_icon" placeholder={'请输入菜单图标'}/>
+                        <Input id="update-menuIcon" placeholder={'请输入菜单图标'}/>
                     </FormItem>
                 }
 
@@ -139,20 +139,20 @@ const UpdateModal: React.FC<UpdateModalProps> = ({open, onCreate, onCancel, id})
 
                 {menuType !== 3 &&
                     <FormItem
-                        name="menu_url"
+                        name="menuUrl"
                         label="路由路径"
                         rules={[{required: true, message: '请输入路由路径!'}]}
                     >
-                        <Input id="update-menu_url" placeholder={'请输入路由路径'}/>
+                        <Input id="update-menuUrl" placeholder={'请输入路由路径'}/>
                     </FormItem>
                 }
                 {menuType === 3 &&
                     <FormItem
-                        name="api_url"
+                        name="apiUrl"
                         label="接口地址"
                         rules={[{required: true, message: '请输入接口地址!'}]}
                     >
-                        <Input id="update-api_url" placeholder={'请输入接口地址'}/>
+                        <Input id="update-apiUrl" placeholder={'请输入接口地址'}/>
                     </FormItem>
                 }
 

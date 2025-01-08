@@ -16,18 +16,18 @@ const SysMenu: React.FC = () => {
     const [isShowDetailModal, setShowDetailModal] = useState<boolean>(false);
     const [menuListData, setMenuListData] = useState<MenuVo[]>([]);
     const [currentMenu, setCurrentMenu] = useState<MenuVo>({
-        api_url: "",
-        create_time: "",
+        apiUrl: "",
+        createTime: "",
         id: 0,
-        menu_icon: "",
-        menu_name: "",
-        menu_type: 0,
-        menu_url: "",
-        parent_id: 0,
+        menuIcon: "",
+        menuName: "",
+        menuType: 0,
+        menuUrl: "",
+        parentId: 0,
         remark: "",
         sort: 0,
         status: 0,
-        update_time: "",
+        updateTime: "",
         visible: 0
 
     });
@@ -35,12 +35,12 @@ const SysMenu: React.FC = () => {
     const columns: ColumnsType<MenuVo> = [
         {
             title: '菜单名称',
-            dataIndex: 'menu_name',
+            dataIndex: 'menuName',
             render: (text: string) => <a>{text}</a>,
         },
         {
             title: '菜单图标',
-            dataIndex: 'menu_icon',
+            dataIndex: 'menuIcon',
         },
         {
             title: '排序',
@@ -48,11 +48,11 @@ const SysMenu: React.FC = () => {
         },
         {
             title: '路径',
-            dataIndex: 'menu_url',
+            dataIndex: 'menuUrl',
         },
         {
             title: '接口地址',
-            dataIndex: 'api_url',
+            dataIndex: 'apiUrl',
         },
         {
             title: '状态',
@@ -71,7 +71,7 @@ const SysMenu: React.FC = () => {
         },
         {
             title: '创建时间',
-            dataIndex: 'create_time',
+            dataIndex: 'createTime',
         },
         {
             title: '操作',
@@ -139,9 +139,9 @@ const SysMenu: React.FC = () => {
         Modal.confirm({
             okText: '确定',
             cancelText: '取消',
-            content: `确定删除${menu.menu_name}吗?`,
+            content: `确定删除${menu.menuName}吗?`,
             async onOk() {
-                await handleRemove([menu.id]);
+                await handleRemove(menu.id);
             },
             onCancel() {
                 console.log('Cancel');
@@ -150,8 +150,8 @@ const SysMenu: React.FC = () => {
     };
 
     //批量删除
-    const handleRemove = async (ids: number[]) => {
-        if (handleResp(await removeMenu(ids))) {
+    const handleRemove = async (id: number) => {
+        if (handleResp(await removeMenu(id))) {
             let res = await queryMenuList({})
             res.code === 0 ? setMenuDataTree(res) : message.error(res.msg);
         }
@@ -159,7 +159,7 @@ const SysMenu: React.FC = () => {
     };
 
     const setMenuDataTree = (res: IResponse) => {
-        setMenuListData(tree(res.data, 0, "parent_id"))
+        setMenuListData(tree(res.data, 0, "parentId"))
     }
 
     useEffect(() => {

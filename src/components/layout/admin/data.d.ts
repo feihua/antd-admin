@@ -4,9 +4,9 @@ export interface RecordVo {
     api_url: string;
     icon: string;
     id: number;
-    menu_type: number;
+    menuType: number;
     name: string;
-    parent_id: number;
+    parentId: number;
     path: string;
 }
 
@@ -14,6 +14,6 @@ export interface MyMenuItem {
     label: React.ReactNode;
     key: React.Key;
     icon?: React.ReactNode;
-    parent_id: number;
+    parentId: number;
     id: number;
 }

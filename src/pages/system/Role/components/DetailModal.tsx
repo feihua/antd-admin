@@ -46,17 +46,17 @@ const DetailModal: React.FC<DetailModalProps> = (props) => {
                     {
                         key: '2',
                         label: '角色名称',
-                        children: <p>{res.data.role_name}</p>,
+                        children: <p>{res.data.roleName}</p>,
                     },
                     {
                         key: '3',
                         label: '权限字符',
-                        children: <p>{res.data.role_key}</p>,
+                        children: <p>{res.data.roleKey}</p>,
                     },
                     {
                         key: '4',
                         label: '数据范围',
-                        children: <p>{getDataScope(res.data.data_scope)}</p>,
+                        children: <p>{getDataScope(res.data.dataScope)}</p>,
                     },
                     {
                         key: '5',
@@ -71,12 +71,12 @@ const DetailModal: React.FC<DetailModalProps> = (props) => {
                     {
                         key: '9',
                         label: '创建时间',
-                        children: <p>{res.data.create_time}</p>,
+                        children: <p>{res.data.createTime}</p>,
                     },
                     {
                         key: '10',
                         label: '修改时间',
-                        children: <p>{res.data.update_time}</p>,
+                        children: <p>{res.data.updateTime}</p>,
                     },
 
                 ])

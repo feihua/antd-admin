@@ -21,7 +21,7 @@ const UpdateModal: React.FC<UpdateModalProps> = ({open, onCreate, onCancel, id})
         if (open) {
             queryNoticeDetail({id}).then((res) => {
                 form.setFieldsValue(res.data);
-                setTitle(res.data.notice_type == 1 ? "更新通知" : "更新公告")
+                setTitle(res.data.noticeType == 1 ? "更新通知" : "更新公告")
             });
         }
     }, [open]);
@@ -47,14 +47,14 @@ const UpdateModal: React.FC<UpdateModalProps> = ({open, onCreate, onCancel, id})
                     <Input id="update-id"/>
                 </FormItem>
                 <FormItem
-                    name="notice_title"
+                    name="noticeTitle"
                     label="公告标题"
                     rules={[{required: true, message: '请输入公告标题!'}]}
                 >
-                    <Input id="create-notice_title" placeholder={'请输入公告标题!'}/>
+                    <Input id="create-noticeTitle" placeholder={'请输入公告标题!'}/>
                 </FormItem>
                 <FormItem
-                    name="notice_type"
+                    name="noticeType"
                     label="公告类型"
                     rules={[{required: true, message: '请输入公告类型!'}]}
                 >
@@ -74,7 +74,7 @@ const UpdateModal: React.FC<UpdateModalProps> = ({open, onCreate, onCancel, id})
                     </Radio.Group>
                 </FormItem>
                 <FormItem
-                    name="notice_content"
+                    name="noticeContent"
                     label="公告内容"
                     rules={[{required: true, message: '请输入公告内容!'}]}
                 >

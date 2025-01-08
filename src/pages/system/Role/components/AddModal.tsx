@@ -32,21 +32,21 @@ const AddModal: React.FC<AddModalProps> = ({open, onCreate, onCancel}) => {
         return (
             <>
                 <FormItem
-                    name="role_name"
+                    name="roleName"
                     label="角色名称"
                     rules={[{required: true, message: '请输入名称!'}]}
                 >
-                    <Input id="create-role_name" placeholder={'请输入名称!'}/>
+                    <Input id="create-roleName" placeholder={'请输入名称!'}/>
                 </FormItem>
                 <FormItem
-                    name="role_key"
+                    name="roleKey"
                     label="权限字符"
                     rules={[{required: true, message: '请输入权限字符串!'}]}
                 >
-                    <Input id="create-role_key" placeholder={'请输入权限字符串!'}/>
+                    <Input id="create-roleKey" placeholder={'请输入权限字符串!'}/>
                 </FormItem>
                 <FormItem
-                    name="data_scope"
+                    name="dataScope"
                     label="数据范围"
                     rules={[{
                         required: true,
@@ -88,7 +88,7 @@ const AddModal: React.FC<AddModalProps> = ({open, onCreate, onCancel}) => {
         <Modal title="新建" okText="保存" onOk={handleOk} onCancel={onCancel} cancelText="取消" open={open} width={480}
                style={{top: 150}}>
             <Form labelCol={{span: 7}} wrapperCol={{span: 13}} form={form}
-                  initialValues={{sort: 1, status: 1, data_scope: 1}}
+                  initialValues={{sort: 1, status: 1, dataScope: 1}}
                   style={{marginTop: 30}}>
                 {renderContent()}
             </Form>

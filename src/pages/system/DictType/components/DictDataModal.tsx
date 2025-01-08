@@ -5,10 +5,10 @@ import DictData from "../../DictData";
 interface DictDataModalProps {
     open: boolean;
     onCancel: () => void;
-    dict_type: string;
+    dictType: string;
 }
 
-const DictDataModal: React.FC<DictDataModalProps> = ({open, onCancel, dict_type}) => {
+const DictDataModal: React.FC<DictDataModalProps> = ({open, onCancel, dictType}) => {
 
     return (
         <Modal title="字典数据信息"
@@ -18,7 +18,7 @@ const DictDataModal: React.FC<DictDataModalProps> = ({open, onCancel, dict_type}
                width={1400}
                style={{top: 150}}
                footer={null}>
-            <DictData open={open} dict_type={dict_type}></DictData>
+            <DictData open={open} dictType={dictType}></DictData>
         </Modal>
     );
 };

@@ -30,12 +30,12 @@ const DetailModal: React.FC<DetailModalProps> = (props) => {
                     {
                         key: '3',
                         label: '用户账号',
-                        children: <p>{res.data.user_name}</p>,
+                        children: <p>{res.data.userName}</p>,
                     },
                     {
                         key: '4',
                         label: '用户昵称',
-                        children: <p>{res.data.nick_name}</p>,
+                        children: <p>{res.data.nickName}</p>,
                     },
 
                     {
@@ -47,7 +47,7 @@ const DetailModal: React.FC<DetailModalProps> = (props) => {
                     {
                         key: '5',
                         label: '用户类型',
-                        children: <p>{res.data.user_type == '00' ? '系统用户' : '非系统用户'}</p>,
+                        children: <p>{res.data.userType == '00' ? '系统用户' : '非系统用户'}</p>,
                     },
                     {
                         key: '7',
@@ -63,32 +63,32 @@ const DetailModal: React.FC<DetailModalProps> = (props) => {
                     {
                         key: '11',
                         label: '部门编号',
-                        children: <p>{res.data.dept_id}</p>,
+                        children: <p>{res.data.deptId}</p>,
                     },
                     {
                         key: '12',
                         label: '最后登录地址',
-                        children: <p>{res.data.login_ip}</p>,
+                        children: <p>{res.data.loginIp}</p>,
                     },
                     {
                         key: '13',
                         label: '最后登录时间',
-                        children: <p>{res.data.login_date}</p>,
+                        children: <p>{res.data.loginDate}</p>,
                     },
                     {
                         key: '14',
                         label: '浏览器类型',
-                        children: <p>{res.data.login_browser}</p>,
+                        children: <p>{res.data.loginBrowser}</p>,
                     },
                     {
                         key: '15',
                         label: '操作系统',
-                        children: <p>{res.data.login_os}</p>,
+                        children: <p>{res.data.loginOs}</p>,
                     },
                     {
                         key: '16',
                         label: '密码最后更新时间',
-                        children: <p>{res.data.pwd_update_date}</p>,
+                        children: <p>{res.data.pwdUpdateDate}</p>,
                     },
                     {
                         key: '17',
@@ -98,12 +98,12 @@ const DetailModal: React.FC<DetailModalProps> = (props) => {
                     {
                         key: '19',
                         label: '创建时间',
-                        children: <p>{res.data.create_time}</p>,
+                        children: <p>{res.data.createTime}</p>,
                     },
                     {
                         key: '20',
                         label: '修改时间',
-                        children: <p>{res.data.update_time}</p>,
+                        children: <p>{res.data.updateTime}</p>,
                     },
 
                 ])

@@ -30,7 +30,7 @@ const DetailModal: React.FC<DetailModalProps> = (props) => {
                     {
                         key: '3',
                         label: '业务类型（0其它 1新增 2修改 3删除）',
-                        children: <p>{res.data.business_type}</p>,
+                        children: <p>{res.data.businessType}</p>,
                     },
                     {
                         key: '4',
@@ -40,47 +40,47 @@ const DetailModal: React.FC<DetailModalProps> = (props) => {
                     {
                         key: '5',
                         label: '请求方式',
-                        children: <p>{res.data.request_method}</p>,
+                        children: <p>{res.data.requestMethod}</p>,
                     },
                     {
                         key: '6',
                         label: '操作类别（0其它 1后台用户 2手机端用户）',
-                        children: <p>{res.data.operator_type}</p>,
+                        children: <p>{res.data.operatorType}</p>,
                     },
                     {
                         key: '7',
                         label: '操作人员',
-                        children: <p>{res.data.operate_name}</p>,
+                        children: <p>{res.data.operateName}</p>,
                     },
                     {
                         key: '8',
                         label: '部门名称',
-                        children: <p>{res.data.dept_name}</p>,
+                        children: <p>{res.data.deptName}</p>,
                     },
                     {
                         key: '9',
                         label: '请求URL',
-                        children: <p>{res.data.operate_url}</p>,
+                        children: <p>{res.data.operateUrl}</p>,
                     },
                     {
                         key: '10',
                         label: '主机地址',
-                        children: <p>{res.data.operate_ip}</p>,
+                        children: <p>{res.data.operateIp}</p>,
                     },
                     {
                         key: '11',
                         label: '操作地点',
-                        children: <p>{res.data.operate_location}</p>,
+                        children: <p>{res.data.operateLocation}</p>,
                     },
                     {
                         key: '12',
                         label: '请求参数',
-                        children: <p>{res.data.operate_param}</p>,
+                        children: <p>{res.data.operateParam}</p>,
                     },
                     {
                         key: '13',
                         label: '返回参数',
-                        children: <p>{res.data.json_result}</p>,
+                        children: <p>{res.data.jsonResult}</p>,
                     },
                     {
                         key: '14',
@@ -90,17 +90,17 @@ const DetailModal: React.FC<DetailModalProps> = (props) => {
                     {
                         key: '15',
                         label: '错误消息',
-                        children: <p>{res.data.error_msg}</p>,
+                        children: <p>{res.data.errorMsg}</p>,
                     },
                     {
                         key: '16',
                         label: '操作时间',
-                        children: <p>{res.data.operate_time}</p>,
+                        children: <p>{res.data.operateTime}</p>,
                     },
                     {
                         key: '17',
                         label: '消耗时间',
-                        children: <p>{res.data.cost_time}</p>,
+                        children: <p>{res.data.costTime}</p>,
                     },
 
                 ])

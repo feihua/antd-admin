@@ -6,10 +6,10 @@ interface AddModalProps {
     open: boolean;
     onCreate: (values: DictDataVo) => void;
     onCancel: () => void;
-    dict_type: string;
+    dictType: string;
 }
 
-const AddModal: React.FC<AddModalProps> = ({open, onCreate, onCancel, dict_type}) => {
+const AddModal: React.FC<AddModalProps> = ({open, onCreate, onCancel, dictType}) => {
     const [form] = Form.useForm();
     const FormItem = Form.Item;
 
@@ -33,49 +33,49 @@ const AddModal: React.FC<AddModalProps> = ({open, onCreate, onCancel, dict_type}
         return (
             <>
                 <FormItem
-                    name="dict_type"
+                    name="dictType"
                     label="字典类型"
                     rules={[{required: true, message: '请输入字典类型!'}]}
                 >
-                    <Input id="create-dict_type" placeholder={'请输入字典类型!'} disabled/>
+                    <Input id="create-dictType" placeholder={'请输入字典类型!'} disabled/>
                 </FormItem>
                 <FormItem
-                    name="dict_label"
+                    name="dictLabel"
                     label="数据标签"
                     rules={[{required: true, message: '请输入数据标签!'}]}
                 >
-                    <Input id="create-dict_label" placeholder={'请输入数据标签!'}/>
+                    <Input id="create-dictLabel" placeholder={'请输入数据标签!'}/>
                 </FormItem>
                 <FormItem
-                    name="dict_value"
+                    name="dictValue"
                     label="数据键值"
                     rules={[{required: true, message: '请输入数据键值!'}]}
                 >
-                    <Input id="create-dict_value" placeholder={'请输入数据键值!'}/>
+                    <Input id="create-dictValue" placeholder={'请输入数据键值!'}/>
                 </FormItem>
                 <FormItem
-                    name="css_class"
+                    name="cssClass"
                     label="样式属性"
                     rules={[{required: true, message: '请输入样式属性（其他样式扩展）!'}]}
                 >
-                    <Input id="create-css_class" placeholder={'请输入样式属性（其他样式扩展）!'}/>
+                    <Input id="create-cssClass" placeholder={'请输入样式属性（其他样式扩展）!'}/>
                 </FormItem>
                 <FormItem
-                    name="list_class"
+                    name="listClass"
                     label="回显样式"
                     rules={[{required: true, message: '请输入表格回显样式!'}]}
                 >
-                    <Input id="create-list_class" placeholder={'请输入表格回显样式!'}/>
+                    <Input id="create-listClass" placeholder={'请输入表格回显样式!'}/>
                 </FormItem>
                 <FormItem
-                    name="dict_sort"
+                    name="dictSort"
                     label="显示排序"
                     rules={[{required: true, message: '请输入显示排序!'}]}
                 >
                     <InputNumber style={{width: 255}}/>
                 </FormItem>
                 <FormItem
-                    name="is_default"
+                    name="isDefault"
                     label="是否默认"
                     rules={[{required: true, message: '请输入是否默认!'}]}
                 >
@@ -109,7 +109,7 @@ const AddModal: React.FC<AddModalProps> = ({open, onCreate, onCancel, dict_type}
         <Modal title="新建" okText="保存" onOk={handleOk} onCancel={onCancel} cancelText="取消" open={open} width={520}
                style={{top: 150}} destroyOnClose={true}>
             <Form labelCol={{span: 7}} wrapperCol={{span: 13}} form={form} key={'add_dict_data_form'}
-                  initialValues={{dict_sort: 1, status: 1, is_default: 'N', dict_type: dict_type}}
+                  initialValues={{dictSort: 1, status: 1, isDefault: 'N', dictType: dictType}}
                   style={{marginTop: 30}}>
                 {renderContent()}
             </Form>
