@@ -31,7 +31,7 @@ const AddModal: React.FC<AddModalProps> = ({open, onCreate, onCancel}) => {
                 setDeptListData(res);
             });
             queryPostList({
-                current: 1, pageSize: 100
+                pageNo: 1, pageSize: 100
             }).then(res => {
                 res.code === 0 ? setPostListData(res.data) : message.error(res.msg);
             });

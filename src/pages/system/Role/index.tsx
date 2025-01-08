@@ -279,7 +279,7 @@ const SysRole: React.FC = () => {
 
     const handleResetOk = async () => {
         setCurrentPage(1)
-        let res = await queryRoleList({current: 1, pageSize})
+        let res = await queryRoleList({pageNo: 1, pageSize})
         setTotal(res.total)
         res.code === 0 ? setRoleListData(res.data) : message.error(res.msg);
     };

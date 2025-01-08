@@ -200,7 +200,7 @@ const Post: React.FC = () => {
             console.log('onChange', page, pageSize)
             setCurrentPage(page)
             setPageSize(pageSize)
-            const res = await queryPostList({current: page, pageSize})
+            const res = await queryPostList({pageNo:page, pageSize})
             setTotal(res.total)
             res.code === 0 ? setPostListData(res.data) : message.error(res.msg);
 
