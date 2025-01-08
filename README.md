@@ -1,50 +1,54 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# antd-admin
 
-Currently, two official plugins are available:
+是基于vite和react构建的权限管理系统
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# 系统截图
 
-## Expanding the ESLint configuration
+## 用户界面
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+![user](https://raw.githubusercontent.com/feihua/axum-admin/master/docs/images/user.jpg)
 
-- Configure the top-level `parserOptions` property like this:
+## 角色分配界面
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+![user_role](https://raw.githubusercontent.com/feihua/axum-admin/master/docs/images/user_role.jpg)
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## 角色界面
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+![role](https://raw.githubusercontent.com/feihua/axum-admin/master/docs/images/role.jpg)
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## 角色用户界面
+
+![role_user](https://raw.githubusercontent.com/feihua/axum-admin/master/docs/images/role_user.jpg)
+
+## 菜单分配界面
+
+![role_menu](https://raw.githubusercontent.com/feihua/axum-admin/master/docs/images/role_menu.jpg)
+
+## 菜单界面
+
+![menu](https://raw.githubusercontent.com/feihua/axum-admin/master/docs/images/menu.jpg)
+
+## 部门界面
+
+![dept](https://raw.githubusercontent.com/feihua/axum-admin/master/docs/images/dept.jpg)
+
+## 岗位界面
+
+![post](https://raw.githubusercontent.com/feihua/axum-admin/master/docs/images/post.jpg)
+
+## 字典界面
+
+![dict_type](https://raw.githubusercontent.com/feihua/axum-admin/master/docs/images/dict.jpg)
+
+## 字典数据界面
+
+![dict_data](https://raw.githubusercontent.com/feihua/axum-admin/master/docs/images/dict_data.jpg)
+
+## 通知界面
+
+![notic](https://raw.githubusercontent.com/feihua/axum-admin/master/docs/images/notice.jpg)
+
+## 登录日志
+
+![log](https://raw.githubusercontent.com/feihua/axum-admin/master/docs/images/login_log.jpg)
