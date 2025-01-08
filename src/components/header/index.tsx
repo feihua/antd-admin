@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import type {MenuProps} from 'antd';
 import {Avatar, Dropdown, Space} from 'antd';
 import {DownOutlined, LogoutOutlined, SettingOutlined, UserOutlined} from "@ant-design/icons";
@@ -29,7 +29,7 @@ const items: MenuProps['items'] = [
 
 
 const MyHeader: React.FC = () => {
-    const {userName, avatar} = useStore()as any;
+    const {userName, avatar} = useStore() as any;
     let navigate = useNavigate();
 
     const onClick: MenuProps['onClick'] = ({key}) => {

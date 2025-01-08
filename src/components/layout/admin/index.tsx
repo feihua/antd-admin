@@ -50,9 +50,10 @@ const Admin: React.FC = () => {
             const storedOpenKeys = localStorage.getItem('openKeys');
             const storedSelectedKeys = localStorage.getItem('selectedKeys');
             if (storedOpenKeys && storedSelectedKeys) {
-                console.log('storedOpenKeys.storedSelectedKeys', storedOpenKeys, storedSelectedKeys);
                 setOpenKeys(JSON.parse(storedOpenKeys));
                 setSelectedKeys(JSON.parse(storedSelectedKeys));
+            }else {
+                setSelectedKeys(['/home']);
             }
         })
     }, []);

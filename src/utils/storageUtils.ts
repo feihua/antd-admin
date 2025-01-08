@@ -44,5 +44,7 @@ export const storageUtils = {
         localStorage.removeItem(USER_Name)
         localStorage.removeItem(BTN_MENU)
         localStorage.removeItem(TREE_MENU)
+        localStorage.removeItem('openKeys')
+        localStorage.removeItem('selectedKeys')
     }
 }
