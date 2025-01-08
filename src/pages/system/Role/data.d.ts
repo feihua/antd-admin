@@ -22,7 +22,7 @@ export interface RoleVo {
 }
 
 export interface QueryUserListParam {
-    current?: number;
+    pageNo?: number;
     pageSize?: number;
     roleId: number; //角色id
     userName?: string; //用户账号

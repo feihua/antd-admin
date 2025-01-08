@@ -21,7 +21,7 @@ const UnallocatedUser: React.FC<RoleDataProps> = ({roleVo, open, onCancel, onBat
     const [pageSize, setPageSize] = useState<number>(10);
     const [total, setTotal] = useState<number>(10);
     const [param, setParam] = useState<QueryUserListParam>({
-        current: 1, mobile: "", pageSize: 10, roleId: roleVo.id, userName: ""
+        pageNo: 1, mobile: "", pageSize: 10, roleId: roleVo.id, userName: ""
 
     });
 
@@ -78,11 +78,11 @@ const UnallocatedUser: React.FC<RoleDataProps> = ({roleVo, open, onCancel, onBat
     const handleResetOk = async () => {
         setCurrentPage(1)
         setParam({
-            current: 1, mobile: "", pageSize: 10, roleId: roleVo.id, userName: ""
+            pageNo: 1, mobile: "", pageSize: 10, roleId: roleVo.id, userName: ""
 
         })
         let res = await query_unallocated_list({
-            current: 1,
+            pageNo: 1,
             mobile: "",
             pageSize: pageSize,
             roleId: roleVo.id,
@@ -118,7 +118,7 @@ const UnallocatedUser: React.FC<RoleDataProps> = ({roleVo, open, onCancel, onBat
             setCurrentPage(page)
             setPageSize(pageSize)
             let res = await query_unallocated_list({
-                current: page,
+                pageNo: page,
                 mobile: param.mobile,
                 pageSize,
                 roleId: roleVo.id,

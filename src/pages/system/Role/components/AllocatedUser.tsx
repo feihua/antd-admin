@@ -29,7 +29,7 @@ const AllocatedUser: React.FC<RoleDataProps> = ({roleVo, open, onCancel}) => {
     const [pageSize, setPageSize] = useState<number>(10);
     const [total, setTotal] = useState<number>(10);
     const [param, setParam] = useState<QueryUserListParam>({
-        current: 1, mobile: "", pageSize: 10, roleId: roleVo.id, userName: ""
+        pageNo: 1, mobile: "", pageSize: 10, roleId: roleVo.id, userName: ""
 
     });
     const columns: ColumnsType<UserVo> = [
@@ -168,11 +168,11 @@ const AllocatedUser: React.FC<RoleDataProps> = ({roleVo, open, onCancel}) => {
     const handleResetOk = async () => {
         setCurrentPage(1)
         setParam({
-            current: 1, mobile: "", pageSize: 10, roleId: roleVo.id, userName: ""
+            pageNo: 1, mobile: "", pageSize: 10, roleId: roleVo.id, userName: ""
 
         })
         let res = await query_allocated_list({
-            current: 1,
+            pageNo: 1,
             mobile: "",
             pageSize: pageSize,
             roleId: roleVo.id,
@@ -186,7 +186,7 @@ const AllocatedUser: React.FC<RoleDataProps> = ({roleVo, open, onCancel}) => {
         if (open) {
 
             setParam({
-                current: 1, mobile: "", pageSize: 10, roleId: roleVo.id, userName: ""
+                pageNo: 1, mobile: "", pageSize: 10, roleId: roleVo.id, userName: ""
 
             })
             console.log('useEffect param', param)
@@ -214,7 +214,7 @@ const AllocatedUser: React.FC<RoleDataProps> = ({roleVo, open, onCancel}) => {
         onChange: async (page: number, pageSize: number) => {
             setCurrentPage(page)
             setPageSize(pageSize)
-            let res = await query_allocated_list({current: 0, mobile: "", pageSize: 0, roleId: 0, userName: ""})
+            let res = await query_allocated_list({pageNo: 0, mobile: "", pageSize: 0, roleId: 0, userName: ""})
             setTotal(res.total)
             res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
 
