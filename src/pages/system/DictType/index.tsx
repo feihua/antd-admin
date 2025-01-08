@@ -213,7 +213,7 @@ const DictType: React.FC = () => {
             console.log('onChange', page, pageSize)
             setCurrentPage(page)
             setPageSize(pageSize)
-            const res = await queryDictTypeList({current: page, pageSize})
+            const res = await queryDictTypeList({pageNo: page, pageSize})
             setTotal(res.total)
             res.code === 0 ? setDictTypeListData(res.data) : message.error(res.msg);
 
@@ -243,7 +243,7 @@ const DictType: React.FC = () => {
                 size={"small"}
                 columns={columns}
                 dataSource={dictTypeListData}
-                rowKey={'id'}
+                rowKey={'dictId'}
                 pagination={paginationProps}
                 // tableLayout={"fixed"}
             />

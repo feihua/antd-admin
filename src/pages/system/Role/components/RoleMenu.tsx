@@ -19,7 +19,7 @@ const SetRoleMenuForm: React.FC<UpdateFormProps> = ({open, onCreate, onCancel, r
     const [checkedKeys, setCheckedKeys] = useState<React.Key[]>([]);
 
     useEffect(() => {
-        if (roleVo) {
+        if (open) {
             form.setFieldsValue(roleVo);
         }
         setCheckedKeys([]);

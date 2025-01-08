@@ -14,7 +14,7 @@ const UpdateRoleModal: React.FC<UpdateFormProps> = ({open, onCreate, onCancel, r
     const FormItem = Form.Item;
 
     useEffect(() => {
-        if (roleVo) {
+        if (open) {
             form.setFieldsValue(roleVo);
         }
     }, [open]);
@@ -92,11 +92,11 @@ const UpdateRoleModal: React.FC<UpdateFormProps> = ({open, onCreate, onCancel, r
     }
 
     const modalFooter = {title: "更新", okText: '保存', onOk: handleOk, onCancel, cancelText: '取消', open, width: 480};
-    const formLayout = {labelCol: {span: 7}, wrapperCol: {span: 13}, form};
+    const formLayout = {labelCol: {span: 7}, wrapperCol: {span: 13}};
 
     return (
         <Modal {...modalFooter} style={{top: 150}}>
-            <Form {...formLayout} style={{marginTop: 30}}>
+            <Form {...formLayout} style={{marginTop: 30}} form={form}>
                 {updateContent()}
             </Form>
         </Modal>

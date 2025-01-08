@@ -8,6 +8,7 @@ export function tree(data: any, pid = 0, key = 'pid') {
             if (children.length) {
                 temp.children = children;
             }
+            delete temp.parentId
             result.push(temp);
         }
     }

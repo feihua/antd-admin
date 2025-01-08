@@ -52,7 +52,7 @@ const routes = [
             },
             {
                 path: '/system/dictData',
-                element: <DictData dict_type={""} open={true}/>,
+                element: <DictData dictType={""} open={true}/>,
             },
             {
                 path: '/system/notice',
