@@ -4,9 +4,9 @@ import {Link, useNavigate, useRoutes} from "react-router-dom";
 import routes from "../../../router";
 
 import React, {useEffect, useState} from 'react';
-import {PieChartOutlined,} from '@ant-design/icons';
+import {HomeOutlined, PieChartOutlined} from '@ant-design/icons';
 import type {MenuProps} from 'antd';
-import {Layout, Menu, theme} from 'antd';
+import {Breadcrumb, Layout, Menu, theme} from 'antd';
 import logo from '../../../assets/images/logo.svg'
 import MyHeader from '../../header'
 import {query_user_menu} from "./service.ts";
@@ -36,6 +36,7 @@ const Admin: React.FC = () => {
     const [menuItem, setMenuItem] = useState<MenuItem[]>([]);
     const [openKeys, setOpenKeys] = useState<string[]>([]);
     const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
+    const [breadcrumbs, setBreadcrumbs] = useState<>([{'title': <HomeOutlined/>}, {title: '首页'}]);
 
     const [collapsed, setCollapsed] = useState(false);
     const {
@@ -52,8 +53,15 @@ const Admin: React.FC = () => {
             if (storedOpenKeys && storedSelectedKeys) {
                 setOpenKeys(JSON.parse(storedOpenKeys));
                 setSelectedKeys(JSON.parse(storedSelectedKeys));
-            }else {
+            } else {
                 setSelectedKeys(['/home']);
+            }
+            const storedBreadcrumb = localStorage.getItem('breadcrumb');
+
+            if (storedBreadcrumb) {
+                let parse = JSON.parse(storedBreadcrumb);
+                parse.unshift({'title': <HomeOutlined/>})
+                setBreadcrumbs(parse)
             }
         })
     }, []);
@@ -65,10 +73,30 @@ const Admin: React.FC = () => {
         })
     }
 
+    function setBreadcrumb(item) {
+        const keys = item.key.split('/');
+        let tmp: any[]
+        console.log('keys', keys);
+        if (keys.length > 2) {
+            let selectMenus = menuItem.filter((value) => {
+                return value.key == '/' + keys[1]
+            })
+            tmp = [
+                {'title': selectMenus[0].label.props.children},
+                {'title': item.domEvent.target.innerText}]
+
+        } else {
+            tmp = [{'title': '首页'}]
+        }
+        localStorage.setItem('breadcrumb', JSON.stringify(tmp));
+        tmp.unshift({'title': <HomeOutlined/>})
+        setBreadcrumbs(tmp)
+    }
+
     return (
         <Layout style={{minHeight: '100vh'}}>
             <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)} theme={"light"}>
-                <Link to='/home' style={{display: "flex", alignItems: "center"}} onClick={()=> {
+                <Link to='/home' style={{display: "flex", alignItems: "center"}} onClick={() => {
                     localStorage.setItem('selectedKeys', JSON.stringify(['/home']));
                     setSelectedKeys(['/home'])
                 }}>
@@ -81,6 +109,7 @@ const Admin: React.FC = () => {
                       selectedKeys={selectedKeys}
                       mode="inline" items={menuItem}
                       onClick={(item) => {
+                          setBreadcrumb(item);
                           navigate(item.key)
                       }}
                       onOpenChange={keys => {
@@ -96,7 +125,9 @@ const Admin: React.FC = () => {
             <Layout className="site-layout">
                 <Header style={{padding: 0, background: colorBgContainer}}><MyHeader></MyHeader></Header>
                 <Content style={{margin: '0 12px'}}>
-                    <div style={{minHeight: 360, background: colorBgContainer, marginTop: '12px'}}>
+                    <Breadcrumb style={{margin: '12px 0'}} items={breadcrumbs}>
+                    </Breadcrumb>
+                    <div style={{minHeight: 360, background: colorBgContainer}}>
                         {routesElement}
                     </div>
                 </Content>

@@ -46,5 +46,6 @@ export const storageUtils = {
         localStorage.removeItem(TREE_MENU)
         localStorage.removeItem('openKeys')
         localStorage.removeItem('selectedKeys')
+        localStorage.removeItem('breadcrumb')
     }
 }

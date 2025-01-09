@@ -89,6 +89,21 @@ const routes = [
         ],
     },
     {
+        path: '/log',
+        element: <SystemIndex/>,
+        children: [
+            {
+                path: '/log/loginLog',
+                element: <LoginLog/>,
+            },
+            {
+                path: '/log/operateLog',
+                element: <OperateLog/>,
+            },
+
+        ],
+    },
+    {
         path: "/",
         element: <Navigate to="/home"/>
     }
