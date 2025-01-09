@@ -207,7 +207,6 @@ const Notice: React.FC = () => {
         ),
         total,
         onChange: async (page: number, pageSize: number) => {
-            console.log('onChange', page, pageSize)
             setCurrentPage(page)
             setPageSize(pageSize)
             const res = await queryNoticeList({current: page, pageSize})

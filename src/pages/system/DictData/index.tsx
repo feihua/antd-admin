@@ -228,7 +228,6 @@ const DictData: React.FC<DictDataProps> = ({dictType, open}) => {
         ),
         total,
         onChange: async (page: number, pageSize: number) => {
-            console.log('onChange', page, pageSize)
             setCurrentPage(page)
             setPageSize(pageSize)
             const res = await queryDictDataList({pageNo: page, pageSize, dictType})

@@ -129,7 +129,6 @@ const AllocatedUser: React.FC<RoleDataProps> = ({roleVo, open, onCancel}) => {
     const handleUnallocatedOk = async (params: { userIds: number[], roleId: number }) => {
         if (handleResp(await batch_auth_user(params))) {
             setShowUnallocatedModal(false);
-            console.log('param', param)
             let res = await query_allocated_list(param)
             setTotal(res.total)
             res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
@@ -189,7 +188,6 @@ const AllocatedUser: React.FC<RoleDataProps> = ({roleVo, open, onCancel}) => {
                 pageNo: 1, mobile: "", pageSize: 10, roleId: roleVo.id, userName: ""
 
             })
-            console.log('useEffect param', param)
             query_allocated_list({
                 roleId: roleVo.id, pageNo: currentPage, pageSize
             }).then(res => {

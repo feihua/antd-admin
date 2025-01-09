@@ -172,7 +172,6 @@ const LoginLog: React.FC = () => {
         ),
         total,
         onChange: async (page: number, pageSize: number) => {
-            console.log('onChange', page, pageSize)
             setCurrentPage(page)
             setPageSize(pageSize)
             const res = await queryLoginLogList({current: page, pageSize})

@@ -97,7 +97,6 @@ const SysMenu: React.FC = () => {
         if (handleResp(await addMenu(menu))) {
             setShowAddModal(false);
             let res = await queryMenuList({})
-            console.log(res)
             res.code === 0 ? setMenuDataTree(res) : message.error(res.msg);
         }
     }

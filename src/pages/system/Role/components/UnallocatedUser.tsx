@@ -114,7 +114,6 @@ const UnallocatedUser: React.FC<RoleDataProps> = ({roleVo, open, onCancel, onBat
         ),
         total,
         onChange: async (page: number, pageSize: number) => {
-            console.log('onChange', page, pageSize)
             setCurrentPage(page)
             setPageSize(pageSize)
             let res = await query_unallocated_list({

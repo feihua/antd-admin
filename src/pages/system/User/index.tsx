@@ -283,7 +283,6 @@ const SysUser: React.FC = () => {
         ),
         total,
         onChange: async (page: number, pageSize: number) => {
-            console.log('onChange', page, pageSize)
             setCurrentPage(page)
             setPageSize(pageSize)
             let res = await queryUserList({pageNo: page, pageSize})
@@ -297,8 +296,6 @@ const SysUser: React.FC = () => {
     }
 
     const onSelect: TreeProps['onSelect'] = (selectedKeys, info) => {
-        console.log('selected', selectedKeys, info);
-        console.log('info', info.node.key);
         const deptId = info.node.key as number
         queryUserList({
             pageNo: currentPage, pageSize, deptId

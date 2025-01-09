@@ -38,7 +38,6 @@ const SetRoleMenuForm: React.FC<UpdateFormProps> = ({open, onCreate, onCancel, r
     }
 
     const onCheck = (checkedKeysValue: React.Key[]) => {
-        console.log('onCheck', checkedKeysValue);
         setCheckedKeys(checkedKeysValue);
     };
 
