@@ -41,6 +41,14 @@ const OperateLog: React.FC = () => {
             dataIndex: 'id',
         },
         {
+            title: '操作人员',
+            dataIndex: 'operateName',
+        },
+        {
+            title: '部门名称',
+            dataIndex: 'deptName',
+        },
+        {
             title: '系统模块',
             dataIndex: 'title',
         },
@@ -57,14 +65,7 @@ const OperateLog: React.FC = () => {
         //     title: '操作类型',
         //     dataIndex: 'businessType',
         // },
-        {
-            title: '操作人员',
-            dataIndex: 'operateName',
-        },
-        {
-            title: '部门名称',
-            dataIndex: 'deptName',
-        },
+
         // {
         //     title: '操作地点',
         //     dataIndex: 'operateLocation',
