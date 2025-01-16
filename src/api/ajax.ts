@@ -12,6 +12,7 @@ export interface IResponse {
     msg: string;
     total: number
 }
+
 const baseUrl = import.meta.env.VITE_APP_PROXY_URL;
 export const axiosInstance: AxiosInstance = axios.create({
     baseURL: baseUrl,
@@ -33,6 +34,11 @@ axiosInstance.interceptors.response.use(
         // }
 
         if (response.status === 200) {
+            let {data} = response.data;
+            if (Object.prototype.toString.call(data) === '[object Object]' && data.list) {
+                response.data.total = data.total;
+                response.data.data = data.list;
+            }
             return response;
         } else {
             showMessage(response.status);
