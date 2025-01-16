@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Button, Divider, Modal, Space, Table, Tag} from 'antd';
 import type {ColumnsType} from 'antd/es/table';
 import {DeleteOutlined, EditOutlined, PlusOutlined} from '@ant-design/icons';
-import {DeptVo} from './data';
+import {DeptListParam, DeptVo} from './data';
 import AddModal from "./components/AddModal";
 import UpdateModal from "./components/UpdateModal";
 import AdvancedSearchForm from "./components/SearchForm";
@@ -11,7 +11,6 @@ import {addDept, handleResp, queryDeptList, removeDept, updateDept} from "./serv
 
 
 const Dept: React.FC = () => {
-    const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
     const [isShowAddModal, setShowAddModal] = useState<boolean>(false);
     const [isShowEditModal, setShowEditModal] = useState<boolean>(false);
     const [isShowDetailModal, setShowDetailModal] = useState<boolean>(false);
@@ -145,7 +144,7 @@ const Dept: React.FC = () => {
 
     };
 
-    const handleSearchOk = async (param: DeptVo) => {
+    const handleSearchOk = async (param: DeptListParam) => {
         setDeptListData(await queryDeptList({...param}));
     };
 
@@ -174,7 +173,7 @@ const Dept: React.FC = () => {
             <Table
                 rowSelection={{
                     onChange: (selectedRowKeys: React.Key[]) => {
-                        setSelectedRowKeys(selectedRowKeys)
+                        console.log(selectedRowKeys)
                     },
                 }}
                 size={"small"}

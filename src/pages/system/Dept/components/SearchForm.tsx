@@ -1,10 +1,10 @@
 import React from 'react';
 import {SearchOutlined} from '@ant-design/icons';
 import {Button, Form, FormProps, Input, Select, Space} from 'antd';
-import {DeptVo} from "../data";
+import {DeptListParam} from "../data";
 
 interface CreateFormProps {
-    search: (values: DeptVo) => void;
+    search: (values: DeptListParam) => void;
     reSet: () => void;
 }
 
@@ -12,11 +12,9 @@ const AdvancedSearchForm: React.FC<CreateFormProps> = ({search, reSet}) => {
     const FormItem = Form.Item;
     const [form] = Form.useForm();
 
-
-    const onFinish: FormProps<DeptVo>['onFinish'] = (values) => {
-        search(values);
+    const onFinish: FormProps<DeptListParam>['onFinish'] = (param) => {
+        search(param);
     };
-
     const onReset = () => {
         form.resetFields();
         reSet()

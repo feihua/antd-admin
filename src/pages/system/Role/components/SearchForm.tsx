@@ -1,12 +1,12 @@
 import React from 'react';
 import {SearchOutlined} from '@ant-design/icons';
 import {Button, Form, Input, Select, Space} from 'antd';
-import {RoleVo} from "../data";
+import {RoleListParam} from "../data";
 
 const {Option} = Select;
 
 interface SearchFormProps {
-    search: (values: RoleVo) => void;
+    search: (param: RoleListParam) => void;
     reSet: () => void;
 }
 
@@ -14,8 +14,10 @@ const AdvancedSearchForm: React.FC<SearchFormProps> = ({search, reSet}) => {
     const FormItem = Form.Item;
     const [form] = Form.useForm();
 
-    const onFinish = (values: any) => {
-        search(values)
+    const onFinish = (param: RoleListParam) => {
+        param.pageNo = 1
+        param.pageSize = 10
+        search(param)
     };
 
     const onReset = () => {

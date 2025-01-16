@@ -1,10 +1,10 @@
 import React from 'react';
 import {SearchOutlined} from '@ant-design/icons';
-import {Button, Form, FormProps, Input, Select, Space} from 'antd';
-import {PostVo} from "../data";
+import {Button, Form, Input, Select, Space} from 'antd';
+import {PostListParam} from "../data";
 
 interface CreateFormProps {
-    search: (values: PostVo) => void;
+    search: (values: PostListParam) => void;
     reSet: () => void;
 }
 
@@ -13,8 +13,10 @@ const AdvancedSearchForm: React.FC<CreateFormProps> = ({search, reSet}) => {
     const [form] = Form.useForm();
 
 
-    const onFinish: FormProps<PostVo>['onFinish'] = (values) => {
-        search(values);
+    const onFinish = (param: PostListParam) => {
+        param.pageNo = 1
+        param.pageSize = 10
+        search(param);
     };
 
     const onReset = () => {

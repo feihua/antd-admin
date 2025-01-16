@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Button, Divider, message, Modal, Space, Table, Tag} from 'antd';
 import type {ColumnsType} from 'antd/es/table';
 import {DeleteOutlined, EditOutlined, PlusOutlined} from '@ant-design/icons';
-import {PostVo} from './data';
+import {PostListParam, PostVo} from './data';
 import AddModal from "./components/AddModal";
 import UpdateModal from "./components/UpdateModal";
 import AdvancedSearchForm from "./components/SearchForm";
@@ -163,8 +163,8 @@ const Post: React.FC = () => {
 
     };
 
-    const handleSearchOk = async (param: PostVo) => {
-        const res = await queryPostList({pageNo: currentPage, ...param, pageSize})
+    const handleSearchOk = async (param: PostListParam) => {
+        const res = await queryPostList(param)
         setTotal(res.total)
         res.code === 0 ? setPostListData(res.data) : message.error(res.msg);
     };

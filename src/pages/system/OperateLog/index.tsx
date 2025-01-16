@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Button, Divider, message, Modal, Space, Table, Tag} from 'antd';
 import type {ColumnsType} from 'antd/es/table';
 import {DeleteOutlined, EditOutlined} from '@ant-design/icons';
-import {OperateLogVo} from './data';
+import {OperateLogListParam, OperateLogVo} from './data';
 import AdvancedSearchForm from "./components/SearchForm";
 import DetailModal from "./components/DetailModal";
 import {handleResp, queryOperateLogList, removeOperateLog} from "./service";
@@ -147,8 +147,8 @@ const OperateLog: React.FC = () => {
 
     };
 
-    const handleSearchOk = async (param: OperateLogVo) => {
-        const res = await queryOperateLogList({pageNo: currentPage, ...param, pageSize})
+    const handleSearchOk = async (param: OperateLogListParam) => {
+        const res = await queryOperateLogList(param)
         setTotal(res.total)
         res.code === 0 ? setOperateLogListData(res.data) : message.error(res.msg);
     };

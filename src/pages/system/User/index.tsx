@@ -244,9 +244,7 @@ const SysUser: React.FC = () => {
     };
 
     const handleSearchOk = async (user: UserListParam) => {
-        user.pageNo = currentPage
-        user.pageSize = pageSize
-        let res = await queryUserList({...user})
+        let res = await queryUserList(user)
         setTotal(res.total)
         res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
     };
@@ -296,6 +294,7 @@ const SysUser: React.FC = () => {
     }
 
     const onSelect: TreeProps['onSelect'] = (selectedKeys, info) => {
+        console.log(selectedKeys)
         const deptId = info.node.key as number
         queryUserList({
             pageNo: currentPage, pageSize, deptId

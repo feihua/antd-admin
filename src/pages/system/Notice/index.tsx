@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Button, Divider, message, Modal, Space, Table, Tag} from 'antd';
 import type {ColumnsType} from 'antd/es/table';
 import {DeleteOutlined, EditOutlined, PlusOutlined} from '@ant-design/icons';
-import {NoticeVo} from './data';
+import {NoticeListParam, NoticeVo} from './data';
 import AddModal from "./components/AddModal";
 import UpdateModal from "./components/UpdateModal";
 import AdvancedSearchForm from "./components/SearchForm";
@@ -173,8 +173,8 @@ const Notice: React.FC = () => {
 
     };
 
-    const handleSearchOk = async (param: NoticeVo) => {
-        const res = await queryNoticeList({pageNo: currentPage, ...param, pageSize})
+    const handleSearchOk = async (param: NoticeListParam) => {
+        const res = await queryNoticeList(param)
         setTotal(res.total)
         res.code === 0 ? setNoticeListData(res.data) : message.error(res.msg);
     };
@@ -209,7 +209,7 @@ const Notice: React.FC = () => {
         onChange: async (page: number, pageSize: number) => {
             setCurrentPage(page)
             setPageSize(pageSize)
-            const res = await queryNoticeList({current: page, pageSize})
+            const res = await queryNoticeList({pageNo: page, pageSize})
             setTotal(res.total)
             res.code === 0 ? setNoticeListData(res.data) : message.error(res.msg);
 

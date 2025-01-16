@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Button, Divider, message, Modal, Space, Table, Tag} from 'antd';
 import type {ColumnsType} from 'antd/es/table';
 import {DeleteOutlined, EditOutlined, PlusOutlined} from '@ant-design/icons';
-import {DictDataVo} from './data';
+import {DictDataListParam, DictDataVo} from './data';
 import AddModal from "./components/AddModal";
 import UpdateModal from "./components/UpdateModal";
 import AdvancedSearchForm from "./components/SearchForm";
@@ -192,8 +192,8 @@ const DictData: React.FC<DictDataProps> = ({dictType, open}) => {
 
     };
 
-    const handleSearchOk = async (param: DictDataVo) => {
-        const res = await queryDictDataList({pageNo: currentPage, ...param, pageSize, dictType})
+    const handleSearchOk = async (param: DictDataListParam) => {
+        const res = await queryDictDataList({...param, dictType})
         setTotal(res.total)
         res.code === 0 ? setDictDataListData(res.data) : message.error(res.msg);
     };

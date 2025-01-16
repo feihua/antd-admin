@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Button, Divider, message, Modal, Space, Table, Tag} from 'antd';
 import type {ColumnsType} from 'antd/es/table';
 import {DeleteOutlined, EditOutlined} from '@ant-design/icons';
-import {LoginLogVo} from './data';
+import {LoginLogListParam, LoginLogVo} from './data';
 import AdvancedSearchForm from "./components/SearchForm";
 import DetailModal from "./components/DetailModal";
 import {handleResp, queryLoginLogList, removeLoginLog} from "./service";
@@ -138,8 +138,8 @@ const LoginLog: React.FC = () => {
 
     };
 
-    const handleSearchOk = async (param: LoginLogVo) => {
-        const res = await queryLoginLogList({pageNo: currentPage, ...param, pageSize})
+    const handleSearchOk = async (param: LoginLogListParam) => {
+        const res = await queryLoginLogList({...param, pageSize})
         setTotal(res.total)
         res.code === 0 ? setLoginLogListData(res.data) : message.error(res.msg);
     };
@@ -174,7 +174,7 @@ const LoginLog: React.FC = () => {
         onChange: async (page: number, pageSize: number) => {
             setCurrentPage(page)
             setPageSize(pageSize)
-            const res = await queryLoginLogList({current: page, pageSize})
+            const res = await queryLoginLogList({pageNo: page, pageSize})
             setTotal(res.total)
             res.code === 0 ? setLoginLogListData(res.data) : message.error(res.msg);
 

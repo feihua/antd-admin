@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Button, Divider, message, Modal, Space, Table, Tag} from 'antd';
 import type {ColumnsType} from 'antd/es/table';
 import {DeleteOutlined, EditOutlined, PlusOutlined} from '@ant-design/icons';
-import {DictTypeVo} from './data';
+import {DictTypeListParam, DictTypeVo} from './data';
 import AddModal from "./components/AddModal";
 import UpdateModal from "./components/UpdateModal";
 import AdvancedSearchForm from "./components/SearchForm";
@@ -176,8 +176,8 @@ const DictType: React.FC = () => {
 
     };
 
-    const handleSearchOk = async (param: DictTypeVo) => {
-        const res = await queryDictTypeList({pageNo: currentPage, ...param, pageSize})
+    const handleSearchOk = async (param: DictTypeListParam) => {
+        const res = await queryDictTypeList(param)
         setTotal(res.total)
         res.code === 0 ? setDictTypeListData(res.data) : message.error(res.msg);
     };

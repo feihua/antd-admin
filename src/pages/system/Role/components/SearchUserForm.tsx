@@ -13,7 +13,7 @@ const AdvancedSearchUserForm: React.FC<SearchFormProps> = ({search, reSet}) => {
     const [form] = Form.useForm();
 
     const onFinish = (param: QueryUserListParam) => {
-        param.current = 1
+        param.pageNo = 1
         param.pageSize = 10
         search(param)
     };

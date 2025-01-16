@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Button, Divider, message, Modal, Space, Switch, Table} from 'antd';
 import type {ColumnsType} from 'antd/es/table';
 import {DeleteOutlined, EditOutlined, ExclamationCircleOutlined, PlusOutlined} from '@ant-design/icons';
-import {RoleVo} from './data';
+import {RoleListParam, RoleVo} from './data';
 import CreateRoleForm from "./components/AddModal.tsx";
 import UpdateRoleForm from "./components/UpdateModal.tsx";
 import {
@@ -271,8 +271,8 @@ const SysRole: React.FC = () => {
 
     };
 
-    const handleSearchOk = async (role: RoleVo) => {
-        let res = await queryRoleList({pageNo: currentPage, pageSize, ...role,})
+    const handleSearchOk = async (role: RoleListParam) => {
+        let res = await queryRoleList(role)
         setTotal(res.total)
         res.code === 0 ? setRoleListData(res.data) : message.error(res.msg);
     };
@@ -308,7 +308,7 @@ const SysRole: React.FC = () => {
         onChange: async (page: number, pageSize: number) => {
             setCurrentPage(page)
             setPageSize(pageSize)
-            let res = await queryRoleList({current: page, pageSize})
+            let res = await queryRoleList({pageNo: page, pageSize})
             setTotal(res.total)
             res.code === 0 ? setRoleListData(res.data) : message.error(res.msg);
 

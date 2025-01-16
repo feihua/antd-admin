@@ -1,10 +1,10 @@
 import React from 'react';
 import {SearchOutlined} from '@ant-design/icons';
 import {Button, Form, FormProps, Input, Select, Space} from 'antd';
-import {DictDataVo} from "../data";
+import {DictDataListParam} from "../data";
 
 interface CreateFormProps {
-    search: (values: DictDataVo) => void;
+    search: (values: DictDataListParam) => void;
     reSet: () => void;
 }
 
@@ -13,8 +13,10 @@ const AdvancedSearchForm: React.FC<CreateFormProps> = ({search, reSet}) => {
     const [form] = Form.useForm();
 
 
-    const onFinish: FormProps<DictDataVo>['onFinish'] = (values) => {
-        search(values);
+    const onFinish: FormProps<DictDataListParam>['onFinish'] = (param) => {
+        param.pageNo = 1
+        param.pageSize = 10
+        search(param);
     };
 
     const onReset = () => {
