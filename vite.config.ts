@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://127.0.0.1:3000/', // 目标服务器地址
+        target: 'http://127.0.0.1:8600/', // 目标服务器地址
         changeOrigin: true, // 是否改变源地址
         // rewrite: (path) => path.replace(/^\/antd/, ''), // 重写路径
       },

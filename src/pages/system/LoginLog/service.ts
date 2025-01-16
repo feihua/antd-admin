@@ -13,6 +13,16 @@ export const removeLoginLog = (ids: number[]): Promise<IResponse> => {
 };
 
 /**
+ * @description: 清空系统访问记录
+ * @params {ids} number[]
+ * @return {Promise}
+ */
+export const cleanLoginLog = (): Promise<IResponse> => {
+    return axiosInstance.post('/api/system/loginLog/cleanLoginLog', {}).then(res => res.data);
+};
+
+/**
+ *
  * @description: 查询系统访问记录详情
  * @params {id} number
  * @return {Promise}

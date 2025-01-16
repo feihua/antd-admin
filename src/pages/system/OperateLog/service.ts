@@ -12,6 +12,15 @@ export const removeOperateLog = (ids: number[]): Promise<IResponse> => {
     return axiosInstance.post('/api/system/operateLog/deleteOperateLog', {ids}).then(res => res.data);
 };
 
+/**
+ * @description: 清空操作日志
+ * @params {ids} number[]
+ * @return {Promise}
+ */
+export const cleanOperateLog = (): Promise<IResponse> => {
+    return axiosInstance.post('/api/system/operateLog/cleanOperateLog', {}).then(res => res.data);
+};
+
 
 /**
  * @description: 查询操作日志记录详情

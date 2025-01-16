@@ -45,23 +45,30 @@ const OperateLog: React.FC = () => {
             dataIndex: 'title',
         },
         {
-            title: '操作类型',
-            dataIndex: 'businessType',
+            title: '操作描述',
+            dataIndex: 'operationDesc',
+            render: (text, entity) => {
+                return (
+                    <Button type="link" size={'small'} onClick={() => showDetailModal(entity)}>{text}</Button>
+                );
+            },
         },
+        // {
+        //     title: '操作类型',
+        //     dataIndex: 'businessType',
+        // },
         {
             title: '操作人员',
             dataIndex: 'operateName',
-            render: (text: string) => <a>{text}</a>,
         },
         {
             title: '部门名称',
             dataIndex: 'deptName',
-            render: (text: string) => <a>{text}</a>,
         },
-        {
-            title: '操作地点',
-            dataIndex: 'operateLocation',
-        },
+        // {
+        //     title: '操作地点',
+        //     dataIndex: 'operateLocation',
+        // },
 
         {
             title: '操作状态',
@@ -175,7 +182,7 @@ const OperateLog: React.FC = () => {
         onChange: async (page: number, pageSize: number) => {
             setCurrentPage(page)
             setPageSize(pageSize)
-            const res = await queryOperateLogList({current: page, pageSize})
+            const res = await queryOperateLogList({pageNo: page, pageSize})
             setTotal(res.total)
             res.code === 0 ? setOperateLogListData(res.data) : message.error(res.msg);
 

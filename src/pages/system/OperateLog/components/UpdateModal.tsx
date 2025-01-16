@@ -16,7 +16,7 @@ const UpdateModal: React.FC<UpdateModalProps> = ({open, onCreate, onCancel, id})
 
     useEffect(() => {
         if (open) {
-            queryOperateLogDetail(id).then((res) => {
+            queryOperateLogDetail({id}).then((res) => {
                 form.setFieldsValue(res.data);
             });
         }
