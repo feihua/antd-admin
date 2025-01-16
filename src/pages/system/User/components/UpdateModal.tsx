@@ -18,13 +18,13 @@ const UpdateUserModal: React.FC<UpdateFormProps> = ({open, onCreate, onCancel, i
     const [form] = Form.useForm();
     const FormItem = Form.Item;
 
-    const [value, setValue] = useState<string>();
+    // const [value, setValue] = useState<string>();
     const [deptListData, setDeptListData] = useState<DeptVo[]>([]);
-    const [postIds, setPost] = useState<number[]>([]);
     const [postListData, setPostListData] = useState<PostVo[]>([]);
 
     const onChange = (newValue: string) => {
-        setValue(newValue);
+        // setValue(newValue);
+        console.log(newValue);
     };
 
     useEffect(() => {
@@ -35,13 +35,13 @@ const UpdateUserModal: React.FC<UpdateFormProps> = ({open, onCreate, onCancel, i
             queryPostList({
                 pageNo: 1, pageSize: 100
             }).then(res => {
+                console.log('res', res);
                 res.code === 0 ? setPostListData(res.data) : message.error(res.msg);
             });
 
             queryUserDetail({id}).then((res) => {
                 form.setFieldsValue(res.data);
-                setValue(res.data.deptId);
-                setPost(res.data.postIds);
+                // setValue(res.data.deptId);
             });
         }
     }, [open]);
@@ -74,7 +74,7 @@ const UpdateUserModal: React.FC<UpdateFormProps> = ({open, onCreate, onCancel, i
                 >
                     <TreeSelect
                         style={{width: '100%'}}
-                        value={value}
+                        // value={value}
                         dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
                         treeData={deptListData}
                         placeholder="请选择部门"
@@ -144,10 +144,8 @@ const UpdateUserModal: React.FC<UpdateFormProps> = ({open, onCreate, onCancel, i
                         allowClear
                         options={postListData}
                         placeholder="请选择岗位"
-                        fieldNames={{label: 'post_name', value: 'id'}}
+                        fieldNames={{label: 'postName', value: 'id'}}
                         onChange={onChange}
-                        // @ts-ignore
-                        defaultValue={postIds}
                     />
                 </FormItem>
                 <FormItem
