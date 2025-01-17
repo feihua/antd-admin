@@ -36,7 +36,7 @@ const Admin: React.FC = () => {
     const [menuItem, setMenuItem] = useState<MenuItem[]>([]);
     const [openKeys, setOpenKeys] = useState<string[]>([]);
     const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
-    const [breadcrumbs, setBreadcrumbs] = useState<>([{'title': <HomeOutlined/>}, {title: '首页'}]);
+    const [breadcrumbs, setBreadcrumbs] = useState([{'title': <HomeOutlined/>}, {title: '首页'}]);
 
     const [collapsed, setCollapsed] = useState(false);
     const {

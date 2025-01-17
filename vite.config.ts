@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react-swc';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: '/antd',
   plugins: [react()],
   server: {
     proxy: {
@@ -17,9 +18,9 @@ export default defineConfig({
         // rewrite: (path) => path.replace(/^\/pay/, ''), // 重写路径
       },
       '/better': {
-        target: 'http://110.41.179.89/', // 目标服务器地址
+        target: 'http://43.136.115.138:8600/', // 目标服务器地址
         changeOrigin: true, // 是否改变源地址
-        // rewrite: (path) => path.replace(/^\/pay-api/, ''), // 重写路径
+        rewrite: (path) => path.replace(/^\/better/, ''), // 重写路径
       },
     },
   },
