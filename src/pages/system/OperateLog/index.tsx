@@ -37,16 +37,12 @@ const OperateLog: React.FC = () => {
 
     const columns: ColumnsType<OperateLogVo> = [
         {
-            title: '日志编号',
+            title: '主键',
             dataIndex: 'id',
         },
         {
             title: '操作人员',
-            dataIndex: 'operateName',
-        },
-        {
-            title: '部门名称',
-            dataIndex: 'deptName',
+            dataIndex: 'userName',
         },
         {
             title: '系统模块',
@@ -62,13 +58,49 @@ const OperateLog: React.FC = () => {
             },
         },
         // {
-        //     title: '操作类型',
-        //     dataIndex: 'businessType',
+        //     title: '操作人员',
+        //     dataIndex: 'userId',
         // },
 
         // {
-        //     title: '操作地点',
-        //     dataIndex: 'operateLocation',
+        //     title: '部门id',
+        //     dataIndex: 'deptId',
+        // },
+        {
+            title: '部门名称',
+            dataIndex: 'deptName',
+        },
+        {
+            title: '平台信息',
+            dataIndex: 'platform',
+        },
+        {
+            title: '操作系统',
+            dataIndex: 'os',
+        },
+        {
+            title: '浏览器类型',
+            dataIndex: 'browser',
+        },
+        {
+            title: '浏览器版本',
+            dataIndex: 'version',
+        },
+        {
+            title: '渲染引擎信息',
+            dataIndex: 'engine',
+        },
+        // {
+        //     title: 'IP地址',
+        //     dataIndex: 'operateIp',
+        // },
+        // {
+        //     title: '请求URL',
+        //     dataIndex: 'operationUrl',
+        // },
+        // {
+        //     title: '请求方式',
+        //     dataIndex: 'requestMethod',
         // },
 
         {
@@ -86,20 +118,34 @@ const OperateLog: React.FC = () => {
                 </>
             ),
         },
-
+        // {
+        //     title: '请求参数',
+        //     dataIndex: 'operateParam',
+        // },
+        // {
+        //     title: '操作结果',
+        //     dataIndex: 'jsonResult',
+        // },
+        // {
+        //     title: '异常消息',
+        //     dataIndex: 'errorMsg',
+        // },
+        // {
+        //     title: '详细的异常信息',
+        //     dataIndex: 'errMsgDetail',
+        // },
+        {
+            title: '耗时',
+            dataIndex: 'costTime',
+        },
         {
             title: '操作时间',
             dataIndex: 'operateTime',
-        },
-        {
-            title: '消耗时间',
-            dataIndex: 'costTime',
         },
 
         {
             title: '操作',
             key: 'action',
-            width: 280,
             render: (_, record) => (
                 <div>
                     <Button type="link" size={'small'} icon={<EditOutlined/>}
