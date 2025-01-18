@@ -155,8 +155,12 @@ const SysRole: React.FC = () => {
             return true;
         }
         try {
-            await updateRoleStatus({ids, status});
+            let updateRes = await updateRoleStatus({ids, status});
             hide();
+            if (updateRes.code !== 0) {
+                message.error(updateRes.msg)
+                return
+            }
             let res = await queryRoleList({pageNo: currentPage, pageSize})
             setTotal(res.total)
             res.code === 0 ? setRoleListData(res.data) : message.error(res.msg);

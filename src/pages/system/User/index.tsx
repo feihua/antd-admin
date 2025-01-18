@@ -137,8 +137,12 @@ const SysUser: React.FC = () => {
             return true;
         }
         try {
-            await updateUserStatus({ids, status});
+            let updateRes=await updateUserStatus({ids, status});
             hide();
+            if (updateRes.code !== 0) {
+                message.error(updateRes.msg)
+                return
+            }
             let res = await queryUserList({pageNo: currentPage, pageSize});
             setTotal(res.total);
             res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
