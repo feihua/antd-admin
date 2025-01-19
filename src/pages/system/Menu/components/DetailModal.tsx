@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Descriptions, DescriptionsProps, Modal} from 'antd';
 import {queryMenuDetail} from "../service";
+import * as Icons from "@ant-design/icons";
 
 export interface DetailModalProps {
     onCancel: () => void;
@@ -86,7 +87,8 @@ const DetailModal: React.FC<DetailModalProps> = (props) => {
                     {
                         key: '9',
                         label: '菜单图标',
-                        children: <p>{res.data.menuIcon}</p>,
+                        // @ts-ignore
+                        children: <p>{React.createElement(Icons[res.data.menuIcon])}</p>,
                     },
                     {
                         key: '10',

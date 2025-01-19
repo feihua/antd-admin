@@ -90,6 +90,7 @@ const AddModal: React.FC<AddModalProps> = ({open, onCreate, onCancel}) => {
                         name="menuIcon"
                         label="菜单图标"
                         rules={[{required: true, message: '请输入菜单图标!'}]}
+                        initialValue={'UnorderedListOutlined'}
                     >
                         <Input id="create-menuIcon" placeholder={'请输入菜单图标'}/>
                     </FormItem>

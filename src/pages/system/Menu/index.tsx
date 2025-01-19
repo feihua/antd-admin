@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Divider, message, Modal, Space, Table, Tag} from 'antd';
 import type {ColumnsType} from 'antd/es/table';
+import * as Icons from '@ant-design/icons';
 import {DeleteOutlined, EditOutlined, PlusOutlined} from '@ant-design/icons';
 import {MenuVo} from './data';
 import AddMenuModal from "./components/AddModal.tsx";
@@ -41,6 +42,11 @@ const SysMenu: React.FC = () => {
         {
             title: '菜单图标',
             dataIndex: 'menuIcon',
+
+            render: (text: string) => {
+                // @ts-ignore
+                return React.createElement(Icons[text])
+            },
         },
         {
             title: '排序',
