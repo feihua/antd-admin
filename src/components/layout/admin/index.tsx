@@ -4,7 +4,7 @@ import {Link, useNavigate, useRoutes} from "react-router-dom";
 import routes from "../../../router";
 
 import React, {useEffect, useState} from 'react';
-import {HomeOutlined, PieChartOutlined} from '@ant-design/icons';
+import * as Icons from "@ant-design/icons"
 import type {MenuProps} from 'antd';
 import {Breadcrumb, Layout, Menu, theme} from 'antd';
 import logo from '../../../assets/images/logo.svg'
@@ -36,7 +36,7 @@ const Admin: React.FC = () => {
     const [menuItem, setMenuItem] = useState<MenuItem[]>([]);
     const [openKeys, setOpenKeys] = useState<string[]>([]);
     const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
-    const [breadcrumbs, setBreadcrumbs] = useState([{'title': <HomeOutlined/>}, {title: '首页'}]);
+    const [breadcrumbs, setBreadcrumbs] = useState([{'title': React.createElement(Icons["HomeOutlined"])}, {title: '首页'}]);
 
     const [collapsed, setCollapsed] = useState(false);
     const {
@@ -60,7 +60,7 @@ const Admin: React.FC = () => {
 
             if (storedBreadcrumb) {
                 let parse = JSON.parse(storedBreadcrumb);
-                parse.unshift({'title': <HomeOutlined/>})
+                parse.unshift({'title': React.createElement(Icons["HomeOutlined"])})
                 setBreadcrumbs(parse)
             }
         })
@@ -69,19 +69,24 @@ const Admin: React.FC = () => {
 
     const menuListTree = (menuList: RecordVo[]) => {
         return menuList.map(item => {
-            return getMyItem(<span>{item.name}</span>, item.path, <PieChartOutlined/>, item.parentId, item.id)
+            // @ts-ignore
+            return getMyItem(<span>{item.name}</span>, item.path, React.createElement(Icons[item.icon]), item.parentId, item.id)
         })
     }
 
+    // @ts-ignore
     function setBreadcrumb(item) {
         const keys = item.key.split('/');
         let tmp: any[]
         console.log('keys', keys);
         if (keys.length > 2) {
             let selectMenus = menuItem.filter((value) => {
+                // @ts-ignore
                 return value.key == '/' + keys[1]
             })
+
             tmp = [
+                // @ts-ignore
                 {'title': selectMenus[0].label.props.children},
                 {'title': item.domEvent.target.innerText}]
 
@@ -89,7 +94,7 @@ const Admin: React.FC = () => {
             tmp = [{'title': '首页'}]
         }
         localStorage.setItem('breadcrumb', JSON.stringify(tmp));
-        tmp.unshift({'title': <HomeOutlined/>})
+        tmp.unshift({'title': React.createElement(Icons["HomeOutlined"])})
         setBreadcrumbs(tmp)
     }
 
