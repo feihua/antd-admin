@@ -106,7 +106,7 @@ const Admin: React.FC = () => {
                     setSelectedKeys(['/home'])
                 }}>
                     <img style={{height: 32, width: 32, margin: 16}} src={logo} alt="logo"/><h1
-                    style={{marginBottom: 0, color: "black", fontSize: 20}}>rust</h1>
+                    style={{marginBottom: 0, color: "black", fontSize: 20}}>test</h1>
                 </Link>
                 <div style={{background: 'rgb(228 229 234)', height: '1px'}}></div>
                 <Menu theme="light"
