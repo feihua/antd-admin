@@ -1,7 +1,7 @@
-import {axiosInstance, IResponse} from "../../../api/ajax";
+import {axiosInstance, IResponse} from "@/api/ajax.ts";
 import {DeptListParam, DeptVo} from "./data";
 import {message} from "antd";
-import {tree} from "../../../utils/treeUtils.ts";
+import {tree} from "@/utils/treeUtils.ts";
 
 /**
  * @description: 添加部门表

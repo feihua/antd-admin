@@ -1,4 +1,4 @@
-import {axiosInstance, IResponse} from "../../../api/ajax";
+import {axiosInstance, IResponse} from "@/api/ajax.ts";
 import {UserListParam, UserVo} from "./data";
 import {message} from "antd";
 
