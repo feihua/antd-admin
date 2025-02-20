@@ -4,9 +4,11 @@ import './App.less';
 import Login from "./pages/system/login";
 import Admin from "./components/layout/admin";
 
+const baseUrl: string = import.meta.env.VITE_APP_DEPLOY_PATH;
+
 function App() {
     return (
-        <BrowserRouter basename="/antd">
+        <BrowserRouter basename={baseUrl}>
             <Routes>
                 <Route path="/login" element={<Login/>}/>
                 <Route path="/*" element={<Admin/>}/>
