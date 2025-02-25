@@ -7,8 +7,8 @@ import {MenuVo} from './data';
 import AddMenuModal from "./components/AddModal.tsx";
 import UpdateMenuModal from "./components/UpdateModal.tsx";
 import {addMenu, handleResp, queryMenuList, removeMenu, updateMenu} from "./service";
-import {tree} from "../../../utils/treeUtils";
-import {IResponse} from "../../../api/ajax";
+import {tree} from "@/utils/treeUtils.ts";
+import {IResponse} from "@/api/ajax.ts";
 import DetailModal from "./components/DetailModal.tsx";
 
 const SysMenu: React.FC = () => {
@@ -45,7 +45,7 @@ const SysMenu: React.FC = () => {
 
             render: (text: string) => {
                 // @ts-ignore
-                return React.createElement(Icons[text])
+                return text.length == 0 ? text : React.createElement(Icons[text])
             },
         },
         {
