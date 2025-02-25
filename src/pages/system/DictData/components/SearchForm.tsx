@@ -28,12 +28,6 @@ const AdvancedSearchForm: React.FC<CreateFormProps> = ({search, reSet}) => {
         return (
             <>
                 <FormItem
-                    name="dictName"
-                    label="字典名称"
-                >
-                    <Input id="search-dictName" placeholder={'请输入字典名称'}/>
-                </FormItem>
-                <FormItem
                     name="dictLabel"
                     label="字典标签"
                 >
