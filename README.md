@@ -1,11 +1,27 @@
 
 # antd-admin
 
-是基于vite和react构建的权限管理系统
+这是一个基于 React + TypeScript + Ant Design 的后台管理系统模板，提供了完整的权限管理、用户管理等基础功能
 
-# 限时预览
+# 技术栈
+- 核心框架：React 18
+- 开发语言：TypeScript 5.x
+- UI 组件库：Ant Design
+- 状态管理：Zustand
+- 路由管理：React Router v6
+- 构建工具：Vite
+- 代码规范：ESLint + Prettier
+# 项目结构
 ```
-http://43.136.115.138/antd 账号：18613030111 密码：123456
+src/
+├── api/          # API 接口封装
+├── assets/       # 静态资源
+├── components/   # 公共组件
+├── pages/        # 页面组件
+├── router/       # 路由配置
+├── store/        # 状态管理
+├── utils/        # 工具函数
+└── App.tsx       # 根组件
 ```
 # 系统截图
 
