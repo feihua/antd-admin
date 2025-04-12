@@ -57,3 +57,12 @@ export interface RoleVo {
 
 
 }
+
+export interface UserRoleListParam {
+    pageNo: number;
+    pageSize?: number;
+    mobile?: string; //手机号码
+    userName?: string; //用户账号
+    userId?: number; //用户ID
+
+}
