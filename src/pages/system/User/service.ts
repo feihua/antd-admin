@@ -1,5 +1,5 @@
 import {axiosInstance, IResponse} from "@/api/ajax.ts";
-import {UserListParam, UserVo} from "./data";
+import {UserListParam, UserRoleListParam, UserVo} from "./data";
 import {message} from "antd";
 
 /**
@@ -64,8 +64,8 @@ export const queryUserList = (params: UserListParam): Promise<IResponse> => {
  * @params {ids} number[]
  * @return {Promise}
  */
-export const query_user_role = (userId: Number): Promise<IResponse> => {
-    return axiosInstance.post('/api/system/user/queryUserRole', {userId: userId}).then(res => res.data);
+export const query_user_role = (param: UserRoleListParam): Promise<IResponse> => {
+    return axiosInstance.post('/api/system/user/queryUserRole', param).then(res => res.data);
 };
 
 /**

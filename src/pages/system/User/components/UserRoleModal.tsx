@@ -75,7 +75,7 @@ const SetUserRoleModal: React.FC<UserRoleFormProps> = ({open, onCreate, onCancel
         if (open) {
             setRoleList([]);
             setSelectedRowKeys([]);
-            query_user_role(userVo.id).then((res) => {
+            query_user_role({pageNo: 1, pageSize: 10, userId:userVo.id}).then((res) => {
                 setRoleList(res.data.sysRoleList);
 
                 if (res.data.userRoleIds) {
