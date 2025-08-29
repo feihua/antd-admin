@@ -8,7 +8,7 @@ export interface DictTypeListParam {
 }
 
 export interface DictTypeVo {
-    dictId: number; //字典主键
+    id: number; //字典主键
     dictName: string; //字典名称
     dictType: string; //字典类型
     status: number; //门状态（0：停用，1:正常）

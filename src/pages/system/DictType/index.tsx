@@ -19,7 +19,7 @@ const DictType: React.FC = () => {
     const [isShowDictDataModal, setShowDictDataModal] = useState<boolean>(false);
     const [dictTypeListData, setDictTypeListData] = useState<DictTypeVo[]>([]);
     const [currentDictType, setCurrentDictType] = useState<DictTypeVo>({
-        dictId: 0,
+        id: 0,
         dictName: '',
         dictType: '',
         status: 0,
@@ -34,7 +34,7 @@ const DictType: React.FC = () => {
     const columns: ColumnsType<DictTypeVo> = [
         {
             title: '字典主键',
-            dataIndex: 'dictId',
+            dataIndex: 'id',
         },
         {
             title: '字典名称',
@@ -158,7 +158,7 @@ const DictType: React.FC = () => {
             cancelText: '取消',
             content: `确定删除${param.dictName}吗?`,
             async onOk() {
-                await handleRemove([param.dictId]);
+                await handleRemove([param.id]);
             },
             onCancel() {
                 console.log('Cancel');
@@ -242,16 +242,16 @@ const DictType: React.FC = () => {
                 size={"small"}
                 columns={columns}
                 dataSource={dictTypeListData}
-                rowKey={'dictId'}
+                rowKey={'id'}
                 pagination={paginationProps}
                 // tableLayout={"fixed"}
             />
 
             <AddModal onCancel={handleAddCancel} onCreate={handleAddOk} open={isShowAddModal}></AddModal>
             <UpdateModal onCancel={handleEditCancel} onCreate={handleEditOk} open={isShowEditModal}
-                         id={currentDictType.dictId}></UpdateModal>
+                         id={currentDictType.id}></UpdateModal>
             <DetailModal onCancel={handleDetailCancel} open={isShowDetailModal}
-                         id={currentDictType.dictId}></DetailModal>
+                         id={currentDictType.id}></DetailModal>
             <DictDataModal onCancel={handleDictDataCancel} open={isShowDictDataModal}
                            dictType={currentDictType.dictType}></DictDataModal>
 

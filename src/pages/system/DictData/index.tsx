@@ -21,7 +21,7 @@ const DictData: React.FC<DictDataProps> = ({dictType, open}) => {
     const [isShowDetailModal, setShowDetailModal] = useState<boolean>(false);
     const [dictDataListData, setDictDataListData] = useState<DictDataVo[]>([]);
     const [currentDictData, setCurrentDictData] = useState<DictDataVo>({
-        dictCode: 0,
+        id: 0,
         dictSort: 0,
         dictLabel: '',
         dictValue: '',
@@ -41,7 +41,7 @@ const DictData: React.FC<DictDataProps> = ({dictType, open}) => {
     const columns: ColumnsType<DictDataVo> = [
         {
             title: '字典编码',
-            dataIndex: 'dictCode',
+            dataIndex: 'id',
         },
 
         {
@@ -174,7 +174,7 @@ const DictData: React.FC<DictDataProps> = ({dictType, open}) => {
             cancelText: '取消',
             content: `确定删除${param.dictLabel}吗?`,
             async onOk() {
-                await handleRemove([param.dictCode]);
+                await handleRemove([param.id]);
             },
             onCancel() {
                 console.log('Cancel');
@@ -268,9 +268,9 @@ const DictData: React.FC<DictDataProps> = ({dictType, open}) => {
             <AddModal onCancel={handleAddCancel} onCreate={handleAddOk} open={isShowAddModal}
                       dictType={dictType}></AddModal>
             <UpdateModal onCancel={handleEditCancel} onCreate={handleEditOk} open={isShowEditModal}
-                         id={currentDictData.dictCode}></UpdateModal>
+                         id={currentDictData.id}></UpdateModal>
             <DetailModal onCancel={handleDetailCancel} open={isShowDetailModal}
-                         id={currentDictData.dictCode}></DetailModal>
+                         id={currentDictData.id}></DetailModal>
 
             {selectedRowKeys.length > 0 &&
                 <div>

@@ -12,7 +12,7 @@ export interface DictDataListParam {
 }
 
 export interface DictDataVo {
-    dictCode: number; //字典编码
+    id: number; //字典编码
     dictSort: number; //字典排序
     dictLabel: string; //字典标签
     dictValue: string; //字典键值

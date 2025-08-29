@@ -20,7 +20,7 @@ const DetailModal: React.FC<DetailModalProps> = (props) => {
                     {
                         key: '1',
                         label: '字典主键',
-                        children: <p>{res.data.dictId}</p>,
+                        children: <p>{res.data.id}</p>,
                     },
                     {
                         key: '2',

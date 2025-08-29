@@ -36,11 +36,11 @@ const UpdateModal: React.FC<UpdateModalProps> = ({open, onCreate, onCancel, id})
         return (
             <>
                 <FormItem
-                    name="dictCode"
+                    name="id"
                     label="主键"
                     hidden
                 >
-                    <Input id="update-dictCode"/>
+                    <Input id="update-id"/>
                 </FormItem>
                 <FormItem
                     name="dictType"
