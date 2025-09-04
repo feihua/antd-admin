@@ -50,7 +50,12 @@ axiosInstance.interceptors.response.use(
         const {response} = error;
         if (response) {
             // 请求已发出，但是不在2xx的范围
-            showMessage(response.status);
+            if(response.data.msg){
+                message.error(response.data.msg);
+            }
+            else {
+                message.error(showMessage(response.status));
+            }
             if (response.status === 401) {
                 storageUtils.logout()
                 window.location.href = "/antd/login";
