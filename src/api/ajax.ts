@@ -53,6 +53,9 @@ axiosInstance.interceptors.response.use(
             if(response.data.msg){
                 message.error(response.data.msg);
             }
+            else if(response.data){
+                message.error(response.data);
+            }
             else {
                 message.error(showMessage(response.status));
             }
