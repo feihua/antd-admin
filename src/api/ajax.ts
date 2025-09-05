@@ -50,13 +50,11 @@ axiosInstance.interceptors.response.use(
         const {response} = error;
         if (response) {
             // 请求已发出，但是不在2xx的范围
-            if(response.data.msg){
+            if (response.data.msg) {
                 message.error(response.data.msg);
-            }
-            else if(response.data){
+            } else if (response.data) {
                 message.error(response.data);
-            }
-            else {
+            } else {
                 message.error(showMessage(response.status));
             }
             if (response.status === 401) {
