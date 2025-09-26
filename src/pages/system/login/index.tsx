@@ -4,17 +4,17 @@ import {Button, Checkbox, Form, Input, message} from 'antd';
 import "./index.less"
 import logo from '../../../assets/images/logo.svg'
 import {reqLogin} from "./service";
-import {IResponse} from "../../../api/ajax";
+import {IResponse} from "@/api/ajax.ts";
 import {useNavigate} from "react-router-dom";
-import {storageUtils} from "../../../utils/storageUtils";
+import {storageUtils} from "@/utils/storageUtils.ts";
 
 const Login: React.FC = () => {
 
     let navigate = useNavigate();
 
     const onFinish = async (values: any) => {
-        const {mobile, password} = values;
-        let res: IResponse = await reqLogin({mobile, password})
+        const {account, password} = values;
+        let res: IResponse = await reqLogin({account, password})
         if (res.code === 0) {
             storageUtils.saveToken(res.data)
             // if (res.data.userId) {
@@ -41,7 +41,7 @@ const Login: React.FC = () => {
                     onFinish={onFinish}
                 >
                     <Form.Item
-                        name="mobile"
+                        name="account"
                         rules={[{required: true, message: '用户名是必填项！'}]}
                     >
                         <Input prefix={<UserOutlined className="site-form-item-icon"/>} placeholder="Username"/>
