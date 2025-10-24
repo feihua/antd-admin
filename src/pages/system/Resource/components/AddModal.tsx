@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {Form, Input, InputNumber, message, Modal, Radio, TreeSelect} from 'antd';
-import {MenuVo, TmpMenuVo} from "../data";
-import {queryMenuListSimple} from "../service.ts";
+import {MenuVo} from "../data";
+import {queryMenuListSimple} from "@/pages/system/Menu/service.ts";
+import {TmpMenuVo} from "@/pages/system/Menu/data";
 import {tree} from "@/utils/treeUtils.ts";
 
 interface AddModalProps {
@@ -37,7 +38,6 @@ const AddModal: React.FC<AddModalProps> = ({open, onCreate, onCancel}) => {
     const handleOk = () => {
         form.validateFields()
             .then((values) => {
-                values.menuType = values.parentId === 0 ? 1 : 2
                 onCreate(values);
             })
             .catch((info) => {
@@ -45,19 +45,16 @@ const AddModal: React.FC<AddModalProps> = ({open, onCreate, onCancel}) => {
             });
     }
 
-
     const renderContent = () => {
-
         return (
             <>
                 <FormItem
-                    label="上级菜单"
                     name="parentId"
-                    rules={[{required: true, message: '请选择上级菜单!'}]}
+                    label="上级菜单"
                 >
                     <TreeSelect
-                        // style={{width: '100%'}}
-                        // dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
+                        style={{width: 183}}
+                        dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
                         treeData={tmpMenuVo}
                         placeholder="请选择上级菜单"
                         fieldNames={{label: 'menuName', value: 'id', children: 'children'}}
@@ -66,57 +63,35 @@ const AddModal: React.FC<AddModalProps> = ({open, onCreate, onCancel}) => {
                 </FormItem>
                 <FormItem
                     name="menuName"
-                    label="菜单名称"
-                    rules={[{required: true, message: '请输入菜单名称!'}]}
+                    label="资源名称"
+                    rules={[{required: true, message: '请输入资源名称!'}]}
                 >
-                    <Input id="create-menuName" placeholder={'请输入菜单名称'}/>
-                </FormItem>
-                <FormItem
-                    name="visible"
-                    label="显示状态"
-                    rules={[{required: true, message: '请选择显示状态!'}]}
-                >
-                    <Radio.Group>
-                        <Radio value={1}>显示</Radio>
-                        <Radio value={0}>隐藏</Radio>
-
-                    </Radio.Group>
+                    <Input id="create-menuName" placeholder={'请输入菜单名称!'}/>
                 </FormItem>
                 <FormItem
                     name="status"
-                    label="菜单状态"
-                    rules={[{required: true, message: '请选择菜单状态!'}]}
+                    label="资源状态"
+                    rules={[{required: true, message: '请输入资源!'}]}
                 >
                     <Radio.Group>
                         <Radio value={1}>正常</Radio>
                         <Radio value={0}>禁用</Radio>
-
                     </Radio.Group>
                 </FormItem>
                 <FormItem
                     name="sort"
-                    label="显示排序"
+                    label="排序"
                     rules={[{required: true, message: '请输入排序!'}]}
                 >
                     <InputNumber style={{width: 255}}/>
                 </FormItem>
-
                 <FormItem
-                    name="menuUrl"
-                    label="路由路径"
-                    rules={[{required: true, message: '请输入路由路径!'}]}
+                    name="apiUrl"
+                    label="接口URL"
+                    rules={[{required: true, message: '请输入接口URL!'}]}
                 >
-                    <Input id="create-menuUrl" placeholder={'请输入路由路径'}/>
+                    <Input id="create-apiUrl" placeholder={'请输入接口URL!'}/>
                 </FormItem>
-                <FormItem
-                    name="menuIcon"
-                    label="菜单图标"
-                    rules={[{required: true, message: '请输入菜单图标!'}]}
-                    initialValue={'UnorderedListOutlined'}
-                >
-                    <Input id="create-menuIcon" placeholder={'请输入菜单图标'}/>
-                </FormItem>
-
                 <FormItem
                     name="remark"
                     label="备注"
@@ -129,11 +104,8 @@ const AddModal: React.FC<AddModalProps> = ({open, onCreate, onCancel}) => {
     };
 
     return (
-        <Modal title="新建" okText="保存" onOk={handleOk} onCancel={onCancel} cancelText="取消" open={open} width={520}
-               style={{top: 150}}>
-            <Form labelCol={{span: 7}} wrapperCol={{span: 13}} form={form}
-                  initialValues={{sort: 1, status: 1, visible: 1, menuType: 1}}
-                  style={{marginTop: 30}}>
+        <Modal title="新建" okText="保存" onOk={handleOk} onCancel={onCancel} cancelText="取消" open={open} width={480} style={{top: 150}}>
+            <Form labelCol={{span: 7}} wrapperCol={{span: 13}} form={form} initialValues={{sort: 1, status: 1}} style={{marginTop: 30}}>
                 {renderContent()}
             </Form>
         </Modal>

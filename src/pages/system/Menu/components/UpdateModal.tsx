@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {Form, Input, InputNumber, message, Modal, Radio, RadioChangeEvent, TreeSelect} from 'antd';
+import {Form, Input, InputNumber, message, Modal, Radio, TreeSelect} from 'antd';
 import {MenuVo, TmpMenuVo} from "../data";
 import {queryMenuDetail, queryMenuListSimple} from "../service";
-import {tree} from "../../../../utils/treeUtils.ts";
+import {tree} from "@/utils/treeUtils.ts";
 
 interface UpdateModalProps {
     open: boolean;
@@ -15,7 +15,6 @@ const UpdateModal: React.FC<UpdateModalProps> = ({open, onCreate, onCancel, id})
     const [form] = Form.useForm();
     const FormItem = Form.Item;
 
-    const [menuType, setMenuType] = useState<number>(2);
     const [tmpMenuVo, setTmpMenuVo] = useState<TmpMenuVo[]>([]);
 
     useEffect(() => {
@@ -34,7 +33,6 @@ const UpdateModal: React.FC<UpdateModalProps> = ({open, onCreate, onCancel, id})
                 }
             });
             queryMenuDetail({id}).then((res) => {
-                setMenuType(res.data.menuType)
                 form.setFieldsValue(res.data);
 
             });
@@ -44,16 +42,13 @@ const UpdateModal: React.FC<UpdateModalProps> = ({open, onCreate, onCancel, id})
     const handleOk = () => {
         form.validateFields()
             .then((values) => {
+                values.menuType = values.parentId === 0 ? 1 : 2
                 onCreate(values);
             })
             .catch((info) => {
                 console.log('Validate Failed:', info);
             });
     }
-
-    const onChange = (e: RadioChangeEvent) => {
-        setMenuType(e.target.value)
-    };
 
     const renderContent = () => {
         return (
@@ -80,39 +75,11 @@ const UpdateModal: React.FC<UpdateModalProps> = ({open, onCreate, onCancel, id})
                     />
                 </FormItem>
                 <FormItem
-                    label="菜单类型"
-                    name="menuType"
-                    rules={[{required: true, message: '请选择菜单类型!'}]}
-                >
-                    <Radio.Group onChange={onChange} value={menuType}>
-                        <Radio value={1}>目录</Radio>
-                        <Radio value={2}>菜单</Radio>
-                        <Radio value={3}>按钮</Radio>
-                    </Radio.Group>
-                </FormItem>
-                <FormItem
                     name="menuName"
                     label="菜单名称"
                     rules={[{required: true, message: '请输入菜单名称!'}]}
                 >
                     <Input id="update-menuName" placeholder={'请输入菜单名称'}/>
-                </FormItem>
-                {menuType !== 3 &&
-                    <FormItem
-                        name="menuIcon"
-                        label="菜单图标"
-                        rules={[{required: true, message: '请输入菜单图标!'}]}
-                    >
-                        <Input id="update-menuIcon" placeholder={'请输入菜单图标'}/>
-                    </FormItem>
-                }
-
-                <FormItem
-                    name="sort"
-                    label="显示排序"
-                    rules={[{required: true, message: '请输入排序!'}]}
-                >
-                    <InputNumber style={{width: 255}}/>
                 </FormItem>
                 <FormItem
                     name="visible"
@@ -136,26 +103,27 @@ const UpdateModal: React.FC<UpdateModalProps> = ({open, onCreate, onCancel, id})
 
                     </Radio.Group>
                 </FormItem>
-
-                {menuType !== 3 &&
-                    <FormItem
-                        name="menuUrl"
-                        label="路由路径"
-                        rules={[{required: true, message: '请输入路由路径!'}]}
-                    >
-                        <Input id="update-menuUrl" placeholder={'请输入路由路径'}/>
-                    </FormItem>
-                }
-                {menuType === 3 &&
-                    <FormItem
-                        name="apiUrl"
-                        label="接口地址"
-                        rules={[{required: true, message: '请输入接口地址!'}]}
-                    >
-                        <Input id="update-apiUrl" placeholder={'请输入接口地址'}/>
-                    </FormItem>
-                }
-
+                <FormItem
+                    name="sort"
+                    label="显示排序"
+                    rules={[{required: true, message: '请输入排序!'}]}
+                >
+                    <InputNumber style={{width: 255}}/>
+                </FormItem>
+                <FormItem
+                    name="menuUrl"
+                    label="路由路径"
+                    rules={[{required: true, message: '请输入路由路径!'}]}
+                >
+                    <Input id="update-menuUrl" placeholder={'请输入路由路径'}/>
+                </FormItem>
+                <FormItem
+                    name="menuIcon"
+                    label="菜单图标"
+                    rules={[{required: true, message: '请输入菜单图标!'}]}
+                >
+                    <Input id="update-menuIcon" placeholder={'请输入菜单图标'}/>
+                </FormItem>
 
                 <FormItem
                     name="remark"

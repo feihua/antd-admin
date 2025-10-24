@@ -10,11 +10,13 @@ import {addMenu, handleResp, queryMenuList, removeMenu, updateMenu} from "./serv
 import {tree} from "@/utils/treeUtils.ts";
 import {IResponse} from "@/api/ajax.ts";
 import DetailModal from "./components/DetailModal.tsx";
+import Resource from "@/pages/system/Resource";
 
 const SysMenu: React.FC = () => {
     const [isShowAddModal, setShowAddModal] = useState<boolean>(false);
     const [isShowEditModal, setShowEditModal] = useState<boolean>(false);
     const [isShowDetailModal, setShowDetailModal] = useState<boolean>(false);
+    const [showResourceModal, setShowResourceModal] = useState<boolean>(false);
     const [menuListData, setMenuListData] = useState<MenuVo[]>([]);
     const [currentMenu, setCurrentMenu] = useState<MenuVo>({
         apiUrl: "",
@@ -174,11 +176,19 @@ const SysMenu: React.FC = () => {
     }, []);
 
 
+    const showRModal = () => {
+        setShowResourceModal(true);
+    };
+
+    const handleResourceCancel = () => {
+        setShowResourceModal(false);
+    };
     return (
         <div style={{padding: 24}}>
             <div>
                 <Space>
-                    <Button type="primary" icon={<PlusOutlined/>} onClick={showModal}>新建</Button>
+                    <Button type="primary" icon={<PlusOutlined/>} onClick={showModal}>新建菜单</Button>
+                    <Button type="primary" icon={<EditOutlined/>} onClick={showRModal}>配置资源</Button>
                 </Space>
             </div>
 
@@ -195,9 +205,13 @@ const SysMenu: React.FC = () => {
             <AddMenuModal onCancel={handleAddCancel} onCreate={handleAddOk} open={isShowAddModal}></AddMenuModal>
             <UpdateMenuModal onCancel={handleEditCancel} onCreate={handleEditOk} open={isShowEditModal}
                              id={currentMenu.id}></UpdateMenuModal>
+
             <DetailModal onCancel={handleDetailCancel} open={isShowDetailModal} id={currentMenu.id}></DetailModal>
+            <Modal title="配置资源" footer={false} onCancel={handleResourceCancel} open={showResourceModal} width={'80%'}
+                   style={{top: 50}}>
 
-
+                <Resource open={showResourceModal}/>
+            </Modal>
         </div>
     );
 };
