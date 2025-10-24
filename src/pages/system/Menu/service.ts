@@ -56,7 +56,7 @@ export const queryMenuDetail = (params: { id: number }): Promise<IResponse> => {
  * @return {Promise}
  */
 export const queryMenuList = (params: MenuListParam): Promise<IResponse> => {
-    return axiosInstance.post('/api/system/menu/queryMenuList', {params}).then(res => res.data);
+    return axiosInstance.post('/api/system/menu/queryMenuList', {pageNo: 1, pageSize: 1000, ...params}).then(res => res.data);
 };
 
 /**
@@ -65,7 +65,7 @@ export const queryMenuList = (params: MenuListParam): Promise<IResponse> => {
  * @return {Promise}
  */
 export const queryMenuListSimple = (): Promise<IResponse> => {
-    return axiosInstance.get('/api/system/menu/queryMenuListSimple').then(res => res.data);
+    return axiosInstance.post('/api/system/menu/queryMenuListSimple').then(res => res.data);
 };
 
 /**
