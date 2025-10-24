@@ -11,7 +11,6 @@ export interface DetailModalProps {
 
 const DetailModal: React.FC<DetailModalProps> = (props) => {
    const {open, id, onCancel} = props;
-
    const [columns, setColumns] = useState<DescriptionsProps['items']>([]);
   useEffect(() => {
     if (open) {
@@ -29,18 +28,18 @@ const DetailModal: React.FC<DetailModalProps> = (props) => {
               },
               {
                   key: '3',
-                  label: '菜单类型(1：目录   2：菜单   3：按钮)',
-                  children: <p>{ res.data.menuType }</p>,
+                  label: '菜单类型',
+                  children: <p>{ res.data.menuType===1 ? '目录' : res.data.menuType===2 ? '菜单' : '按钮' }</p>,
               },
               {
                   key: '4',
-                  label: '显示状态（0:隐藏, 显示:1）',
-                  children: <p>{ res.data.visible }</p>,
+                  label: '显示状态',
+                  children: <p>{ res.data.visible===1 ? '显示' : '隐藏' }</p>,
               },
               {
                   key: '5',
-                  label: '菜单状态(1:正常，0:禁用)',
-                  children: <p>{ res.data.status }</p>,
+                  label: '菜单状态',
+                  children: <p>{ res.data.status===1 ? '正常' : '禁用' }</p>,
               },
               {
                   key: '6',
@@ -49,23 +48,13 @@ const DetailModal: React.FC<DetailModalProps> = (props) => {
               },
               {
                   key: '7',
-                  label: '父ID',
+                  label: '上级菜单',
                   children: <p>{ res.data.parentId }</p>,
-              },
-              {
-                  key: '8',
-                  label: '路由路径',
-                  children: <p>{ res.data.menuUrl }</p>,
               },
               {
                   key: '9',
                   label: '接口URL',
                   children: <p>{ res.data.apiUrl }</p>,
-              },
-              {
-                  key: '10',
-                  label: '菜单图标',
-                  children: <p>{ res.data.menuIcon }</p>,
               },
               {
                   key: '11',

@@ -13,27 +13,6 @@ export interface DetailModalProps {
 const DetailModal: React.FC<DetailModalProps> = (props) => {
     const {open, id, onCancel} = props;
 
-    //菜单类型(1：目录   2：菜单   3：按钮)
-    const getMenuTypeText = function (menuType: number): string {
-        let text = '';
-        switch (menuType) {
-            case 1:
-                text = '目录'
-                break;
-            case 2:
-                text = '菜单'
-                break;
-            case 3:
-                text = '按钮'
-                break;
-            default:
-                text = '未知'
-        }
-
-        return text;
-
-    }
-
     const [columns, setColumns] = useState<DescriptionsProps['items']>([]);
     useEffect(() => {
         if (open) {
@@ -52,17 +31,17 @@ const DetailModal: React.FC<DetailModalProps> = (props) => {
                     {
                         key: '3',
                         label: '菜单类型',
-                        children: <p>{getMenuTypeText(res.data.menuType)}</p>,
+                        children: <p>{ res.data.menuType===1 ? '目录' : res.data.menuType===2 ? '菜单' : '按钮' }</p>,
                     },
                     {
                         key: '4',
                         label: '显示状态',
-                        children: <p>{res.data.visible == 1 ? '显示' : '隐藏'}</p>,
+                        children: <p>{ res.data.visible===1 ? '显示' : '隐藏' }</p>,
                     },
                     {
                         key: '13',
                         label: '菜单状态',
-                        children: <p>{res.data.status == 1 ? '正常' : '禁用'}</p>,
+                        children: <p>{ res.data.status===1 ? '正常' : '禁用' }</p>,
                     },
                     {
                         key: '5',
@@ -78,11 +57,6 @@ const DetailModal: React.FC<DetailModalProps> = (props) => {
                         key: '7',
                         label: '路由路径',
                         children: <p>{res.data.menuUrl}</p>,
-                    },
-                    {
-                        key: '8',
-                        label: '接口URL',
-                        children: <p>{res.data.apiUrl}</p>,
                     },
                     {
                         key: '9',

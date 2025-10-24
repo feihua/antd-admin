@@ -234,7 +234,7 @@ const DictData: React.FC<DictDataProps> = ({dictType, open}) => {
             setTotal(res.total)
             res.code === 0 ? setDictDataListData(res.data) : message.error(res.msg);
 
-        }, //改变页码的函数
+        }, 
         onShowSizeChange: (current: number, size: number) => {
             console.log('onShowSizeChange', current, size)
         }
