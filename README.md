@@ -1,73 +1,77 @@
-# React + TypeScript + Vite
+# antd-admin
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+这是一个基于 React + TypeScript + Ant Design 的后台管理系统模板，提供了完整的权限管理、用户管理等基础功能
 
-Currently, two official plugins are available:
+# 技术栈
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- 核心框架：React 18
+- 开发语言：TypeScript 5.x
+- UI 组件库：Ant Design
+- 状态管理：Zustand
+- 路由管理：React Router v6
+- 构建工具：Vite
+- 代码规范：ESLint + Prettier
 
-## React Compiler
+# 项目结构
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+src/
+├── api/          # API 接口封装
+├── assets/       # 静态资源
+├── components/   # 公共组件
+├── pages/        # 页面组件
+├── router/       # 路由配置
+├── store/        # 状态管理
+├── utils/        # 工具函数
+└── App.tsx       # 根组件
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+# 系统截图
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 用户界面
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+![user](https://raw.githubusercontent.com/feihua/axum-admin/master/docs/images/user.jpg)
+
+## 角色分配界面
+
+![user_role](https://raw.githubusercontent.com/feihua/axum-admin/master/docs/images/user_role.jpg)
+
+## 角色界面
+
+![role](https://raw.githubusercontent.com/feihua/axum-admin/master/docs/images/role.jpg)
+
+## 角色用户界面
+
+![role_user](https://raw.githubusercontent.com/feihua/axum-admin/master/docs/images/role_user.jpg)
+
+## 菜单分配界面
+
+![role_menu](https://raw.githubusercontent.com/feihua/axum-admin/master/docs/images/role_menu.jpg)
+
+## 菜单界面
+
+![menu](https://raw.githubusercontent.com/feihua/axum-admin/master/docs/images/menu.jpg)
+
+## 部门界面
+
+![dept](https://raw.githubusercontent.com/feihua/axum-admin/master/docs/images/dept.jpg)
+
+## 岗位界面
+
+![post](https://raw.githubusercontent.com/feihua/axum-admin/master/docs/images/post.jpg)
+
+## 字典界面
+
+![dict_type](https://raw.githubusercontent.com/feihua/axum-admin/master/docs/images/dict.jpg)
+
+## 字典数据界面
+
+![dict_data](https://raw.githubusercontent.com/feihua/axum-admin/master/docs/images/dict_data.jpg)
+
+## 通知界面
+
+![notic](https://raw.githubusercontent.com/feihua/axum-admin/master/docs/images/notice.jpg)
+
+## 登录日志
+
+![log](https://raw.githubusercontent.com/feihua/axum-admin/master/docs/images/login_log.jpg)
