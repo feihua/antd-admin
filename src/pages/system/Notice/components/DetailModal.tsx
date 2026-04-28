@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Descriptions, DescriptionsProps, Modal} from 'antd';
+import {Descriptions, type DescriptionsProps, Modal} from 'antd';
 import {queryNoticeDetail} from "../service";
 
 export interface DetailModalProps {

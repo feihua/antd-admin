@@ -1,7 +1,7 @@
 import React from 'react';
 import {SearchOutlined} from '@ant-design/icons';
 import {Button, Form, Input, Select, Space} from 'antd';
-import {UserListParam} from "../data";
+import type {UserListParam} from "../data";
 
 const {Option} = Select;
 

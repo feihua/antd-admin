@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {Form, Input, Modal, Radio} from 'antd';
-import {OperateLogVo} from "../data";
+import type {OperateLogVo} from "../data";
 import {queryOperateLogDetail} from "../service";
 
 interface UpdateModalProps {

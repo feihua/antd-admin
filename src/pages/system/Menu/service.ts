@@ -1,5 +1,5 @@
-import {axiosInstance, IResponse} from "@/api/ajax.ts";
-import {MenuListParam, MenuVo} from "./data";
+import {axiosInstance, type IResponse} from "@/api/ajax.ts";
+import type {MenuListParam, MenuVo} from "./data";
 import {message} from "antd";
 
 /**

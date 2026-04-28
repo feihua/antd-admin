@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Button, Divider, message, Modal, Space, Table, Tag} from 'antd';
 import type {ColumnsType} from 'antd/es/table';
 import {DeleteOutlined, EditOutlined, PlusOutlined} from '@ant-design/icons';
-import {NoticeListParam, NoticeVo} from './data';
+import type {NoticeListParam, NoticeVo} from './data';
 import AddModal from "./components/AddModal";
 import UpdateModal from "./components/UpdateModal";
 import AdvancedSearchForm from "./components/SearchForm";
@@ -107,9 +107,7 @@ const Notice: React.FC = () => {
     const handleAddOk = async (param: NoticeVo) => {
         if (handleResp(await addNotice(param))) {
             setShowAddModal(false);
-            const res = await queryNoticeList({pageNo: currentPage, pageSize})
-            setTotal(res.total)
-            res.code === 0 ? setNoticeListData(res.data) : message.error(res.msg);
+            queryDataList({pageNo: currentPage, pageSize})
         }
     }
 
@@ -126,11 +124,9 @@ const Notice: React.FC = () => {
     const handleEditOk = async (param: NoticeVo) => {
         if (handleResp(await updateNotice(param))) {
             setShowEditModal(false);
-            const res = await queryNoticeList({
+            queryDataList({
                 pageNo: currentPage, pageSize,
             })
-            setTotal(res.total)
-            res.code === 0 ? setNoticeListData(res.data) : message.error(res.msg);
         }
     };
 
@@ -166,32 +162,35 @@ const Notice: React.FC = () => {
     //批量删除
     const handleRemove = async (ids: number[]) => {
         if (handleResp(await removeNotice(ids))) {
-            const res = await queryNoticeList({pageNo: currentPage, pageSize})
-            setTotal(res.total)
-            res.code === 0 ? setNoticeListData(res.data) : message.error(res.msg);
+            queryDataList({pageNo: currentPage, pageSize})
         }
 
     };
 
     const handleSearchOk = async (param: NoticeListParam) => {
-        const res = await queryNoticeList(param)
-        setTotal(res.total)
-        res.code === 0 ? setNoticeListData(res.data) : message.error(res.msg);
+        queryDataList(param)
     };
 
     const handleResetOk = async () => {
-        const res = await queryNoticeList({pageNo: currentPage, pageSize})
-        setTotal(res.total)
-        res.code === 0 ? setNoticeListData(res.data) : message.error(res.msg);
+        queryDataList({pageNo: currentPage, pageSize})
     };
 
+    const queryDataList = (params: NoticeListParam) => {
+        queryNoticeList(params).then(res => {
+            if (res.code === 0) {
+                setTotal(res.total)
+                setNoticeListData(res.data)
+            } else {
+                message.error(res.msg)
+            }
+
+        })
+    }
+
     useEffect(() => {
-        queryNoticeList({
+        queryDataList({
             pageNo: currentPage, pageSize
-        }).then(res => {
-            setTotal(res.total)
-            res.code === 0 ? setNoticeListData(res.data) : message.error(res.msg);
-        });
+        })
     }, []);
 
 
@@ -209,9 +208,7 @@ const Notice: React.FC = () => {
         onChange: async (page: number, pageSize: number) => {
             setCurrentPage(page)
             setPageSize(pageSize)
-            const res = await queryNoticeList({pageNo: page, pageSize})
-            setTotal(res.total)
-            res.code === 0 ? setNoticeListData(res.data) : message.error(res.msg);
+            queryDataList({pageNo: page, pageSize})
 
         }, 
         onShowSizeChange: (current: number, size: number) => {

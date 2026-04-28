@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {Form, Input, message, Modal, Radio, Select, TreeSelect} from 'antd';
-import {UserVo} from "../data";
-import {DeptVo} from "../../Dept/data";
+import type {UserVo} from "../data";
+import type {DeptVo} from "../../Dept/data";
 import {queryDeptList} from "../../Dept/service.ts";
 import {queryPostList} from "../../Post/service.ts";
-import {PostVo} from "../../Post/data";
+import type {PostVo} from "../../Post/data";
 
 interface AddModalProps {
     open: boolean;

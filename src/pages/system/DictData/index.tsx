@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Button, Divider, message, Modal, Space, Table, Tag} from 'antd';
 import type {ColumnsType} from 'antd/es/table';
 import {DeleteOutlined, EditOutlined, PlusOutlined} from '@ant-design/icons';
-import {DictDataListParam, DictDataVo} from './data';
+import type {DictDataListParam, DictDataVo} from './data';
 import AddModal from "./components/AddModal";
 import UpdateModal from "./components/UpdateModal";
 import AdvancedSearchForm from "./components/SearchForm";
@@ -126,8 +126,12 @@ const DictData: React.FC<DictDataProps> = ({dictType, open}) => {
         if (handleResp(await addDictData(param))) {
             setShowAddModal(false);
             const res = await queryDictDataList({pageNo: currentPage, pageSize, dictType})
-            setTotal(res.total)
-            res.code === 0 ? setDictDataListData(res.data) : message.error(res.msg);
+            if (res.code === 0) {
+                setTotal(res.total)
+                setDictDataListData(res.data)
+            } else {
+                message.error(res.msg)
+            }
         }
     }
 
@@ -145,11 +149,9 @@ const DictData: React.FC<DictDataProps> = ({dictType, open}) => {
         param.dictType = dictType
         if (handleResp(await updateDictData(param))) {
             setShowEditModal(false);
-            const res = await queryDictDataList({
+            queryDataList({
                 pageNo: currentPage, pageSize, dictType
             })
-            setTotal(res.total)
-            res.code === 0 ? setDictDataListData(res.data) : message.error(res.msg);
         }
     };
 
@@ -185,33 +187,35 @@ const DictData: React.FC<DictDataProps> = ({dictType, open}) => {
     //批量删除
     const handleRemove = async (ids: number[]) => {
         if (handleResp(await removeDictData(ids))) {
-            const res = await queryDictDataList({pageNo: currentPage, pageSize, dictType})
-            setTotal(res.total)
-            res.code === 0 ? setDictDataListData(res.data) : message.error(res.msg);
+            queryDataList({pageNo: currentPage, pageSize, dictType})
         }
 
     };
 
     const handleSearchOk = async (param: DictDataListParam) => {
-        const res = await queryDictDataList({...param, dictType})
-        setTotal(res.total)
-        res.code === 0 ? setDictDataListData(res.data) : message.error(res.msg);
+        queryDataList({...param, dictType})
     };
 
     const handleResetOk = async () => {
-        const res = await queryDictDataList({pageNo: currentPage, pageSize, dictType})
-        setTotal(res.total)
-        res.code === 0 ? setDictDataListData(res.data) : message.error(res.msg);
+        queryDataList({pageNo: currentPage, pageSize, dictType})
     };
 
+    const queryDataList = (params: DictDataListParam) => {
+        queryDictDataList(params).then(res => {
+            if (res.code === 0) {
+                setTotal(res.total)
+                setDictDataListData(res.data)
+            } else {
+                message.error(res.msg)
+            }
+
+        })
+    }
     useEffect(() => {
         if (open) {
-            queryDictDataList({
+            queryDataList({
                 pageNo: currentPage, pageSize, dictType
-            }).then(res => {
-                setTotal(res.total)
-                res.code === 0 ? setDictDataListData(res.data) : message.error(res.msg);
-            });
+            })
         }
     }, [open]);
 
@@ -230,11 +234,8 @@ const DictData: React.FC<DictDataProps> = ({dictType, open}) => {
         onChange: async (page: number, pageSize: number) => {
             setCurrentPage(page)
             setPageSize(pageSize)
-            const res = await queryDictDataList({pageNo: page, pageSize, dictType})
-            setTotal(res.total)
-            res.code === 0 ? setDictDataListData(res.data) : message.error(res.msg);
-
-        }, 
+            queryDataList({pageNo: page, pageSize, dictType})
+        },
         onShowSizeChange: (current: number, size: number) => {
             console.log('onShowSizeChange', current, size)
         }

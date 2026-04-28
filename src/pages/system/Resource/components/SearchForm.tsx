@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {SearchOutlined} from '@ant-design/icons';
-import {Button, Form, FormProps, Input, message, Select, Space, TreeSelect} from 'antd';
-import {MenuListParam} from "../data";
+import {Button, Form, type FormProps, Input, message, Select, Space, TreeSelect} from 'antd';
+import type {MenuListParam} from "../data";
 import {queryMenuListSimple} from "@/pages/system/Menu/service.ts";
-import {TmpMenuVo} from "@/pages/system/Menu/data";
+import type {TmpMenuVo} from "@/pages/system/Menu/data";
 import {tree} from "@/utils/treeUtils.ts";
 
 interface CreateFormProps {

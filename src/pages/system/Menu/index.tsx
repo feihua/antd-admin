@@ -3,12 +3,12 @@ import {Button, Divider, message, Modal, Space, Table, Tag} from 'antd';
 import type {ColumnsType} from 'antd/es/table';
 import * as Icons from '@ant-design/icons';
 import {DeleteOutlined, EditOutlined, PlusOutlined} from '@ant-design/icons';
-import {MenuVo} from './data';
+import type {MenuVo} from './data';
 import AddMenuModal from "./components/AddModal.tsx";
 import UpdateMenuModal from "./components/UpdateModal.tsx";
 import {addMenu, handleResp, queryMenuList, removeMenu, updateMenu} from "./service";
 import {tree} from "@/utils/treeUtils.ts";
-import {IResponse} from "@/api/ajax.ts";
+import type {IResponse} from "@/api/ajax.ts";
 import DetailModal from "./components/DetailModal.tsx";
 import Resource from "@/pages/system/Resource";
 
@@ -46,7 +46,8 @@ const SysMenu: React.FC = () => {
             dataIndex: 'menuIcon',
 
             render: (text: string) => {
-                // @ts-ignore
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-expect-error
                 return text.length == 0 ? text : React.createElement(Icons[text])
             },
         },
@@ -104,8 +105,7 @@ const SysMenu: React.FC = () => {
     const handleAddOk = async (menu: MenuVo) => {
         if (handleResp(await addMenu(menu))) {
             setShowAddModal(false);
-            let res = await queryMenuList({})
-            res.code === 0 ? setMenuDataTree(res) : message.error(res.msg);
+            queryDataList()
         }
     }
 
@@ -122,8 +122,7 @@ const SysMenu: React.FC = () => {
     const handleEditOk = async (menu: MenuVo) => {
         if (handleResp(await updateMenu(menu))) {
             setShowEditModal(false);
-            let res = await queryMenuList({})
-            res.code === 0 ? setMenuDataTree(res) : message.error(res.msg);
+            queryDataList()
         }
     };
 
@@ -159,8 +158,7 @@ const SysMenu: React.FC = () => {
     //批量删除
     const handleRemove = async (id: number) => {
         if (handleResp(await removeMenu(id))) {
-            let res = await queryMenuList({})
-            res.code === 0 ? setMenuDataTree(res) : message.error(res.msg);
+            queryDataList()
         }
 
     };
@@ -169,12 +167,20 @@ const SysMenu: React.FC = () => {
         setMenuListData(tree(res.data, 0, "parentId"))
     }
 
-    useEffect(() => {
+    const queryDataList = () => {
         queryMenuList({}).then(res => {
-            res.code === 0 ? setMenuDataTree(res) : message.error(res.msg);
-        });
-    }, []);
+            if (res.code === 0) {
+                setMenuDataTree(res)
+            } else {
+                message.error(res.msg)
+            }
 
+        })
+    }
+
+    useEffect(() => {
+        queryDataList()
+    })
 
     const showRModal = () => {
         setShowResourceModal(true);

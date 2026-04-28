@@ -1,5 +1,5 @@
-import {axiosInstance, IResponse} from "@/api/ajax.ts";
-import {ILogin} from "./data";
+import {axiosInstance, type IResponse} from "@/api/ajax.ts";
+import type {ILogin} from "./data";
 
 /**
  * @description: 用户登录

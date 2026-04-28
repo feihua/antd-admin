@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Button, Divider, message, Modal, Space, Table, Tag} from 'antd';
 import type {ColumnsType} from 'antd/es/table';
 import {DeleteOutlined, EditOutlined, PlusOutlined} from '@ant-design/icons';
-import {PostListParam, PostVo} from './data';
+import type {PostListParam, PostVo} from './data';
 import AddModal from "./components/AddModal";
 import UpdateModal from "./components/UpdateModal";
 import AdvancedSearchForm from "./components/SearchForm";
@@ -97,9 +97,7 @@ const Post: React.FC = () => {
     const handleAddOk = async (param: PostVo) => {
         if (handleResp(await addPost(param))) {
             setShowAddModal(false);
-            const res = await queryPostList({pageNo: currentPage, pageSize})
-            setTotal(res.total)
-            res.code === 0 ? setPostListData(res.data) : message.error(res.msg);
+            queryDataList({pageNo: currentPage, pageSize})
         }
     }
 
@@ -116,11 +114,9 @@ const Post: React.FC = () => {
     const handleEditOk = async (param: PostVo) => {
         if (handleResp(await updatePost(param))) {
             setShowEditModal(false);
-            const res = await queryPostList({
+            queryDataListqueryDataList({
                 pageNo: currentPage, pageSize,
             })
-            setTotal(res.total)
-            res.code === 0 ? setPostListData(res.data) : message.error(res.msg);
         }
     };
 
@@ -156,32 +152,35 @@ const Post: React.FC = () => {
     //批量删除
     const handleRemove = async (ids: number[]) => {
         if (handleResp(await removePost(ids))) {
-            const res = await queryPostList({pageNo: currentPage, pageSize})
-            setTotal(res.total)
-            res.code === 0 ? setPostListData(res.data) : message.error(res.msg);
+            queryDataList({pageNo: currentPage, pageSize})
         }
 
     };
 
     const handleSearchOk = async (param: PostListParam) => {
-        const res = await queryPostList(param)
-        setTotal(res.total)
-        res.code === 0 ? setPostListData(res.data) : message.error(res.msg);
+        queryDataList(param)
     };
 
     const handleResetOk = async () => {
-        const res = await queryPostList({pageNo: currentPage, pageSize})
-        setTotal(res.total)
-        res.code === 0 ? setPostListData(res.data) : message.error(res.msg);
+        queryDataList({pageNo: currentPage, pageSize})
     };
 
+    const queryDataList = (params: PostListParam) => {
+        queryPostList(params).then(res => {
+            if (res.code === 0) {
+                setTotal(res.total)
+                setPostListData(res.data)
+            } else {
+                message.error(res.msg)
+            }
+
+        })
+    }
+    
     useEffect(() => {
-        queryPostList({
+        queryDataList({
             pageNo: currentPage, pageSize
-        }).then(res => {
-            setTotal(res.total)
-            res.code === 0 ? setPostListData(res.data) : message.error(res.msg);
-        });
+        })
     }, []);
 
 
@@ -199,9 +198,7 @@ const Post: React.FC = () => {
         onChange: async (page: number, pageSize: number) => {
             setCurrentPage(page)
             setPageSize(pageSize)
-            const res = await queryPostList({pageNo:page, pageSize})
-            setTotal(res.total)
-            res.code === 0 ? setPostListData(res.data) : message.error(res.msg);
+            queryDataList({pageNo:page, pageSize})
 
         }, 
         onShowSizeChange: (current: number, size: number) => {

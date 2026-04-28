@@ -1,10 +1,10 @@
 import React from 'react';
 import {LockOutlined, UserOutlined} from '@ant-design/icons';
 import {Button, Checkbox, Form, Input, message} from 'antd';
-import "./index.less"
+import "./index.css"
 import logo from '../../../assets/images/logo.svg'
 import {reqLogin} from "./service";
-import {IResponse} from "@/api/ajax.ts";
+import type {IResponse} from "@/api/ajax.ts";
 import {useNavigate} from "react-router-dom";
 import {storageUtils} from "@/utils/storageUtils.ts";
 

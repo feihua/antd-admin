@@ -1,6 +1,6 @@
 import React from 'react';
 import {Form, Input, message, Modal, Radio} from 'antd';
-import {OperateLogVo} from "../data";
+import type {OperateLogVo} from "../data";
 
 interface AddModalProps {
     open: boolean;

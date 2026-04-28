@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Button, Divider, message, Modal, Space, Table, Tag} from 'antd';
 import type {ColumnsType} from 'antd/es/table';
 import {DeleteOutlined, EditOutlined, PlusOutlined} from '@ant-design/icons';
-import {DictTypeListParam, DictTypeVo} from './data';
+import type {DictTypeListParam, DictTypeVo} from './data';
 import AddModal from "./components/AddModal";
 import UpdateModal from "./components/UpdateModal";
 import AdvancedSearchForm from "./components/SearchForm";
@@ -99,9 +99,7 @@ const DictType: React.FC = () => {
     const handleAddOk = async (param: DictTypeVo) => {
         if (handleResp(await addDictType(param))) {
             setShowAddModal(false);
-            const res = await queryDictTypeList({pageNo: currentPage, pageSize})
-            setTotal(res.total)
-            res.code === 0 ? setDictTypeListData(res.data) : message.error(res.msg);
+            queryDataList({pageNo: currentPage, pageSize})
         }
     }
 
@@ -118,11 +116,9 @@ const DictType: React.FC = () => {
     const handleEditOk = async (param: DictTypeVo) => {
         if (handleResp(await updateDictType(param))) {
             setShowEditModal(false);
-            const res = await queryDictTypeList({
+            queryDataList({
                 pageNo: currentPage, pageSize,
             })
-            setTotal(res.total)
-            res.code === 0 ? setDictTypeListData(res.data) : message.error(res.msg);
         }
     };
 
@@ -169,32 +165,35 @@ const DictType: React.FC = () => {
     //批量删除
     const handleRemove = async (ids: number[]) => {
         if (handleResp(await removeDictType(ids))) {
-            const res = await queryDictTypeList({pageNo: currentPage, pageSize})
-            setTotal(res.total)
-            res.code === 0 ? setDictTypeListData(res.data) : message.error(res.msg);
+            queryDataList({pageNo: currentPage, pageSize})
         }
 
     };
 
     const handleSearchOk = async (param: DictTypeListParam) => {
-        const res = await queryDictTypeList(param)
-        setTotal(res.total)
-        res.code === 0 ? setDictTypeListData(res.data) : message.error(res.msg);
+        queryDataList(param)
     };
 
     const handleResetOk = async () => {
-        const res = await queryDictTypeList({pageNo: currentPage, pageSize})
-        setTotal(res.total)
-        res.code === 0 ? setDictTypeListData(res.data) : message.error(res.msg);
+        queryDataList({pageNo: currentPage, pageSize})
     };
 
+    const queryDataList = (params: DictTypeListParam) => {
+        queryDictTypeList(params).then(res => {
+            if (res.code === 0) {
+                setTotal(res.total)
+                setDictTypeListData(res.data)
+            } else {
+                message.error(res.msg)
+            }
+
+        })
+    }
+
     useEffect(() => {
-        queryDictTypeList({
+        queryDataList({
             pageNo: currentPage, pageSize
-        }).then(res => {
-            setTotal(res.total)
-            res.code === 0 ? setDictTypeListData(res.data) : message.error(res.msg);
-        });
+        })
     }, []);
 
 
@@ -212,9 +211,7 @@ const DictType: React.FC = () => {
         onChange: async (page: number, pageSize: number) => {
             setCurrentPage(page)
             setPageSize(pageSize)
-            const res = await queryDictTypeList({pageNo: page, pageSize})
-            setTotal(res.total)
-            res.code === 0 ? setDictTypeListData(res.data) : message.error(res.msg);
+            queryDataList({pageNo: page, pageSize})
 
         }, 
         onShowSizeChange: (current: number, size: number) => {

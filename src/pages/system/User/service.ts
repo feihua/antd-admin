@@ -1,5 +1,5 @@
-import {axiosInstance, IResponse} from "@/api/ajax.ts";
-import {UserListParam, UserRoleListParam, UserVo} from "./data";
+import {axiosInstance, type IResponse} from "@/api/ajax.ts";
+import type {UserListParam, UserRoleListParam, UserVo} from "./data";
 import {message} from "antd";
 
 /**
@@ -73,7 +73,7 @@ export const query_user_role = (param: UserRoleListParam): Promise<IResponse> =>
  * @params {ids} number[]
  * @return {Promise}
  */
-export const update_user_role = (userId: Number, roleIds: Number[]): Promise<IResponse> => {
+export const update_user_role = (userId: number, roleIds: number[]): Promise<IResponse> => {
     return axiosInstance.post('/api/system/user/updateUserRole', {
         userId: userId,
         roleIds: roleIds

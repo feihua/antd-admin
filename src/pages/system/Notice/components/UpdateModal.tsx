@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Form, Input, Modal, Radio} from 'antd';
-import {NoticeVo} from "../data";
+import type {NoticeVo} from "../data";
 import {queryNoticeDetail} from "../service";
 import TextArea from "antd/es/input/TextArea";
 

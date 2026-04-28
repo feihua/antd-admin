@@ -1,5 +1,5 @@
-import {axiosInstance, IResponse} from "@/api/ajax.ts";
-import {OperateLogListParam} from "./data";
+import {axiosInstance, type IResponse} from "@/api/ajax.ts";
+import type {OperateLogListParam} from "./data";
 import {message} from "antd";
 
 

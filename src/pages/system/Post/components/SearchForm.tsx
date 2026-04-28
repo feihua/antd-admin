@@ -1,7 +1,7 @@
 import React from 'react';
 import {SearchOutlined} from '@ant-design/icons';
 import {Button, Form, Input, Select, Space} from 'antd';
-import {PostListParam} from "../data";
+import type {PostListParam} from "../data";
 
 interface CreateFormProps {
     search: (values: PostListParam) => void;

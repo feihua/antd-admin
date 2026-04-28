@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {Form, Input, Modal, Tree} from 'antd';
-import {RoleVo} from "../data";
+import type {RoleVo} from "../data";
 import {query_role_menu} from "../service";
-import {tree} from "../../../../utils/treeUtils";
+import {tree} from "@/utils/treeUtils.ts";
 
 interface UpdateFormProps {
     open: boolean;
-    onCreate: (roleId: Number, menuIds: Number[]) => void;
+    onCreate: (roleId: number, menuIds: number[]) => void;
     onCancel: () => void;
     roleVo: RoleVo;
 }
@@ -22,6 +22,7 @@ const SetRoleMenuForm: React.FC<UpdateFormProps> = ({open, onCreate, onCancel, r
         if (open) {
             form.setFieldsValue(roleVo);
         }
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setCheckedKeys([]);
         query_role_menu(roleVo.id || 0).then((res) => {
             // @ts-ignore

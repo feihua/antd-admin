@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Divider, message, Modal, Space, Splitter, Switch, Table, Tree, TreeProps} from 'antd';
+import {Button, Divider, message, Modal, Space, Splitter, Switch, Table, Tree, type TreeProps} from 'antd';
 import type {ColumnsType} from 'antd/es/table';
 import {DeleteOutlined, EditOutlined, ExclamationCircleOutlined, PlusOutlined} from '@ant-design/icons';
-import {UserListParam, UserVo} from './data';
+import type {UserListParam, UserVo} from './data';
 import AddUserModal from "./components/AddModal.tsx";
 import UpdateUserModal from "./components/UpdateModal.tsx";
 import {
@@ -18,7 +18,7 @@ import AdvancedSearchForm from "./components/SearchForm.tsx";
 import SetUserRoleModal from "./components/UserRoleModal.tsx";
 import DetailModal from "./components/DetailModal.tsx";
 import {queryDeptList} from "../Dept/service.ts";
-import {DeptVo} from "../Dept/data";
+import type {DeptVo} from "../Dept/data";
 
 const SysUser: React.FC = () => {
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
@@ -137,15 +137,13 @@ const SysUser: React.FC = () => {
             return true;
         }
         try {
-            let updateRes=await updateUserStatus({ids, status});
+            const updateRes=await updateUserStatus({ids, status});
             hide();
             if (updateRes.code !== 0) {
                 message.error(updateRes.msg)
                 return
             }
-            let res = await queryUserList({pageNo: currentPage, pageSize});
-            setTotal(res.total);
-            res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
+            queryDataList({pageNo: currentPage, pageSize});
             message.success('更新状态成功');
             return true;
         } catch (error) {
@@ -161,9 +159,7 @@ const SysUser: React.FC = () => {
     const handleAddOk = async (user: UserVo) => {
         if (handleResp(await addUser(user))) {
             setShowAddModal(false);
-            let res = await queryUserList({pageNo: currentPage, pageSize})
-            setTotal(res.total)
-            res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
+            queryDataList({pageNo: currentPage, pageSize})
         }
     }
 
@@ -180,11 +176,9 @@ const SysUser: React.FC = () => {
     const handleEditOk = async (user: UserVo) => {
         if (handleResp(await updateUser(user))) {
             setShowEditModal(false);
-            let res = await queryUserList({
+            queryDataList({
                 pageNo: currentPage, pageSize,
             })
-            setTotal(res.total)
-            res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
         }
     };
 
@@ -210,11 +204,9 @@ const SysUser: React.FC = () => {
     const handleRoleOk = async (userId: number, roleIds: number[]) => {
         if (handleResp(await update_user_role(userId, roleIds))) {
             setShowRoleModal(false);
-            let res = await queryUserList({
+            queryDataList({
                 pageNo: currentPage, pageSize,
             })
-            setTotal(res.total)
-            res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
         }
     };
 
@@ -240,36 +232,39 @@ const SysUser: React.FC = () => {
     //批量删除
     const handleRemove = async (ids: number[]) => {
         if (handleResp(await removeUser({ids: ids}))) {
-            let res = await queryUserList({pageNo: currentPage, mobile: "", pageSize})
-            setTotal(res.total)
-            res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
+            queryDataList({pageNo: currentPage, mobile: "", pageSize})
         }
 
     };
 
     const handleSearchOk = async (user: UserListParam) => {
-        let res = await queryUserList(user)
-        setTotal(res.total)
-        res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
+        queryDataList(user)
     };
 
     const handleResetOk = async () => {
         setCurrentPage(1)
-        let res = await queryUserList({pageNo: 1, pageSize})
-        setTotal(res.total)
-        res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
+        queryDataList({pageNo: 1, pageSize})
     };
+
+    const queryDataList = (params: UserListParam) => {
+        queryUserList(params).then(res => {
+            if (res.code === 0) {
+                setTotal(res.total)
+                setUserListData(res.data)
+            } else {
+                message.error(res.msg)
+            }
+
+        })
+    }
 
     useEffect(() => {
         queryDeptList({}).then(res => {
             setDeptListData(res);
         });
-        queryUserList({
+        queryDataList({
             pageNo: currentPage, pageSize
-        }).then(res => {
-            setTotal(res.total)
-            res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
-        });
+        })
     }, []);
 
 
@@ -287,9 +282,7 @@ const SysUser: React.FC = () => {
         onChange: async (page: number, pageSize: number) => {
             setCurrentPage(page)
             setPageSize(pageSize)
-            let res = await queryUserList({pageNo: page, pageSize})
-            setTotal(res.total)
-            res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
+            const res = await queryDataList({pageNo: page, pageSize})
 
         }, 
         onShowSizeChange: (current: number, size: number) => {
@@ -300,12 +293,9 @@ const SysUser: React.FC = () => {
     const onSelect: TreeProps['onSelect'] = (selectedKeys, info) => {
         console.log(selectedKeys)
         const deptId = info.node.key as number
-        queryUserList({
+        queryDataList({
             pageNo: currentPage, pageSize, deptId
-        }).then(res => {
-            setTotal(res.total)
-            res.code === 0 ? setUserListData(res.data) : message.error(res.msg);
-        });
+        })
     };
 
     return (
@@ -314,7 +304,6 @@ const SysUser: React.FC = () => {
                 <Splitter.Panel defaultSize="16%" min="16%" max="40%">
                     {deptListData.length != 0 && <Tree
                         onSelect={onSelect}
-                        // @ts-ignore
                         treeData={deptListData}
                         defaultExpandAll
                         fieldNames={{title: 'deptName', key: 'id', children: 'children'}}

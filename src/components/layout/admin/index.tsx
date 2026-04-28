@@ -10,9 +10,8 @@ import {Breadcrumb, Layout, Menu, theme} from 'antd';
 import logo from '../../../assets/images/logo.svg'
 import MyHeader from '../../header'
 import {query_user_menu} from "./service.ts";
-import {MyMenuItem, RecordVo} from "./data";
-import {tree} from "../../../utils/treeUtils.ts";
-import "./index.less"
+import type {MyMenuItem, RecordVo} from "./data";
+import {tree} from "@/utils/treeUtils.ts";
 import useStore from "../../../store";
 
 

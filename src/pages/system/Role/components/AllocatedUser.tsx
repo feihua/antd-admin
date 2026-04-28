@@ -4,8 +4,8 @@ import type {ColumnsType} from 'antd/es/table';
 import {EditOutlined, ExclamationCircleOutlined, PlusOutlined} from '@ant-design/icons';
 
 import AdvancedSearchUserForm from "./SearchUserForm.tsx";
-import {QueryUserListParam, RoleVo} from "../data";
-import {UserVo} from "../../User/data";
+import type {QueryUserListParam, RoleVo} from "../data";
+import type {UserVo} from "../../User/data";
 import {
     batch_auth_user,
     batch_cancel_auth_user,

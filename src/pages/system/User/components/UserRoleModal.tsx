@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Modal, Table} from 'antd';
-import {RoleVo, UserVo} from "../data";
-import {ColumnsType} from "antd/es/table";
+import type {RoleVo, UserVo} from "../data";
+import type {ColumnsType} from "antd/es/table";
 import {query_user_role} from "../service";
 
 interface UserRoleFormProps {

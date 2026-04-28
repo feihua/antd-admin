@@ -1,7 +1,7 @@
 import React from 'react';
 import {SearchOutlined} from '@ant-design/icons';
 import {Button, Form, Input, Space} from 'antd';
-import {QueryUserListParam} from "../data";
+import type {QueryUserListParam} from "../data";
 
 interface SearchFormProps {
     search: (param: QueryUserListParam) => void;

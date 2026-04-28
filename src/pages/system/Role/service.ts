@@ -1,5 +1,5 @@
-import {axiosInstance, IResponse} from "@/api/ajax.ts";
-import {QueryUserListParam, RoleListParam, RoleVo} from "./data";
+import {axiosInstance, type IResponse} from "@/api/ajax.ts";
+import type {QueryUserListParam, RoleListParam, RoleVo} from "./data";
 import {message} from "antd";
 
 /**

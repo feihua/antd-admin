@@ -1,5 +1,5 @@
-import {axiosInstance, IResponse} from "@/api/ajax.ts";
-import {DictDataListParam, DictDataVo} from "./data";
+import {axiosInstance, type IResponse} from "@/api/ajax.ts";
+import type {DictDataListParam, DictDataVo} from "./data";
 import {message} from "antd";
 
 /**

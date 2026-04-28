@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {Form, Input, InputNumber, Modal, Radio} from 'antd';
-import {DictDataVo} from "../data";
+import type {DictDataVo} from "../data";
 import {queryDictDataDetail} from "../service";
 
 interface UpdateModalProps {

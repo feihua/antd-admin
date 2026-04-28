@@ -1,5 +1,5 @@
-import {axiosInstance, IResponse} from "@/api/ajax.ts";
-import {DeptListParam, DeptVo} from "./data";
+import {axiosInstance, type IResponse} from "@/api/ajax.ts";
+import type {DeptListParam, DeptVo} from "./data";
 import {message} from "antd";
 import {tree} from "@/utils/treeUtils.ts";
 
@@ -58,7 +58,7 @@ export const queryDeptDetail = (params: { id: number }): Promise<IResponse> => {
  */
 export const queryDeptList = async (params: DeptListParam): Promise<DeptVo[]> => {
     const res = await axiosInstance.post('/api/system/dept/queryDeptList', params);
-    let {code, msg, data} = res.data
+    const {code, msg, data} = res.data
     if (code === 0) {
         return tree(data, 0, "parentId")
     }

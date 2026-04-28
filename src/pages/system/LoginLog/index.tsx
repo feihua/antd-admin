@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Button, Divider, message, Modal, Space, Table, Tag} from 'antd';
 import type {ColumnsType} from 'antd/es/table';
 import {DeleteOutlined, EditOutlined} from '@ant-design/icons';
-import {LoginLogListParam, LoginLogVo} from './data';
+import type {LoginLogListParam, LoginLogVo} from './data';
 import AdvancedSearchForm from "./components/SearchForm";
 import DetailModal from "./components/DetailModal";
 import {handleResp, queryLoginLogList, removeLoginLog} from "./service";
@@ -131,32 +131,36 @@ const LoginLog: React.FC = () => {
     //批量删除
     const handleRemove = async (ids: number[]) => {
         if (handleResp(await removeLoginLog(ids))) {
-            const res = await queryLoginLogList({pageNo: currentPage, pageSize})
-            setTotal(res.total)
-            res.code === 0 ? setLoginLogListData(res.data) : message.error(res.msg);
+            queryDataList({pageNo: currentPage, pageSize})
         }
 
     };
 
     const handleSearchOk = async (param: LoginLogListParam) => {
-        const res = await queryLoginLogList({...param, pageSize})
-        setTotal(res.total)
-        res.code === 0 ? setLoginLogListData(res.data) : message.error(res.msg);
+        queryDataList({...param, pageSize})
     };
 
     const handleResetOk = async () => {
-        const res = await queryLoginLogList({pageNo: currentPage, pageSize})
-        setTotal(res.total)
-        res.code === 0 ? setLoginLogListData(res.data) : message.error(res.msg);
+        queryDataList({pageNo: currentPage, pageSize})
     };
 
+
+    const queryDataList = (params: LoginLogListParam) => {
+        queryLoginLogList(params).then(res => {
+            if (res.code === 0) {
+                setTotal(res.total)
+                setLoginLogListData(res.data)
+            } else {
+                message.error(res.msg)
+            }
+
+        })
+    }
+
     useEffect(() => {
-        queryLoginLogList({
+        queryDataList({
             pageNo: currentPage, pageSize
-        }).then(res => {
-            setTotal(res.total)
-            res.code === 0 ? setLoginLogListData(res.data) : message.error(res.msg);
-        });
+        })
     }, []);
 
 
@@ -174,9 +178,7 @@ const LoginLog: React.FC = () => {
         onChange: async (page: number, pageSize: number) => {
             setCurrentPage(page)
             setPageSize(pageSize)
-            const res = await queryLoginLogList({pageNo: page, pageSize})
-            setTotal(res.total)
-            res.code === 0 ? setLoginLogListData(res.data) : message.error(res.msg);
+            queryDataList({pageNo: page, pageSize})
 
         }, 
         onShowSizeChange: (current: number, size: number) => {

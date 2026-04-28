@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {Form, Input, message, Modal, Radio} from 'antd';
-import {DictTypeVo} from "../data";
+import type {DictTypeVo} from "../data";
 
 interface AddModalProps {
     open: boolean;

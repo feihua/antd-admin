@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Form, Input, InputNumber, message, Modal, Radio, TreeSelect} from 'antd';
-import {DeptVo} from "../data";
+import type {DeptVo} from "../data";
 import {queryDeptList} from "../service.ts";
 
 interface AddModalProps {

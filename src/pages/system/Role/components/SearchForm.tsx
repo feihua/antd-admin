@@ -1,7 +1,7 @@
 import React from 'react';
 import {SearchOutlined} from '@ant-design/icons';
 import {Button, Form, Input, Select, Space} from 'antd';
-import {RoleListParam} from "../data";
+import type {RoleListParam} from "../data";
 
 const {Option} = Select;
 

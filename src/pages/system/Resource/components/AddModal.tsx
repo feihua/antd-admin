@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {Form, Input, InputNumber, message, Modal, Radio, TreeSelect} from 'antd';
-import {MenuVo} from "../data";
+import type {MenuVo} from "../data";
 import {queryMenuListSimple} from "@/pages/system/Menu/service.ts";
-import {TmpMenuVo} from "@/pages/system/Menu/data";
+import type {TmpMenuVo} from "@/pages/system/Menu/data";
 import {tree} from "@/utils/treeUtils.ts";
 
 interface AddModalProps {

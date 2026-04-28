@@ -3,9 +3,9 @@ import {Divider, message, Modal, Space, Table, Tag} from 'antd';
 import type {ColumnsType} from 'antd/es/table';
 
 import AdvancedSearchUserForm from "./SearchUserForm.tsx";
-import {UserVo} from "../../User/data";
+import type {UserVo} from "../../User/data";
 import {query_unallocated_list} from "../service.ts";
-import {QueryUserListParam, RoleVo} from "../data";
+import type {QueryUserListParam, RoleVo} from "../data";
 
 interface RoleDataProps {
     open: boolean;

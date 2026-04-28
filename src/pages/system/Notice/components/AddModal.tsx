@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {Form, Input, message, Modal, Radio} from 'antd';
-import {NoticeVo} from "../data";
+import type {NoticeVo} from "../data";
 import TextArea from "antd/es/input/TextArea";
 
 interface AddModalProps {

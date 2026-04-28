@@ -1,4 +1,4 @@
-import axios, {AxiosInstance, AxiosResponse, InternalAxiosRequestConfig} from 'axios';
+import axios, {type AxiosInstance, type AxiosResponse, type InternalAxiosRequestConfig} from 'axios';
 
 import {showMessage} from "./status";
 import {message} from 'antd';

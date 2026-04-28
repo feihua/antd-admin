@@ -1,7 +1,7 @@
 import React from 'react';
 import {SearchOutlined} from '@ant-design/icons';
-import {Button, Form, FormProps, Input, Select, Space} from 'antd';
-import {DictDataListParam} from "../data";
+import {Button, Form, type FormProps, Input, Select, Space} from 'antd';
+import type {DictDataListParam} from "../data";
 
 interface CreateFormProps {
     search: (values: DictDataListParam) => void;

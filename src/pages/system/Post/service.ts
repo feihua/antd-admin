@@ -1,5 +1,5 @@
-import {axiosInstance, IResponse} from "@/api/ajax.ts";
-import {PostListParam, PostVo} from "./data";
+import {axiosInstance, type IResponse} from "@/api/ajax.ts";
+import type {PostListParam, PostVo} from "./data";
 import {message} from "antd";
 
 /**

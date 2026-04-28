@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Form, Input, InputNumber, message, Modal, Radio, TreeSelect} from 'antd';
-import {MenuVo, TmpMenuVo} from "../data";
+import type {MenuVo, TmpMenuVo} from "../data";
 import {queryMenuDetail, queryMenuListSimple} from "../service";
 import {tree} from "@/utils/treeUtils.ts";
 
