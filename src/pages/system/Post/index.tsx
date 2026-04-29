@@ -114,7 +114,7 @@ const Post: React.FC = () => {
     const handleEditOk = async (param: PostVo) => {
         if (handleResp(await updatePost(param))) {
             setShowEditModal(false);
-            queryDataListqueryDataList({
+            queryDataList({
                 pageNo: currentPage, pageSize,
             })
         }
