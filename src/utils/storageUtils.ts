@@ -24,8 +24,8 @@ export const storageUtils = {
     saveBtnMenu(btnMenu: string[]) {
         localStorage.setItem(BTN_MENU, JSON.stringify(btnMenu))
     },
-    getBtnMenu(): string {
-        let btnMenu = localStorage.getItem(BTN_MENU);
+    getBtnMenu(): string[] {
+        const btnMenu = localStorage.getItem(BTN_MENU);
         return btnMenu != null ? JSON.parse(btnMenu) : [];
     },
 

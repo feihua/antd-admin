@@ -15,7 +15,7 @@ const Login: React.FC = () => {
     const onFinish = async (values: any) => {
         const {account, password} = values;
         let res: IResponse = await reqLogin({account, password})
-        if (res.code === 0) {
+        if (res.code === '000000') {
             storageUtils.saveToken(res.data)
             // if (res.data.userId) {
             //     localStorage.setItem('userId', res.data.userId);
