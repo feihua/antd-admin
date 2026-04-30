@@ -10,12 +10,12 @@ import {storageUtils} from "@/utils/storageUtils.ts";
 
 const Login: React.FC = () => {
 
-    let navigate = useNavigate();
+    const navigate = useNavigate();
 
     const onFinish = async (values: any) => {
         const {account, password} = values;
-        let res: IResponse = await reqLogin({account, password})
-        if (res.code === '000000') {
+        const res: IResponse = await reqLogin({account, password})
+        if (res.code === 0) {
             storageUtils.saveToken(res.data)
             // if (res.data.userId) {
             //     localStorage.setItem('userId', res.data.userId);
